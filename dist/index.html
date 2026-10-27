@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#121418">
-  <meta name="description" content="A numerical abstraction of Marvel Snap.">
+  <meta name="theme-color" content="#0c0e17">
+  <meta name="description" content="Study the decisions behind the game. A visual training workspace for Marvel Snap fundamentals.">
   <title>Theoretical Snap</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Cg fill='none' stroke='%23a0b8cc' stroke-width='2'%3E%3Ccircle cx='16' cy='32' r='7'/%3E%3Ccircle cx='32' cy='32' r='7'/%3E%3Ccircle cx='48' cy='32' r='7'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23121624'/%3E%3Cpath d='M35 7 14 36h16l-3 21 23-31H33z' fill='%23b59aff'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <script src="./app.js" defer></script>
 </head>
 <body>
-<svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
     <symbol id="i-bolt" viewBox="0 0 24 24"><path d="m13 2-9 12h7l-1 8 10-13h-7z"/></symbol>
     <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 2v3m10 7h-3M12 22v-3M2 12h3"/></symbol>
     <symbol id="i-lab" viewBox="0 0 24 24"><path d="M9 3h6m-5 0v6L4 19a1.3 1.3 0 0 0 1.2 2h13.6a1.3 1.3 0 0 0 1.2-2L14 9V3M8 14h8"/></symbol>
@@ -29,59 +29,54 @@
     <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4 1-4-2-6-2m12 5v-4a3.5 3.5 0 0 0-1-2.7c3.3-.4 6.8-1.6 6.8-7.3a5.7 5.7 0 0 0-1.5-4c.2-.6.7-2.2-.2-4 0 0-1.2-.4-4.1 1.5a14 14 0 0 0-7.5 0C4.6-.4 3.4 0 3.4 0c-.9 1.8-.4 3.4-.2 4a5.7 5.7 0 0 0-1.5 4c0 5.7 3.5 6.9 6.8 7.3A3.5 3.5 0 0 0 7.5 18v4" transform="translate(1 1) scale(.9)"/></symbol>
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5z"/></symbol>
   </svg>
+
   <header class="topbar">
-    <a class="brand" href="./">theoretical <span>snap</span></a>
+    <a class="brand" href="./" aria-label="Theoretical Snap home"><span class="brand-mark"><svg><use href="#i-bolt"/></svg></span><span class="brand-name">THEORETICAL<span>SNAP<span class="brand-period">.</span></span></span></a>
     <nav class="mode-nav" aria-label="Workspace mode">
-      <button class="mode-button active" data-mode="training" aria-pressed="true">Training</button>
-      <button class="mode-button" data-mode="playground" aria-pressed="false">Playground</button>
+      <button class="mode-button active" data-mode="training" aria-pressed="true"><svg class="icon"><use href="#i-target"/></svg>Training</button>
+      <button class="mode-button" data-mode="playground" aria-pressed="false"><svg class="icon"><use href="#i-lab"/></svg>Playground</button>
     </nav>
-    <div class="header-actions">
-      <button class="icon-button" data-action="settings" aria-label="Settings" title="Settings"><svg class="icon"><use href="#i-settings"/></svg></button>
-      <button class="icon-button help-button" data-action="help" aria-label="Help" title="Help">?</button>
-    </div>
+    <div class="topbar-end"><span class="preview-tag"><span></span>PROTOTYPE</span><button class="icon-button shortcuts-button" data-action="shortcuts" title="Keyboard shortcuts" aria-label="Keyboard shortcuts"><svg class="icon"><use href="#i-keyboard"/></svg></button><a class="icon-button github-link" href="https://github.com/willavawang/theoretical-snap" target="_blank" rel="noreferrer" title="Source on GitHub" aria-label="Source on GitHub"><svg class="icon"><use href="#i-github"/></svg></a></div>
   </header>
 
-  <main class="workspace">
-    <div class="position-bar">
-      <div class="position-name">Position <span id="exercise-number">01</span></div>
-      <button class="text-button" id="edit-position" data-action="edit-position" hidden>Edit position</button>
-      <button class="icon-button" data-action="reset" aria-label="Reset position" title="Reset position"><svg class="icon"><use href="#i-refresh"/></svg></button>
-    </div>
+  <div class="app-layout">
+    <aside class="settings-panel" id="settings-panel" aria-label="Session settings">
+      <div class="sidebar-heading"><span class="eyebrow">DECKS</span><svg class="icon"><use href="#i-settings"/></svg></div>
+      <div class="settings-section">
+        <label class="field-label" for="player-deck"><span class="player-dot"></span>Your deck</label>
+        <div class="select-wrap"><select id="player-deck"><option value="midrange">Midrange</option><option value="low">Low curve</option><option value="balanced">Balanced</option><option value="custom">Custom</option></select><svg class="icon"><use href="#i-down"/></svg></div>
+        <div id="deck-curve" class="deck-curve" aria-label="Deck energy curve"></div>
+        <div class="deck-meta"><span>12 cards</span><button class="text-button" data-action="view-deck">View deck<svg class="icon"><use href="#i-chevron"/></svg></button></div>
+      </div>
+      <div class="settings-section opponent-setting">
+        <label class="field-label" for="opponent-deck"><span class="opponent-dot"></span>Opponent deck</label>
+        <div class="select-wrap"><select id="opponent-deck"><option value="unknown">Unknown</option><option value="midrange">Midrange</option><option value="low">Low curve</option><option value="balanced">Balanced</option><option value="custom">Custom</option></select><svg class="icon"><use href="#i-down"/></svg></div>
+        <p class="field-note" id="opponent-note">A range of possible decks.<br>Only played cards are visible.</p>
+      </div>
+      <div class="sidebar-divider"></div>
+      <div class="settings-section model-section"><span class="eyebrow">GAME MODEL</span><button class="model-button" data-action="model"><span class="model-glyph">N<span>°</span></span><span><strong>Numerical Snap</strong><small>Power = energy</small></span><svg class="icon"><use href="#i-info"/></svg></button><button class="future-button" data-action="future"><svg class="icon"><use href="#i-settings"/></svg>More game settings<span>SOON</span></button></div>
+      <button class="edit-position-button" id="edit-position" data-action="edit-position" hidden><svg class="icon"><use href="#i-lab"/></svg>Edit position</button>
+      
+    </aside>
 
-    <div class="table-wrap">
-      <div class="board-area" id="board-area">
-        <span class="side-label opponent-label">Opponent</span>
-        <span class="side-label player-label">You</span>
+    <main class="workspace">
+      <div class="workspace-topline"><div class="exercise-counter">POSITION <span id="exercise-number">01</span><span class="counter-separator">/</span>12</div><div class="workspace-tools"><button class="mobile-setup text-button" data-action="toggle-setup"><svg class="icon"><use href="#i-settings"/></svg>Setup</button><button class="icon-button reset-button" data-action="reset" title="Reset position" aria-label="Reset position"><svg class="icon"><use href="#i-refresh"/></svg></button></div></div>
+      <div class="board-toolbar"><div class="opponent-label"><span class="opponent-avatar">?</span><div><strong>Opponent</strong><span id="opponent-caption">Unknown deck</span></div></div><span class="turn-badge" id="turn-badge">TURN 6 OF 6</span><div class="board-status"><span class="status-dot"></span><span id="board-status-text">Your decision</span></div></div>
+      <div class="table-wrap">
         <div class="game-table" id="game-table" aria-label="Three-lane board"></div>
-        <div id="comparison-arrows" class="comparison-arrows" aria-hidden="true"></div>
-        <section class="results-overlay" id="results-overlay" aria-label="Result" aria-live="polite" hidden></section>
+        <div class="turn-rail"><span class="eyebrow">TURN</span><div id="turn-selector" class="turn-selector" aria-label="Choose a turn drill"></div><button class="turn-info icon-button" data-action="turns" aria-label="About turn drills"><svg class="icon"><use href="#i-info"/></svg></button></div>
       </div>
-      <div class="turn-rail">
-        <span class="rail-label">Turn</span>
-        <div id="turn-selector" class="turn-selector" aria-label="Choose a turn. Earlier turns are below, later turns above."></div>
-      </div>
-    </div>
+      <div class="your-side-label"><span class="player-dot"></span><strong>Your board</strong><span id="pending-caption">Choose your play</span></div>
+      <div class="hand-section"><div class="hand-heading"><div><span class="eyebrow">YOUR HAND</span><span class="hand-count" id="hand-count">5 cards</span></div><div class="energy-meter"><span class="energy-orb"><svg><use href="#i-bolt"/></svg></span><div><strong><span id="energy-remaining">6</span><span class="energy-divider">/</span><span id="energy-total">6</span></strong><span>ENERGY AVAILABLE</span></div><div class="energy-pips" id="energy-pips" aria-hidden="true"></div></div></div><div class="hand" id="hand" aria-label="Your cards"></div><p class="interaction-hint" id="interaction-hint"><span class="hint-drag"><svg class="icon"><use href="#i-spark"/></svg>Drag a card into a lane</span><span class="hint-divider"></span><span>or click a card, then a lane</span></p></div>
+      <div class="action-bar"><button class="secondary-button undo-button" data-action="undo" id="undo-button" disabled><svg class="icon"><use href="#i-undo"/></svg>Undo<span class="keycap">Z</span></button><button class="text-button clear-button" data-action="clear" id="clear-button" disabled>Clear turn</button><span class="action-spacer"></span><button class="primary-button" id="submit-button" data-action="submit">Submit turn<svg class="icon"><use href="#i-chevron"/></svg><span class="keycap">↵</span></button></div>
+      <div class="workspace-footer"><span><svg class="icon"><use href="#i-lock"/></svg>Recommendations stay hidden until you submit</span><button class="text-button" data-action="model">View model assumptions<svg class="icon"><use href="#i-chevron"/></svg></button></div>
+    </main>
 
-    <section class="hand-section" aria-label="Your hand">
-      <div class="hand-meta">
-        <span id="selection-note" aria-live="polite"></span>
-        <span class="energy-budget" aria-label="Available energy"><span id="energy-remaining">6</span><span class="energy-divider"> / </span><span id="energy-total">6</span><span class="energy-label">energy</span></span>
-      </div>
-      <div class="hand" id="hand" aria-label="Cards in hand"></div>
-    </section>
-
-    <div class="action-bar">
-      <button class="quiet-button" id="undo-button" data-action="undo" disabled><svg class="icon"><use href="#i-undo"/></svg>Undo</button>
-      <button class="quiet-button" id="clear-button" data-action="clear" disabled>Clear</button>
-      <span class="action-spacer"></span>
-      <button class="quiet-button" id="retry-button" data-action="retry" hidden>Retry</button>
-      <button class="primary-button" id="submit-button" data-action="submit">Submit</button>
-    </div>
-    <footer class="workspace-footer">
-      <button class="text-button" data-action="model">Numerical model</button>
-      <a href="https://github.com/willavawang/theoretical-snap" target="_blank" rel="noreferrer">Source</a>
-    </footer>
-  </main>
+    <aside class="review-panel" id="review-panel" aria-label="Turn review">
+      <div id="review-content" aria-live="polite"></div>
+      
+    </aside>
+  </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="sr-only" id="live-status" role="status" aria-live="polite"></div>
   <dialog id="app-dialog" class="app-dialog"><div id="dialog-content"></div></dialog>
