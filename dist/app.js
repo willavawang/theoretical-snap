@@ -92,7 +92,7 @@ function resetPosition({newScenario=true, message=""} = {}) {
   state.preview = null;
   if (newScenario) state.scenario = makeScenario();
   render();
-  if (message) toast(message);
+  if (message) announce(message);
 }
 
 function saveHistory() { state.history.push(state.plan.map((item) => ({...item}))); }
@@ -125,7 +125,7 @@ function removeCard(id) {
 
 function miniCard(card, player, pending=false) {
   const tag=pending ? "button" : "span";
-  return `<${tag} class="mini-card ${player ? "player-card" : ""} ${pending ? "pending-card" : ""}" ${pending ? `data-pending="${card.id}" data-card-id="${card.id}" aria-label="${card.cost} power, pending. Click to return this card to your hand."` : `aria-label="${card.cost} power"`}><span class="mini-cost">${card.cost}</span><span class="mini-value">${card.cost}</span>${pending ? '<span class="pending-remove" aria-hidden="true">×</span>' : ""}</${tag}>`;
+  return `<${tag} class="mini-card ${player ? "player-card" : ""} ${pending ? "pending-card" : ""}" ${pending ? `data-pending="${card.id}" data-card-id="${card.id}" aria-label="${card.cost} power, pending. Click to return this card to your hand."` : `aria-label="${card.cost} power"`}><span class="mini-value">${card.cost}</span>${pending ? '<span class="pending-remove" aria-hidden="true">×</span>' : ""}</${tag}>`;
 }
 
 function cardArt(cost) {
@@ -157,25 +157,18 @@ function renderBoard() {
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
     const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider"><span class="location-name">${name.toUpperCase()} LANE</span><span class="location-type">Neutral location</span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div><div class="drop-prompt">${state.selected ? `PLACE ${cardById(state.selected)?.cost || ""} POWER` : "DROP CARD"}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${added ? `<span class="power-increase">+${added}</span>` : total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
   }).join("");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
   const remaining=state.scenario.hand.length-plan.length;
   $("#hand").classList.toggle("empty",remaining===0);
-  if (!remaining) $("#hand").innerHTML='<p class="hand-empty">Your turn is ready.<br>Submit to open the review.</p>';
-  $("#hand-count").textContent=`${remaining} ${remaining===1 ? "card" : "cards"}`;
+
   $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
-  $("#energy-pips").innerHTML=Array.from({length:state.turn},(_,index)=>`<span class="energy-pip ${index>=state.turn-usedEnergy(plan) ? "spent" : ""}"></span>`).join("");
-  $("#turn-badge").textContent=`TURN ${state.turn} OF 6`;
-  $("#pending-caption").textContent=state.preview!==null ? "Previewing an example alternative" : state.reviewed ? `${state.plan.length ? "Your submitted turn" : "You passed this turn"}` : state.plan.length ? `${state.plan.length} ${state.plan.length===1 ? "card" : "cards"} queued · ${usedEnergy()} energy` : "Choose your play";
-  $("#board-status-text").textContent=state.preview!==null ? "Example preview" : state.reviewed ? "Turn submitted" : state.mode==="playground" ? "Explore freely" : "Your decision";
-  $("#interaction-hint").textContent=state.reviewed?"":state.selected?"Choose a lane.":"Drag a card to a lane.";
   $("#undo-button").disabled=!state.history.length||state.reviewed;
   $("#clear-button").disabled=!state.plan.length||state.reviewed;
-  $("#submit-button").innerHTML=state.reviewed ? `Next position${icon("chevron")}<span class="keycap">↵</span>` : state.mode==="playground" ? `Preview analysis${icon("chevron")}<span class="keycap">↵</span>` : `Submit turn${icon("chevron")}<span class="keycap">↵</span>`;
-  $(".workspace-footer>span").innerHTML=`${icon(state.mode==="playground"?"lab":"lock")}${state.mode==="playground" ? "Edit a position and compare the review experience" : "Recommendations stay hidden until you submit"}`;
+  $("#submit-button").innerHTML=state.reviewed ? `Next${icon("chevron")}` : state.mode==="playground" ? `Review${icon("chevron")}` : `Submit${icon("chevron")}`;
   $(".workspace").classList.toggle("previewing",state.preview!==null);
 }
 
@@ -185,15 +178,12 @@ function renderSettings() {
   const max=Math.max(...counts,1);
   $("#deck-curve").innerHTML=counts.map((count,index)=>`<div class="curve-column" title="${index+1} energy: ${count} cards"><div class="curve-bar" style="height:${Math.max(4,count/max*35)}px"></div><span>${index+1}</span></div>`).join("");
   $("#deck-curve").setAttribute("aria-label",`Deck curve: ${counts.map((count,index)=>`${count} cards at ${index+1} energy`).join(", ")}`);
-  $("#opponent-caption").textContent=deckName(state.opponent);
-  $("#opponent-note").innerHTML=state.opponent==="unknown" ? "A range of possible decks.<br>Only played cards are visible." : "Deck composition is known.<br>Your opponent’s hand stays hidden.";
   $$(".mode-button").forEach((button)=>{
     const active=button.dataset.mode===state.mode;
     button.classList.toggle("active",active);
     button.setAttribute("aria-pressed",String(active));
   });
   $("#edit-position").hidden=state.mode!=="playground";
-  $("#exercise-number").textContent=String(state.exercise).padStart(2,"0");
   $("#settings-panel").classList.toggle("mobile-open",state.mobileSettings);
   $("#player-deck").value=state.deck;
   $("#opponent-deck").value=state.opponent;
@@ -226,15 +216,15 @@ function planLabel(plan) {
 
 function renderReview() {
   const root=$("#review-content");
-  const heading=`<div class="result-label"><span>RESULT</span>${state.reviewed?`<button class="example-switch" data-action="review-example" title="Cycle the illustrative result states" aria-label="Cycle example feedback state">Example${icon("down")}</button>`:""}</div>`;
-  if(!state.reviewed){root.innerHTML=heading+'<div class="result-waiting"><p>Submit a turn to review</p></div>';return;}
+  if(!state.reviewed){root.innerHTML="";return;}
+  const heading=`<div class="result-label"><button class="example-switch" data-action="review-example" title="Illustrative feedback; solver not connected. Cycle example verdicts." aria-label="Illustrative feedback, solver not connected. Cycle example verdicts.">Example${icon("down")}</button></div>`;
   const samples={
-    good:{title:"Good move",loss:0,symbol:"check",why:"Example: the same energy keeps two lanes competitive instead of adding more power to a lane already secured."},
-    close:{title:"Small loss",loss:2,symbol:"warning",why:"Example: a different placement contests a second lane more effectively without spending more energy."},
-    mistake:{title:"Mistake",loss:14,symbol:"close",why:"Example: the turn commits too much power to one lane, leaving too little to compete for a second."}
+    good:{title:"Good move",loss:0,symbol:"check",why:"The same energy keeps two lanes competitive instead of adding more power to a lane already secured."},
+    close:{title:"Small loss",loss:2,symbol:"warning",why:"A different placement contests a second lane more effectively without spending more energy."},
+    mistake:{title:"Mistake",loss:14,symbol:"close",why:"The turn commits too much power to one lane, leaving too little to compete for a second."}
   };
   const sample=samples[state.feedbackExample];
-  root.innerHTML=`${heading}<div class="result-body result-${state.feedbackExample} ${state.preview!==null?"result-comparing":""}"><div class="result-verdict"><span class="result-check ${sample.symbol==="warning"?"warning":""}" aria-hidden="true">${sample.symbol==="warning"?"!":icon(sample.symbol)}</span><h2>${sample.title}</h2></div><div class="result-loss"><strong>${sample.loss}</strong><p>Percentage points below best</p></div><button class="result-why-button" data-action="review-why" aria-expanded="${state.showWhy}">${state.showWhy?"Hide why":"Why?"}${icon("down")}</button>${state.showWhy?`<p class="result-explanation">${sample.why}</p>`:""}<button class="result-compare" data-action="review-compare" ${examplePlans().length?"":"disabled"}>${state.preview===null?"Compare alternative":"Back to your play"}${icon(state.preview===null?"chevron":"undo")}</button><div class="result-controls"><button class="secondary-button" data-action="retry">${icon("refresh")}Retry</button><button class="primary-button" data-action="next">Next${icon("chevron")}</button></div><p class="result-scope">Illustrative feedback · solver not connected</p></div>`;
+  root.innerHTML=`${heading}<div class="result-body result-${state.feedbackExample} ${state.preview!==null?"result-comparing":""}"><div class="result-verdict"><span class="result-check ${sample.symbol==="warning"?"warning":""}" aria-hidden="true">${sample.symbol==="warning"?"!":icon(sample.symbol)}</span><h2>${sample.title}</h2></div><div class="result-loss"><strong>${sample.loss}<abbr class="loss-unit" title="Percentage points of expected match score">pp</abbr></strong><p>Value lost</p></div><button class="result-why-button" data-action="review-why" aria-expanded="${state.showWhy}">${state.showWhy?"Close":"Why?"}${icon("down")}</button>${state.showWhy?`<p class="result-explanation">${sample.why}</p>`:""}<button class="result-compare" data-action="review-compare" ${examplePlans().length?"":"disabled"}>${state.preview===null?"Compare":"Your play"}${icon(state.preview===null?"chevron":"undo")}</button><div class="result-controls"><button class="secondary-button" data-action="retry">${icon("refresh")}Retry</button></div></div>`;
 }
 
 function render() { renderSettings(); renderBoard(); renderReview(); }
@@ -280,12 +270,12 @@ function showGuide() {
   openDialog("Controls",`<p><strong>1. Read the position.</strong><br>Your hand and the public board are visible. Your opponent’s hand stays hidden.</p><p><strong>2. Make a complete turn.</strong><br>Drag cards into lanes, or select a card and click a lane. Click a queued card to return it to your hand. You can also pass.</p><p><strong>3. Submit, then investigate.</strong><br>Open the review, compare alternatives, and retry the position. Your decisions are kept separate from the outcome of a particular game.</p><div class="dialog-notice">This first milestone demonstrates the experience. The review values are illustrative. Validated solver feedback is the next milestone.</div>`);
 }
 function showShortcuts() {
-  openDialog("A few useful shortcuts.",`<div class="keyboard-row"><span>Submit turn / next position</span><span class="keycap">Enter</span></div><div class="keyboard-row"><span>Undo your last placement</span><span class="keycap">Z</span></div><div class="keyboard-row"><span>Place selected card in a lane</span><span><span class="keycap">1</span><span class="keycap">2</span><span class="keycap">3</span></span></div><div class="keyboard-row"><span>Cancel selection / close dialog</span><span class="keycap">Esc</span></div><p style="margin-top:18px">Use Tab to move between controls. Select a card, then focus a lane and press Enter to place it.</p>`);
+  openDialog("Shortcuts",`<div class="keyboard-row"><span>Submit turn / next position</span><span class="keycap">Enter</span></div><div class="keyboard-row"><span>Undo your last placement</span><span class="keycap">Z</span></div><div class="keyboard-row"><span>Place selected card in a lane</span><span><span class="keycap">1</span><span class="keycap">2</span><span class="keycap">3</span></span></div><div class="keyboard-row"><span>Cancel selection / close dialog</span><span class="keycap">Esc</span></div><p style="margin-top:18px">Use Tab to move between controls. Select a card, then focus a lane and press Enter to place it.</p>`);
 }
 
 function editPosition() {
   const values=(board,lane)=>board[lane].map((card)=>card.cost).join(", ");
-  openDialog("Set the position.",`<form id="position-form"><p>Each lane accepts up to four cards per side. Enter energy values separated by commas; leave a lane blank for no cards.</p><div class="editor-turn"><label for="editor-turn">Turn</label><div class="select-wrap"><select id="editor-turn" name="turn">${[1,2,3,4,5,6].map((turn)=>`<option ${turn===state.turn?"selected":""}>${turn}</option>`).join("")}</select>${icon("down")}</div></div><div class="editor-grid">${LANES.map((name,lane)=>`<div><span>${name.toUpperCase()} LANE</span><label for="opponent-lane-${lane}">Opponent</label><input id="opponent-lane-${lane}" name="opponent-${lane}" value="${values(state.scenario.opponent,lane)}" placeholder="e.g. 2, 3" autocomplete="off"><label for="player-lane-${lane}" style="margin-top:12px">Your board</label><input id="player-lane-${lane}" name="player-${lane}" value="${values(state.scenario.player,lane)}" placeholder="e.g. 1, 4" autocomplete="off"></div>`).join("")}</div><div class="editor-hand"><label for="editor-hand">Your hand · up to 7 cards</label><input id="editor-hand" name="hand" value="${state.scenario.hand.map((card)=>card.cost).join(", ")}" autocomplete="off"></div><div class="form-error" id="position-error" role="alert"></div><button class="primary-button" type="submit">Explore this position${icon("chevron")}</button></form>`);
+  openDialog("Position",`<form id="position-form"><p>Each lane accepts up to four cards per side. Enter energy values separated by commas; leave a lane blank for no cards.</p><div class="editor-turn"><label for="editor-turn">Turn</label><div class="select-wrap"><select id="editor-turn" name="turn">${[1,2,3,4,5,6].map((turn)=>`<option ${turn===state.turn?"selected":""}>${turn}</option>`).join("")}</select>${icon("down")}</div></div><div class="editor-grid">${LANES.map((name,lane)=>`<div><span>${name.toUpperCase()} LANE</span><label for="opponent-lane-${lane}">Opponent</label><input id="opponent-lane-${lane}" name="opponent-${lane}" value="${values(state.scenario.opponent,lane)}" placeholder="e.g. 2, 3" autocomplete="off"><label for="player-lane-${lane}" style="margin-top:12px">Your board</label><input id="player-lane-${lane}" name="player-${lane}" value="${values(state.scenario.player,lane)}" placeholder="e.g. 1, 4" autocomplete="off"></div>`).join("")}</div><div class="editor-hand"><label for="editor-hand">Your hand · up to 7 cards</label><input id="editor-hand" name="hand" value="${state.scenario.hand.map((card)=>card.cost).join(", ")}" autocomplete="off"></div><div class="form-error" id="position-error" role="alert"></div><button class="primary-button" type="submit">Explore this position${icon("chevron")}</button></form>`);
 }
 function parseCards(value,maximum,{exact=false}={}) {
   const text=String(value).trim();

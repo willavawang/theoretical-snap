@@ -8,7 +8,7 @@ This revision returns to the first interface's layout: deck controls on the left
 
 Styling takes high-level cues from the supplied monochrome Akira poster: strong light typography, charcoal surfaces, fine ink frames, subtle grain, and pale printed card faces. Faint violet and blue accents bring back a trace of Snap’s palette. Lane shading is shallower; card faces, the location band, and the empty review panel use flatter fills. No poster artwork is embedded. Hand cards have one numbered energy bubble; redundant cost/power corner numbers are removed. Individual board-card numbers are subdued while occupancy remains visible.
 
-The promotional header, sidebar slogan, duplicate action note, and session summary are removed. The results hierarchy is verdict, percentage-point loss, then optional explanation and board comparison. Feedback stays in the side panel instead of covering the opponent's board. Turns retain upward progression, from 1 at the bottom to 6 at the top.
+The promotional header, sidebar slogan, duplicate action note, and session summary are removed. The board also omits redundant turn, hand, board, and lane captions, placement hints, the position counter, and the empty review prompt. Energy and turn numbers remain visible; rules and shortcuts are available on demand. Results retain a compact Example label, with the solver limitation in its accessible name and tooltip. The results hierarchy is verdict, percentage-point loss, then optional explanation and board comparison. Feedback stays in the side panel instead of covering the opponent's board. Turns retain upward progression, from 1 at the bottom to 6 at the top.
 
 ## Design continuity
 

@@ -49,7 +49,13 @@ numbers recede; lane totals and slot occupancy stay prominent.
 
 ## Information and motion
 
-Use functional labels. The promotional headline, motivational sidebar copy,
+Use functional labels. The board has no visible hand/board headings, duplicate
+turn badge, lane-name captions, position counter, placement instructions, or
+empty-results prompt. The numbered turn rail and energy meter provide state.
+Keep deck labels, actionable control names, error messages, and the illustrative
+result badge. Put model explanations and help behind their controls.
+
+The promotional headline, motivational sidebar copy,
 session-summary filler, and duplicate numerical labels were deliberately
 removed. Do not restore them as part of a redesign.
 
