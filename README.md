@@ -10,6 +10,10 @@ Styling takes high-level cues from the supplied monochrome Akira poster: strong 
 
 The promotional header, sidebar slogan, duplicate action note, and session summary are removed. The results hierarchy is verdict, percentage-point loss, then optional explanation and board comparison. Feedback stays in the side panel instead of covering the opponent's board. Turns retain upward progression, from 1 at the bottom to 6 at the top.
 
+## Design continuity
+
+`DESIGN.md` records the accepted geometry and reference language. Fine red/blue registration, slight display-type motion, and restrained grain refine the current look. Read `docs/results-contract.md` before connecting solver feedback.
+
 ## Example feedback
 
 **Verdicts, losses, and explanations are illustrative fixtures, not solver grades.** The result panel labels them as examples. Its Example control cycles Good move, Small loss, and Mistake for design review. Compare previews a legal reallocation and preserves the submitted turn; it is not a certified higher-value line. No opponent response is simulated or revealed.
