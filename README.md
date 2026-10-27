@@ -2,17 +2,23 @@
 
 A numerical Marvel Snap study workspace.
 
-## Current mockup — charcoal print
+## Current mockup — original fidelity, charcoal ink
 
-This revision returns to the first interface's layout: deck controls on the left, three tall lanes in the middle, and a side review on the right. Each lane preserves the opponent-above/player-below arrangement, two-by-two card slots, a middle location band, and power totals at opposing ends.
+The original workspace supplies the visual foundation: three tall lanes, the
+opponent above the player, two-by-two slots, layered surfaces, fine borders,
+and detailed geometric hand-card artwork. A charcoal treatment adds subtle
+red, blue, and violet cues, restrained print grain, and off-white typography.
+The original stylesheet is retained with a focused `dist/akira.css` theme.
 
-Styling takes high-level cues from the supplied monochrome Akira poster: strong light typography, charcoal surfaces, fine ink frames, subtle grain, and pale printed card faces. Faint violet and blue accents bring back a trace of Snap’s palette. Lane shading is shallower; card faces, the location band, and the empty review panel use flatter fills. No poster artwork is embedded. Hand cards have one numbered energy bubble; redundant cost/power corner numbers are removed. Individual board-card numbers are subdued while occupancy remains visible.
-
-The promotional header, sidebar slogan, duplicate action note, and session summary are removed. The board also omits redundant turn, hand, board, and lane captions, placement hints, the position counter, and the empty review prompt. Energy and turn numbers remain visible; rules and shortcuts are available on demand. Results retain a compact Example label, with the solver limitation in its accessible name and tooltip. The results hierarchy is verdict, percentage-point loss, then optional explanation and board comparison. Feedback stays in the side panel instead of covering the opponent's board. Turns retain upward progression, from 1 at the bottom to 6 at the top.
+Redundant turn/hand/board/lane captions, promotional copy, placement hints, and
+position counters stay removed. Each card has one central value. A concealed
+review graphic occupies the side panel before submission; results retain the
+verdict-first hierarchy and compact Example disclosure.
 
 ## Design continuity
 
-`DESIGN.md` records the accepted geometry and reference language. Fine red/blue registration, slight display-type motion, and restrained grain refine the current look. Read `docs/results-contract.md` before connecting solver feedback.
+`DESIGN.md` records the latest screenshot review and visual direction. Read
+`docs/results-contract.md` before connecting solver feedback.
 
 ## Example feedback
 

@@ -3,6 +3,15 @@
 Read this before changing a screen or adding a feature. These preferences came
 from the user's review of several implemented versions and supplied references.
 
+## Latest visual decision
+
+In the screenshot review, the user identified the first purple workspace as
+the only version with professional visual fidelity. Restore its original
+layered surfaces, card artwork, fine borders, and spacing, then apply the
+Akira-inspired palette. The stripped flat/paper treatment is superseded.
+Richness should come from original graphic craft and material, while the
+previously requested reduction of redundant interface copy still applies.
+
 ## The composition to preserve
 
 Use the first workspace's spatial arrangement: three tall lanes, the opponent
@@ -10,7 +19,7 @@ above the player, four slots in a two-by-two grid on each side, a narrow locatio
 band, and totals at opposing ends. The user's hand sits below. Turns progress
 upward from 1 to 6. Preserve this geometry in reviews and alternative previews.
 
-The current side panels are accepted. Put decision quality before other result
+Use the first version’s three-column workspace and side review. Put decision quality before other result
 detail. The earlier experiment with a large opponent-side verdict overlay and
 flattened row-of-four slots was rejected. New result concepts need user review
 before replacing the accepted structure.
@@ -35,17 +44,19 @@ References inform the visual grammar; the website uses original graphics.
 
 ## Colour and material
 
-Keep charcoal and paper dominant. Use muted blue and red on thin contours,
+Keep charcoal, graphite, and off-white ink dominant. Use muted blue and red on thin contours,
 small identity markers, and active placement states. Violet remains a quiet
 secondary accent. Result green/yellow/red indicates evaluation and must remain
 distinct from player/opponent identity. Pair evaluation colour with a symbol
 and a plain-language verdict.
 
-Use flat fills and very shallow lane shading. Preserve subtle grain, ink
-frames, modest paper depth, and limited hatching. Avoid large glossy gradients.
-The hand card has one numbered energy bubble. Its cost and power are the same
-in this model, so a second copy of the number adds no information. Board card
-numbers recede; lane totals and slot occupancy stay prominent.
+Use the original shallow layered gradients, subtle grain, delicate panel
+frames, and controlled hatching. Dark hand cards regain the first version’s
+geometric energy artwork and fine inner borders, with one central number.
+Cost and power are the same in this model; avoid duplicate numeral badges.
+Board-card numbers recede; lane totals and slot occupancy stay prominent.
+The concealed-review graphic gives the panel an intentional inactive state.
+Avoid heavy paper-card slabs, broad white frames, and flat monochrome recasts.
 
 ## Information and motion
 

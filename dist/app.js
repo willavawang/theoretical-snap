@@ -13,12 +13,12 @@ const PRESETS = {
   balanced: {name:"Balanced", cards:[1,1,2,2,3,3,4,4,5,5,6,6], order:[2,3,4,1,6,2,3,5,4,1,5,6]},
 };
 const CARD_COLORS = {
-  1:{ink:"#9ebcff",border:"#506b9b",bg:"#25364e"},
-  2:{ink:"#bba4fb",border:"#70549c",bg:"#332647"},
-  3:{ink:"#df9bd0",border:"#976083",bg:"#46273e"},
-  4:{ink:"#9babf2",border:"#5e629c",bg:"#2a2d4a"},
-  5:{ink:"#93d8d8",border:"#4e828c",bg:"#234047"},
-  6:{ink:"#dbac7e",border:"#986d52",bg:"#49332c"},
+  1:{ink:"#b2c8d5",border:"#536573",bg:"#202a33"},
+  2:{ink:"#bdb6ce",border:"#605d73",bg:"#252531"},
+  3:{ink:"#c7acb3",border:"#715862",bg:"#2c242d"},
+  4:{ink:"#b2bdcd",border:"#596775",bg:"#222a35"},
+  5:{ink:"#b3c9c7",border:"#536d70",bg:"#202b31"},
+  6:{ink:"#d0c6b8",border:"#756e66",bg:"#2c2a2d"},
 };
 
 const state = {
@@ -135,13 +135,14 @@ function cardArt(cost) {
     const angle=(i/(cost+2))*Math.PI*2;
     return `<path d="M50 50 ${50+Math.cos(angle)*29} ${50+Math.sin(angle)*29}" opacity=".2"/>`;
   }).join("");
-  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" stroke-dasharray="2 5" opacity=".35"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#252137;stroke-width:3">${cost}</text><circle cx="50" cy="9" r="1.5" fill="${color}" opacity=".8"/><circle cx="85.5" cy="70.5" r="1.2" fill="${color}" opacity=".6"/></svg>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" stroke-dasharray="2 5" opacity=".35"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text><circle cx="50" cy="9" r="1.5" fill="${color}" opacity=".8"/><circle cx="85.5" cy="70.5" r="1.2" fill="${color}" opacity=".6"/></svg>`;
 }
 
 function handCard(card) {
   const selected=state.selected===card.id;
   const unavailable=card.cost>state.turn-usedEnergy(displayedPlan());
-  return `<button class="hand-card ${selected?"selected":""} ${unavailable?"unaffordable":""}" data-card-id="${card.id}" aria-label="${card.cost} energy, ${card.cost} power${unavailable?", insufficient energy":""}. Select, then choose a lane." aria-pressed="${selected}" ${state.reviewed?"disabled":""}><span class="print-corner top" aria-hidden="true"></span><span class="energy-core">${card.cost}</span><span class="print-corner bottom" aria-hidden="true"></span></button>`;
+  const color=CARD_COLORS[card.cost];
+  return `<button class="hand-card ${selected?"selected":""} ${unavailable?"unaffordable":""}" style="--card-ink:${color.ink};--card-border:${color.border};--card-bg:${color.bg}" data-card-id="${card.id}" aria-label="${card.cost} energy, ${card.cost} power${unavailable?", insufficient energy":""}. Select, then choose a lane." aria-pressed="${selected}" ${state.reviewed?"disabled":""}><span class="card-art">${cardArt(card.cost)}</span><span class="card-registration" aria-hidden="true"></span></button>`;
 }
 
 function renderBoard() {
@@ -157,7 +158,7 @@ function renderBoard() {
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
     const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
   }).join("");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
@@ -216,7 +217,11 @@ function planLabel(plan) {
 
 function renderReview() {
   const root=$("#review-content");
-  if(!state.reviewed){root.innerHTML="";return;}
+  $("#review-panel").classList.toggle("review-idle",!state.reviewed);
+  if(!state.reviewed){
+    root.innerHTML=`<div class="review-panel-heading" aria-hidden="true">${icon("chart")}<span class="review-heading-rule"></span></div><div class="concealed-review" role="img" aria-label="Review is available after you submit your turn."><div class="concealed-grid"></div><svg class="concealed-routes" viewBox="0 0 240 220" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".6"><path d="M-12 210C105 198 43 33 118 37S153 170 252 186"/><path d="M-10 218C111 203 49 37 120 42S151 174 250 195"/><path d="M-8 226C117 210 55 42 122 47S148 179 248 204"/><circle cx="120" cy="110" r="66" stroke-dasharray="1 7"/></g></svg><span class="lock-orbit">${icon(state.mode==="training"?"lock":"lab")}</span></div>`;
+    return;
+  }
   const heading=`<div class="result-label"><button class="example-switch" data-action="review-example" title="Illustrative feedback; solver not connected. Cycle example verdicts." aria-label="Illustrative feedback, solver not connected. Cycle example verdicts.">Example${icon("down")}</button></div>`;
   const samples={
     good:{title:"Good move",loss:0,symbol:"check",why:"The same energy keeps two lanes competitive instead of adding more power to a lane already secured."},
