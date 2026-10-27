@@ -6,25 +6,16 @@ const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const icon = (name, extra = "") => `<svg class="icon ${extra}" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const LANES = ["Left", "Middle", "Right"];
-const WORDS = ["ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX"];
 const PRESETS = {
   midrange: {name:"Midrange", cards:[1,2,2,2,3,3,3,4,4,4,5,6], order:[2,3,4,1,6,2,3,3,4,2,4,5]},
   low: {name:"Low curve", cards:[1,1,1,1,2,2,2,2,3,3,4,5], order:[2,3,1,1,4,2,2,1,5,3,2,1]},
   balanced: {name:"Balanced", cards:[1,1,2,2,3,3,4,4,5,5,6,6], order:[2,3,4,1,6,2,3,5,4,1,5,6]},
 };
-const CARD_COLORS = {
-  1:{ink:"#9ebcff",border:"#506b9b",bg:"#25364e"},
-  2:{ink:"#bba4fb",border:"#70549c",bg:"#332647"},
-  3:{ink:"#df9bd0",border:"#976083",bg:"#46273e"},
-  4:{ink:"#9babf2",border:"#5e629c",bg:"#2a2d4a"},
-  5:{ink:"#93d8d8",border:"#4e828c",bg:"#234047"},
-  6:{ink:"#dbac7e",border:"#986d52",bg:"#49332c"},
-};
 
 const state = {
   mode:"training", turn:6, deck:"midrange", opponent:"unknown", exercise:1,
   customDeck:[...PRESETS.midrange.cards], customOpponent:[...PRESETS.midrange.cards],
-  plan:[], history:[], selected:null, reviewed:false, reviewTab:"overview", preview:null,
+  plan:[], history:[], selected:null, reviewed:false, preview:null, showWhy:false, feedbackExample:"good",
   scenario:null, completed:new Set(), mobileSettings:false,
 };
 let toastTimer;
@@ -87,7 +78,7 @@ function resetPosition({newScenario=true, message=""} = {}) {
   state.history = [];
   state.selected = null;
   state.reviewed = false;
-  state.reviewTab = "overview";
+  state.showWhy = false;
   state.preview = null;
   if (newScenario) state.scenario = makeScenario();
   render();
@@ -122,247 +113,205 @@ function removeCard(id) {
   announce("Card returned to your hand.");
 }
 
-function miniCard(card, player, pending=false) {
-  const tag=pending ? "button" : "span";
-  return `<${tag} class="mini-card ${player ? "player-card" : ""} ${pending ? "pending-card" : ""}" ${pending ? `data-pending="${card.id}" data-card-id="${card.id}" aria-label="${card.cost} power, pending. Click to return this card to your hand."` : `aria-label="${card.cost} power"`}><span class="mini-cost">${card.cost}</span><span class="mini-value">${card.cost}</span>${pending ? '<span class="pending-remove" aria-hidden="true">×</span>' : ""}</${tag}>`;
-}
-
-function cardArt(cost) {
-  const color=CARD_COLORS[cost].ink;
-  const rotation=cost*13;
-  const lines=Array.from({length:cost+2},(_,i)=>{
-    const angle=(i/(cost+2))*Math.PI*2;
-    return `<path d="M50 50 ${50+Math.cos(angle)*29} ${50+Math.sin(angle)*29}" opacity=".2"/>`;
-  }).join("");
-  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" stroke-dasharray="2 5" opacity=".35"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#252137;stroke-width:3">${cost}</text><circle cx="50" cy="9" r="1.5" fill="${color}" opacity=".8"/><circle cx="85.5" cy="70.5" r="1.2" fill="${color}" opacity=".6"/></svg>`;
-}
 
 function handCard(card) {
   const selected=state.selected===card.id;
-  const unavailable=card.cost > state.turn-usedEnergy();
-  return `<button class="hand-card ${selected ? "selected" : ""} ${unavailable ? "unaffordable" : ""}" style="--card-border:${CARD_COLORS[card.cost].border};--card-bg:${CARD_COLORS[card.cost].bg}" data-card-id="${card.id}" aria-label="${card.cost}-energy card, ${card.cost} power${unavailable ? ", insufficient energy" : ""}. Select, then choose a lane." aria-pressed="${selected}" ${state.reviewed ? "disabled" : ""}><span class="card-cost">${card.cost}</span><span class="card-series">N° ${String(card.cost).padStart(2,"0")}</span><span class="card-art">${cardArt(card.cost)}</span><span class="card-word">${WORDS[card.cost]}</span><span class="card-type">ENERGY CARD</span><span class="card-power">${card.cost}</span></button>`;
+  const unavailable=card.cost>state.turn-usedEnergy(displayedPlan());
+  return `<button class="hand-card ${selected?"selected":""} ${unavailable?"unaffordable":""}" data-card-id="${card.id}" aria-label="${card.cost} energy, ${card.cost} power${unavailable?", insufficient energy":""}. Select, then choose a lane." aria-pressed="${selected}" ${state.reviewed?"disabled":""}><span class="energy-bubble">${card.cost}</span></button>`;
 }
-
+function slot(card,{pending=false,alternative=false}={}) {
+  const tag=pending?"button":"span";
+  return `<${tag} class="board-slot occupied ${pending?"pending pending-card":""} ${alternative?"alternative":""}" ${pending?`data-pending="${card.id}" data-card-id="${card.id}" aria-label="${card.cost} power queued. Return to hand."`:`aria-label="${card.cost} power"`}><span class="slot-value">${card.cost}</span></${tag}>`;
+}
+function planKey(plan) { return plan.map(item=>`${item.id}:${item.lane}`).sort().join("|"); }
+function alternativePlan() {
+  if(state.plan.length) {
+    for(const rotation of [1,2]) {
+      const occupied=state.scenario.player.map(lane=>lane.length);
+      const candidate=[];
+      for(const item of state.plan) {
+        const preference=[(item.lane+rotation)%3,(item.lane+3-rotation)%3,item.lane];
+        const lane=preference.find(index=>occupied[index]<4);
+        if(lane===undefined)break;
+        candidate.push({id:item.id,lane});occupied[lane]++;
+      }
+      if(candidate.length===state.plan.length&&planKey(candidate)!==planKey(state.plan))return candidate;
+    }
+    return null;
+  }
+  const card=[...state.scenario.hand].filter(card=>card.cost<=state.turn).sort((a,b)=>b.cost-a.cost)[0];
+  const lane=state.scenario.player.findIndex(cards=>cards.length<4);
+  return card&&lane!==-1?[{id:card.id,lane}]:null;
+}
+function examplePlans() { const plan=alternativePlan(); return plan?[{plan}]:[]; }
 function renderBoard() {
   const plan=displayedPlan();
-  const theirs=boardTotals(state.scenario.opponent);
-  const ours=boardTotals(state.scenario.player);
+  const originalTotals=boardTotals(state.scenario.player);
+  const submittedTotals=originalTotals.map((power,lane)=>power+state.plan.filter(item=>item.lane===lane).reduce((sum,item)=>sum+cardById(item.id).cost,0));
+  const opponentTotals=boardTotals(state.scenario.opponent);
+  const empty='<span class="board-slot" aria-hidden="true"></span>';
   $("#game-table").innerHTML=LANES.map((name,lane)=>{
-    const pending=plan.filter((item)=>item.lane===lane).map((item)=>cardById(item.id)).filter(Boolean);
-    const added=pending.reduce((sum,card)=>sum+card.cost,0);
-    const total=ours[lane]+added;
-    const leading=theirs[lane]>total ? "opponent-leading" : theirs[lane]<total ? "player-leading" : "";
-    const available=state.scenario.player[lane].length+pending.length<4;
-    const target=state.selected && available && !state.reviewed;
-    const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider"><span class="location-name">${name.toUpperCase()} LANE</span><span class="location-type">Neutral location</span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div><div class="drop-prompt">${state.selected ? `PLACE ${cardById(state.selected)?.cost || ""} POWER` : "DROP CARD"}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${added ? `<span class="power-increase">+${added}</span>` : total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
+    const queued=plan.filter(item=>item.lane===lane).map(item=>cardById(item.id)).filter(Boolean);
+    const total=originalTotals[lane]+queued.reduce((sum,card)=>sum+card.cost,0);
+    const changed=state.preview!==null&&total!==submittedTotals[lane];
+    const self=[...state.scenario.player[lane].map(card=>slot(card)),...queued.map(card=>slot(card,{pending:!state.reviewed,alternative:state.preview!==null})),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-queued.length)},()=>empty)].join("");
+    const opponent=[...state.scenario.opponent[lane].map(card=>slot(card)),...Array.from({length:4-state.scenario.opponent[lane].length},()=>empty)].join("");
+    return `<section class="lane ${state.selected&&!state.reviewed?"can-place":""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${opponentTotals[lane]} power, ${state.scenario.opponent[lane].length} of 4 slots used. You ${total} power, ${state.scenario.player[lane].length+queued.length} of 4 slots used.${state.selected?" Press Enter to place the selected card.":""}"><div class="zone opponent-zone"><div class="lane-score"><span class="power-total">${opponentTotals[lane]}</span></div><div class="slot-grid">${opponent}</div></div><div class="zone player-zone"><div class="lane-score">${changed?`<span class="old-total">${submittedTotals[lane]}</span><span class="score-arrow" aria-hidden="true">→</span>`:""}<span class="power-total">${total}</span></div><div class="slot-grid">${self}</div></div></section>`;
   }).join("");
-  $("#turn-selector").innerHTML=Array.from({length:6},(_,index)=>`<button class="turn-button ${state.turn===index+1 ? "active" : ""}" data-turn="${index+1}" aria-label="Practice turn ${index+1}" aria-current="${state.turn===index+1 ? "step" : "false"}">${index+1}</button>`).join("");
-  $("#hand").innerHTML=state.scenario.hand.filter((card)=>!state.plan.some((item)=>item.id===card.id)).map(handCard).join("");
-  const remaining=state.scenario.hand.length-state.plan.length;
-  $("#hand").classList.toggle("empty",remaining===0);
-  if (!remaining) $("#hand").innerHTML='<p class="hand-empty">Your turn is ready.<br>Submit to open the review.</p>';
-  $("#hand-count").textContent=`${remaining} ${remaining===1 ? "card" : "cards"}`;
-  $("#energy-remaining").textContent=state.turn-usedEnergy();
+  $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${turn===state.turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${turn===state.turn?"step":"false"}">${turn}</button>`).join("");
+  const unplayed=state.scenario.hand.filter(card=>!plan.some(item=>item.id===card.id));
+  $("#hand").innerHTML=unplayed.length?unplayed.map(handCard).join(""):'<span class="hand-empty">All cards placed</span>';
+  $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
-  $("#energy-pips").innerHTML=Array.from({length:state.turn},(_,index)=>`<span class="energy-pip ${index>=state.turn-usedEnergy() ? "spent" : ""}"></span>`).join("");
-  $("#turn-badge").textContent=`TURN ${state.turn} OF 6`;
-  $("#pending-caption").textContent=state.preview!==null ? "Previewing an example alternative" : state.reviewed ? `${state.plan.length ? "Your submitted turn" : "You passed this turn"}` : state.plan.length ? `${state.plan.length} ${state.plan.length===1 ? "card" : "cards"} queued · ${usedEnergy()} energy` : "Choose your play";
-  $("#board-status-text").textContent=state.preview!==null ? "Example preview" : state.reviewed ? "Turn submitted" : state.mode==="playground" ? "Explore freely" : "Your decision";
-  $("#interaction-hint").innerHTML=state.reviewed ? `${icon("check")}<span>Turn committed. Explore the review, or retry your play.</span>` : state.selected ? `<span>${cardById(state.selected)?.cost}-energy card selected · choose a lane</span><span class="hint-divider"></span><span>Esc to cancel</span>` : `<span class="hint-drag">${icon("spark")}Drag a card into a lane</span><span class="hint-divider"></span><span>or click a card, then a lane</span>`;
+  $("#selection-note").textContent=state.preview!==null?"Alternative":state.selected?"Choose a lane":"";
+  $("#board-area").classList.toggle("comparison",state.preview!==null);
   $("#undo-button").disabled=!state.history.length||state.reviewed;
   $("#clear-button").disabled=!state.plan.length||state.reviewed;
-  $("#submit-button").innerHTML=state.reviewed ? `Next position${icon("chevron")}<span class="keycap">↵</span>` : state.mode==="playground" ? `Preview analysis${icon("chevron")}<span class="keycap">↵</span>` : `Submit turn${icon("chevron")}<span class="keycap">↵</span>`;
-  $("#action-note").textContent=state.reviewed ? "Example review is open" : state.mode==="playground" ? "Analysis layout preview" : "Both turns reveal together";
-  $(".workspace-footer>span").innerHTML=`${icon(state.mode==="playground"?"lab":"lock")}${state.mode==="playground" ? "Edit a position and compare the review experience" : "Recommendations stay hidden until you submit"}`;
-  $(".workspace").classList.toggle("previewing",state.preview!==null);
-}
-
-function renderSettings() {
-  const cards=deckCards();
-  const counts=Array.from({length:6},(_,index)=>cards.filter((cost)=>cost===index+1).length);
-  const max=Math.max(...counts,1);
-  $("#deck-curve").innerHTML=counts.map((count,index)=>`<div class="curve-column" title="${index+1} energy: ${count} cards"><div class="curve-bar" style="height:${Math.max(4,count/max*35)}px"></div><span>${index+1}</span></div>`).join("");
-  $("#deck-curve").setAttribute("aria-label",`Deck curve: ${counts.map((count,index)=>`${count} cards at ${index+1} energy`).join(", ")}`);
-  $("#opponent-caption").textContent=deckName(state.opponent);
-  $("#opponent-note").innerHTML=state.opponent==="unknown" ? "A range of possible decks.<br>Only played cards are visible." : "Deck composition is known.<br>Your opponent’s hand stays hidden.";
-  $$(".mode-button").forEach((button)=>{
-    const active=button.dataset.mode===state.mode;
-    button.classList.toggle("active",active);
-    button.setAttribute("aria-pressed",String(active));
-  });
-  $("#breadcrumb-mode").textContent=state.mode==="training" ? "Training" : "Playground";
-  $(".breadcrumb>.icon use").setAttribute("href",state.mode==="training" ? "#i-target" : "#i-lab");
-  $("#workspace-title").innerHTML=state.mode==="training" ? "Find your next best move<span>.</span>" : "What happens if<span>?</span>";
-  $("#workspace-description").textContent=state.mode==="training" ? "Make a turn. Explore the tradeoffs. Sharpen your intuition." : "Set the position. Try a different line. Follow your curiosity.";
-  $("#edit-position").hidden=state.mode!=="playground";
-  $("#exercise-number").textContent=String(state.exercise).padStart(2,"0");
-  $("#settings-panel").classList.toggle("mobile-open",state.mobileSettings);
-  $("#player-deck").value=state.deck;
-  $("#opponent-deck").value=state.opponent;
-  $("#session-count").textContent=`${state.completed.size} / 12`;
-  $("#progress-fill").style.width=`${state.completed.size/12*100}%`;
-  $("#session-note").textContent=state.completed.size ? `${state.completed.size} ${state.completed.size===1 ? "position explored" : "positions explored"}. Keep following the decisions.` : "Every decision is a chance to learn.";
-}
-
-function examplePlans() {
-  // These are legal UI examples. They are deliberately not ranked by a solver.
-  const cards=[...state.scenario.hand].sort((a,b)=>b.cost-a.cost);
-  function make(style) {
-    let energy=state.turn;
-    const plan=[];
-    const occupied=state.scenario.player.map((lane)=>lane.length);
-    const ordered=style===0 ? cards : style===1 ? [...cards].sort((a,b)=>a.cost-b.cost) : [...cards].reverse();
-    for (const card of ordered) {
-      if (card.cost>energy) continue;
-    const preferred=style===0 ? [0,1,2] : style===1 ? [1,2,0] : [2,0,1];
-      const lane=preferred.find((index)=>occupied[index]<4);
-      if (lane===undefined) continue;
-      plan.push({id:card.id,lane}); occupied[lane]++; energy-=card.cost;
-      if (style!==0) preferred.push(preferred.shift());
+  $("#retry-button").hidden=!state.reviewed;
+  $("#submit-button").textContent=state.reviewed?"Next position":state.mode==="playground"?"Analyze":"Submit";
+  $("#comparison-arrows").innerHTML="";
+  if(state.preview!==null) {
+    const pairs=new Set();
+    const paths=[];
+    for(const item of plan) {
+      const original=state.plan.find(previous=>previous.id===item.id);
+      if(!original||original.lane===item.lane)continue;
+      const pair=`${original.lane}-${item.lane}`;
+      if(pairs.has(pair))continue;
+      pairs.add(pair);
+      const from=50+original.lane*100,to=50+item.lane*100;
+      paths.push(`<path d="M${from} 90 C${from} 96 ${to} 96 ${to} 90" fill="none" stroke="#a6c6db" stroke-width="1" stroke-dasharray="3 5" vector-effect="non-scaling-stroke"/><circle cx="${to}" cy="90" r="1.1" fill="#a6c6db"/>`);
     }
-    return plan;
+    $("#comparison-arrows").innerHTML=paths.length?`<svg viewBox="0 0 300 100" preserveAspectRatio="none">${paths.join("")}</svg>`:"";
   }
-  return [0,1,2].map((style)=>({plan:make(style),ev:[.61,.59,.55][style],frequency:[52,31,17][style]}));
 }
-
-function planLabel(plan) {
-  if (!plan.length) return "Pass this turn";
-  return plan.map((item)=>`${cardById(item.id)?.cost || "?"} → ${LANES[item.lane]}`).join(" · ");
-}
-
-function renderReview() {
-  const root=$("#review-content");
-  if (!state.reviewed) {
-    root.innerHTML=`<div class="review-panel-heading"><span class="eyebrow">TURN INSIGHTS</span>${icon("chart")}</div><div class="concealed-review"><div class="concealed-grid"></div><span class="lock-orbit">${icon(state.mode==="training"?"lock":"lab")}</span><strong>${state.mode==="training" ? "Your move comes first." : "A little room to experiment."}</strong><p>${state.mode==="training" ? "Commit your turn to explore<br>the reasoning behind a decision." : "Edit the board, arrange your cards,<br>then open the example review."}</p></div><div class="review-intro"><h2>A closer look at your play</h2><div class="review-feature"><span class="review-feature-icon">${icon("chart")}</span><div><strong>Value over outcome</strong><p>Understand the cost of a choice,<br>not just whether it wins.</p></div></div><div class="review-feature"><span class="review-feature-icon">${icon("target")}</span><div><strong>More than one good move</strong><p>Explore alternatives and the<br>tradeoffs between them.</p></div></div><div class="review-feature"><span class="review-feature-icon">${icon("spark")}</span><div><strong>Make the idea your own</strong><p>Replay the position.<br>Try what you’ve noticed.</p></div></div></div><div class="review-bottom-note">${icon("info")}This is an interactive visual mockup. The review demonstrates the planned feedback layout using clearly labeled example values.</div>`;
+const RESULT_EXAMPLES={
+  good:{title:"Good move",magnitude:"No expected value lost",symbol:"check",why:"Example rationale: the same energy keeps two lanes competitive instead of adding power to an already secure lane."},
+  close:{title:"Small loss",magnitude:"2 percentage points below best",symbol:"warning",why:"Example rationale: a different placement uses the same energy to contest a second lane more effectively."},
+  mistake:{title:"Mistake",magnitude:"14 percentage points below best",symbol:"close",why:"Example rationale: too much power is committed to one lane, leaving too little to compete for a second."}
+};
+function renderResult() {
+  const root=$("#results-overlay");
+  root.hidden=!state.reviewed;
+  if(!state.reviewed){root.innerHTML="";root.className="results-overlay";return;}
+  const sample=RESULT_EXAMPLES[state.feedbackExample];
+  root.className=`results-overlay result-${state.feedbackExample} ${state.showWhy?"expanded":""} ${state.preview!==null?"comparing":""}`;
+  if(state.preview!==null) {
+    root.innerHTML=`<span class="comparison-label">Alternative · example</span><div class="result-actions"><button data-action="compare">Your play</button></div>`;
     return;
   }
-  const tabs=`<div class="review-tabs" role="tablist" aria-label="Example review sections">${["overview","alternatives","assumptions"].map((tab)=>`<button class="review-tab ${state.reviewTab===tab?"active":""}" data-review-tab="${tab}" role="tab" aria-selected="${state.reviewTab===tab}" aria-controls="review-tabpanel">${tab[0].toUpperCase()+tab.slice(1)}</button>`).join("")}</div>`;
-  let body="";
-  if (state.reviewTab==="overview") {
-    const lanes=new Set(state.plan.map((item)=>item.lane)).size;
-    const observation=!state.plan.length ? "You chose to pass. In a complete analysis, the value of keeping your cards would be compared with every legal use of this turn’s energy." : `Your play commits ${usedEnergy()} of ${state.turn} energy across ${lanes===1 ? "one lane" : `${lanes} lanes`}. Compare that commitment with other ways to distribute the same hand.`;
-    body=`<div class="ev-block"><div><span class="eyebrow">EXAMPLE MATCH EV</span><strong class="ev-number">0.59</strong><p>Win = 1 · Draw = ½</p></div><div><span class="eyebrow">EXAMPLE VALUE LOST</span><strong class="ev-number loss">2.0<small> pp</small></strong><p>Best example: 0.61</p></div></div><div class="probability-section"><div class="small-section-title">Outcome probabilities<small>EXAMPLE VALUES</small></div><div class="probability-bar" role="img" aria-label="Illustrative probabilities: win 56 percent, draw 6 percent, loss 38 percent"><span class="win" style="width:56%"></span><span class="draw" style="width:6%"></span><span class="loss" style="width:38%"></span></div><div class="probability-labels"><span>Win<b>56%</b></span><span>Draw<b>6%</b></span><span>Loss<b>38%</b></span></div></div><div class="reasoning"><strong>${icon("spark")}Look at the commitment</strong><p>${observation}</p></div><div class="review-footer-actions"><button class="secondary-button" data-action="retry">${icon("refresh")}Retry turn</button><button class="primary-button" data-action="next">Next position${icon("chevron")}</button></div>`;
-  } else if (state.reviewTab==="alternatives") {
-    body=`<p class="comparison-label">Legal placements with illustrative values and mixing frequencies. Select one to preview it on the board.</p>${examplePlans().map((entry,index)=>`<button class="alternative ${state.preview===index?"active":""}" data-alternative="${index}" aria-pressed="${state.preview===index}"><span class="alternative-top"><span>EXAMPLE ${String.fromCharCode(65+index)}<span> · ${entry.frequency}% mix</span></span><strong>${entry.ev.toFixed(2)} EV</strong></span><span class="alternative-description"><span>${planLabel(entry.plan)}</span>${icon("chevron")}</span><span class="alternative-track"><span style="width:${entry.ev*100}%"></span></span></button>`).join("")}<button class="text-button back-to-play" data-action="back-to-play">${icon("undo")}Back to your submitted play</button><div class="reasoning"><strong>${icon("info")}A mix is a strategy</strong><p>A less frequent choice can still be part of an optimal strategy. A single move doesn’t establish whether you mix at the right frequencies.</p></div>`;
-  } else {
-    body=`<div class="assumption-list"><div class="assumption-row"><span>ANALYSIS STATUS</span><strong>Illustrative interface data. Solver grading arrives in Milestone Two.</strong></div><div class="assumption-row"><span>INFORMATION AVAILABLE</span><strong>Your hand, both public boards, and the selected deck assumptions. Opponent hand and current-turn plan stay hidden.</strong></div><div class="assumption-row"><span>UNKNOWN DECK PRIOR</span><strong>Proposed baseline: ⅓ Midrange, ⅓ Low curve, ⅓ Balanced. Belief updates are planned.</strong></div><div class="assumption-row"><span>OBJECTIVE</span><strong>Match score: win = 1, draw = ½, loss = 0. Cube decisions are a later module.</strong></div><div class="assumption-row"><span>MODEL</span><strong>Power equals energy. Four cards per side per lane. Three neutral lanes. Six turns.</strong></div><div class="assumption-row"><span>EXAMPLE VALUES</span><strong>0.56 + ½ × 0.06 = 0.59 expected score. 0.61 − 0.59 = 0.02, or 2 percentage points.</strong></div></div>`;
-  }
-  root.innerHTML=`<div class="review-panel-heading"><span class="eyebrow">TURN REVIEW</span><span class="sample-pill">EXAMPLE DATA</span></div><div class="sample-disclosure">Review layout preview. Numerical values and frequencies are illustrative; your play has not been solver-graded.</div><div class="review-grade"><span class="grade-icon">${icon("check")}</span><div><strong>Decision recorded.</strong><small>${escapeHtml(planLabel(state.plan))}</small></div></div>${tabs}<div id="review-tabpanel" role="tabpanel">${body}</div>`;
+  root.innerHTML=`<span class="example-label" title="Illustrative feedback for this visual mockup; the move is not solver-graded.">Example feedback</span><div class="verdict-row"><span class="verdict-icon ${sample.symbol==="warning"?"warning":""}" aria-hidden="true">${sample.symbol==="warning"?"!":icon(sample.symbol)}</span><h2 class="verdict-title">${sample.title}</h2></div><p class="result-magnitude">${sample.magnitude}</p>${state.showWhy?`<p class="result-why">${sample.why}</p>`:""}<div class="result-actions"><button data-action="why" aria-expanded="${state.showWhy}">${state.showWhy?"Hide why":"Why?"}</button><button data-action="compare" ${alternativePlan()?"":"disabled"}>Compare</button></div>`;
 }
-
-function render() { renderSettings(); renderBoard(); renderReview(); }
-
+function renderChrome() {
+  $$(".mode-button").forEach(button=>{
+    const active=button.dataset.mode===state.mode;
+    button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));
+  });
+  $("#exercise-number").textContent=String(state.exercise).padStart(2,"0");
+  $("#edit-position").hidden=state.mode!=="playground";
+}
+function render() {renderChrome();renderBoard();renderResult();}
 function submitTurn() {
-  if (state.reviewed) return nextPosition();
-  state.selected=null;
-  state.reviewed=true;
-  state.preview=null;
-  state.reviewTab="overview";
-  state.completed.add(state.exercise);
-  render();
-  announce("Turn submitted. The example review is open. All numerical feedback is illustrative.");
-  if (window.matchMedia("(max-width: 730px)").matches) $("#review-panel").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"});
+  if(state.reviewed)return nextPosition();
+  state.reviewed=true;state.selected=null;state.preview=null;state.showWhy=false;render();
+  announce("Example feedback is open above the board. This prototype has not solver-graded your play.");
 }
 function nextPosition() {
-  state.exercise=state.exercise===12 ? 1 : state.exercise+1;
-  resetPosition({message:`Position ${String(state.exercise).padStart(2,"0")} ready.`});
-  if (window.matchMedia("(max-width: 730px)").matches) $(".workspace").scrollIntoView({behavior:"smooth",block:"start"});
+  state.exercise=state.exercise===12?1:state.exercise+1;
+  resetPosition();
+  announce(`Position ${state.exercise} ready.`);
 }
-
 function openDialog(title,body) {
   dialogReturnFocus=document.activeElement;
-  $("#dialog-content").innerHTML=`<div class="dialog-header"><h2>${escapeHtml(title)}</h2><button class="icon-button" data-action="close-dialog" aria-label="Close dialog">${icon("close")}</button></div><div class="dialog-body">${body}</div>`;
-  const dialog=$("#app-dialog");
-  if (!dialog.open) dialog.showModal();
+  $("#dialog-content").innerHTML=`<div class="dialog-header"><h2>${escapeHtml(title)}</h2><button class="icon-button" data-action="close-dialog" aria-label="Close">${icon("close")}</button></div><div class="dialog-body">${body}</div>`;
+  if(!$("#app-dialog").open)$("#app-dialog").showModal();
 }
-function closeDialog() { $("#app-dialog").close(); }
-
-function showModel() {
-  openDialog("A small game. Real questions.",`<p>Numerical Snap keeps the decisions about <strong>timing, energy, and lane allocation</strong>, using cards whose power equals their energy cost.</p><ul><li>12 cards per deck. Three opening cards, then one draw at the start of each turn.</li><li>Energy equals the current turn, from 1 through 6. Unspent energy does not carry over.</li><li>Three neutral lanes, with four card slots per player in each lane.</li><li>Both players commit their entire turn before revealing their actions.</li><li>Win more lanes. If lane wins are tied, compare total power. Equal total power is a draw.</li><li>No card abilities, special locations, snapping, or retreating in this initial workspace.</li></ul><div class="dialog-notice"><strong>Milestone One · visual mockup</strong><br>Card placement and energy checks work locally. Review numbers illustrate the proposed interface. They are not solver results or recommendations for a live game.</div>`);
+function closeDialog() {$("#app-dialog").close();}
+function deckOptions(selected,opponent=false) {
+  return `${opponent?`<option value="unknown" ${selected==="unknown"?"selected":""}>Unknown</option>`:""}${["midrange","low","balanced","custom"].map(choice=>`<option value="${choice}" ${selected===choice?"selected":""}>${deckName(choice)}</option>`).join("")}`;
+}
+function showSettings() {
+  openDialog("Settings",`<div class="settings-row"><label for="player-deck">Your deck</label><div class="settings-field"><select id="player-deck">${deckOptions(state.deck)}</select><button class="text-button" data-action="view-deck">12 cards</button></div></div><div class="settings-row"><label for="opponent-deck">Opponent deck</label><div class="settings-field"><select id="opponent-deck">${deckOptions(state.opponent,true)}</select><button class="text-button" data-action="opponent-details">${state.opponent==="unknown"?"Prior":"12 cards"}</button></div></div><div class="settings-section"><button class="text-button" data-action="model">Model and assumptions</button><button class="text-button" data-action="future">Additional rules · later</button><button class="text-button" data-action="help">Controls</button></div><div class="settings-section"><div class="settings-row"><label for="feedback-example">Example feedback</label><select id="feedback-example">${Object.entries(RESULT_EXAMPLES).map(([key,value])=>`<option value="${key}" ${key===state.feedbackExample?"selected":""}>${value.title}</option>`).join("")}</select></div><p class="dialog-note">Visual prototype. Result states and values are illustrative; solver grading is not connected.</p></div>`);
 }
 function showDeck(which="player") {
+  const choice=which==="player"?state.deck:state.opponent;
+  if(choice==="unknown")return openDialog("Unknown opponent","<p>The proposed prior is an equal mix of Midrange, Low curve, and Balanced: <strong>⅓ each</strong>.</p><p>Played cards are public. The opponent’s hand and current-turn choices stay hidden.</p><p class=\"dialog-note\">Updating this prior from observed play is planned with solver support.</p>");
   const cards=deckCards(which);
-  const choice=which==="player" ? state.deck : state.opponent;
-  openDialog(`${deckName(choice)} deck`, `<p>Each number is both a card’s energy cost and its power. The exact preset contains these 12 cards.</p><div class="deck-list">${[...cards].sort((a,b)=>a-b).map((cost)=>`<span class="deck-value">${cost}</span>`).join("")}</div><p><strong>${cards.reduce((sum,cost)=>sum+cost,0)} total power</strong> · ${(cards.reduce((sum,cost)=>sum+cost,0)/12).toFixed(2)} average energy</p><button class="primary-button" data-action="custom-${which}">Customize ${which==="player"?"your":"opponent"} deck${icon("chevron")}</button>`);
+  openDialog(`${deckName(choice)} deck`,`<div class="custom-cards">${[...cards].sort((a,b)=>a-b).map(cost=>`<span class="custom-value">${cost}</span>`).join("")}</div><p>12 cards · power equals cost</p><button class="primary-button" data-action="custom-${which}">Edit deck</button>`);
 }
 function editCustomDeck(which="player") {
-  const cards=which==="player" ? state.customDeck : state.customOpponent;
-  openDialog(`Your ${which==="player" ? "custom deck" : "opponent’s deck"}`,`<form id="custom-deck-form" data-deck-owner="${which}"><p>Enter exactly 12 energy values between 1 and 6, separated by commas. Each card has matching power.</p><label for="custom-deck-values">Deck composition</label><textarea id="custom-deck-values" name="cards" spellcheck="false" required>${cards.join(", ")}</textarea><div class="form-error" id="deck-error" role="alert"></div><button class="primary-button" type="submit">Use this deck${icon("check")}</button></form>`);
+  const cards=which==="player"?[...deckCards()]:state.opponent==="unknown"?[...state.customOpponent]:[...deckCards("opponent")];
+  openDialog("Custom deck",`<form id="custom-deck-form" data-deck-owner="${which}"><label for="custom-deck-values">12 values, from 1 to 6</label><textarea id="custom-deck-values" name="cards" spellcheck="false" required>${cards.join(", ")}</textarea><div class="form-error" id="deck-error" role="alert"></div><button class="primary-button" type="submit">Use deck</button></form>`);
 }
-function showGuide() {
-  openDialog("One turn at a time.",`<p><strong>1. Read the position.</strong><br>Your hand and the public board are visible. Your opponent’s hand stays hidden.</p><p><strong>2. Make a complete turn.</strong><br>Drag cards into lanes, or select a card and click a lane. Click a queued card to return it to your hand. You can also pass.</p><p><strong>3. Submit, then investigate.</strong><br>Open the review, compare alternatives, and retry the position. Your decisions are kept separate from the outcome of a particular game.</p><div class="dialog-notice">This first milestone demonstrates the experience. The review values are illustrative. Validated solver feedback is the next milestone.</div>`);
+function showModel() {
+  openDialog("Numerical model",`<ul><li>12-card decks; three opening cards and one draw each turn.</li><li>Six turns. Energy equals the turn number and does not carry over.</li><li>Power equals cost. Three lanes, four slots per side, no abilities.</li><li>Both players commit before either turn is revealed.</li><li>Win more lanes. If lane wins tie, compare total power. Equal power is a draw.</li></ul><p>Planned grading uses match score: win = 1, draw = ½, loss = 0.</p><p class="dialog-note">The verdict, loss amount, and rationale in this mockup are examples. Compare previews a legal alternative placement, not a solved recommendation. No opponent response is simulated or revealed.</p>`);
 }
-function showShortcuts() {
-  openDialog("A few useful shortcuts.",`<div class="keyboard-row"><span>Submit turn / next position</span><span class="keycap">Enter</span></div><div class="keyboard-row"><span>Undo your last placement</span><span class="keycap">Z</span></div><div class="keyboard-row"><span>Place selected card in a lane</span><span><span class="keycap">1</span><span class="keycap">2</span><span class="keycap">3</span></span></div><div class="keyboard-row"><span>Cancel selection / close dialog</span><span class="keycap">Esc</span></div><p style="margin-top:18px">Use Tab to move between controls. Select a card, then focus a lane and press Enter to place it.</p>`);
+function showHelp() {
+  openDialog("Controls",`<p>Drag a card into a lane, or select one and click a lane. Click a queued card to return it. Submit an empty turn to pass.</p><div class="shortcut-row"><span>Place selected card</span><span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd></span></div><div class="shortcut-row"><span>Undo</span><kbd>Z</kbd></div><div class="shortcut-row"><span>Submit / next position</span><kbd>Enter</kbd></div><div class="shortcut-row"><span>Cancel selection</span><kbd>Esc</kbd></div><p style="margin-top:18px">Turns advance upward: 1 at the bottom, 6 at the top. Use the rail to open a preset drill. Arrow up/down also works while a turn button is focused.</p><p>Tab navigates controls. Select a card, then focus a lane and press Enter to place it.</p>`);
 }
-
 function editPosition() {
-  const values=(board,lane)=>board[lane].map((card)=>card.cost).join(", ");
-  openDialog("Set the position.",`<form id="position-form"><p>Each lane accepts up to four cards per side. Enter energy values separated by commas; leave a lane blank for no cards.</p><div class="editor-turn"><label for="editor-turn">Turn</label><div class="select-wrap"><select id="editor-turn" name="turn">${[1,2,3,4,5,6].map((turn)=>`<option ${turn===state.turn?"selected":""}>${turn}</option>`).join("")}</select>${icon("down")}</div></div><div class="editor-grid">${LANES.map((name,lane)=>`<div><span>${name.toUpperCase()} LANE</span><label for="opponent-lane-${lane}">Opponent</label><input id="opponent-lane-${lane}" name="opponent-${lane}" value="${values(state.scenario.opponent,lane)}" placeholder="e.g. 2, 3" autocomplete="off"><label for="player-lane-${lane}" style="margin-top:12px">Your board</label><input id="player-lane-${lane}" name="player-${lane}" value="${values(state.scenario.player,lane)}" placeholder="e.g. 1, 4" autocomplete="off"></div>`).join("")}</div><div class="editor-hand"><label for="editor-hand">Your hand · up to 7 cards</label><input id="editor-hand" name="hand" value="${state.scenario.hand.map((card)=>card.cost).join(", ")}" autocomplete="off"></div><div class="form-error" id="position-error" role="alert"></div><button class="primary-button" type="submit">Explore this position${icon("chevron")}</button></form>`);
+  const values=(board,lane)=>board[lane].map(card=>card.cost).join(", ");
+  openDialog("Position",`<form id="position-form"><div class="editor-turn"><label for="editor-turn">Turn</label><select id="editor-turn" name="turn">${[1,2,3,4,5,6].map(turn=>`<option ${turn===state.turn?"selected":""}>${turn}</option>`).join("")}</select></div><div class="editor-grid">${LANES.map((name,lane)=>`<div><strong>${name}</strong><label for="opponent-lane-${lane}">Opponent</label><input id="opponent-lane-${lane}" name="opponent-${lane}" value="${values(state.scenario.opponent,lane)}" autocomplete="off"><label for="player-lane-${lane}">You</label><input id="player-lane-${lane}" name="player-${lane}" value="${values(state.scenario.player,lane)}" autocomplete="off"></div>`).join("")}</div><div class="editor-hand"><label for="editor-hand">Hand · up to 7 cards</label><input id="editor-hand" name="hand" value="${state.scenario.hand.map(card=>card.cost).join(", ")}" autocomplete="off"></div><p class="dialog-note">Separate card values with commas. Each side has four slots per lane.</p><div class="form-error" id="position-error" role="alert"></div><button class="primary-button" type="submit">Use position</button></form>`);
 }
 function parseCards(value,maximum,{exact=false}={}) {
   const text=String(value).trim();
-  const cards=text ? text.split(/[\s,]+/).filter(Boolean).map(Number) : [];
-  if (cards.some((cost)=>!Number.isInteger(cost)||cost<1||cost>6)) throw new Error("Use whole-number energy values from 1 through 6.");
-  if (exact && cards.length!==maximum) throw new Error(`Please enter exactly ${maximum} cards.`);
-  if (cards.length>maximum) throw new Error(`This field accepts at most ${maximum} cards.`);
+  const cards=text?text.split(/[\s,]+/).filter(Boolean).map(Number):[];
+  if(cards.some(cost=>!Number.isInteger(cost)||cost<1||cost>6))throw new Error("Use whole-number values from 1 through 6.");
+  if(exact&&cards.length!==maximum)throw new Error(`Enter exactly ${maximum} cards.`);
+  if(cards.length>maximum)throw new Error(`Use at most ${maximum} cards.`);
   return cards;
 }
-
 const actions={
-  reset:()=>resetPosition({newScenario:!state.scenario.custom,message:"Position reset. Try another line."}),
-  undo:()=>{if(!state.history.length||state.reviewed)return;state.plan=state.history.pop();state.selected=null;render();announce("Last placement undone.");},
-  clear:()=>{if(!state.plan.length||state.reviewed)return;saveHistory();state.plan=[];state.selected=null;render();announce("Turn cleared.");},
-  submit:submitTurn,
-  retry:()=>resetPosition({newScenario:false,message:"Same position. A fresh decision."}),
-  next:nextPosition,
-  "back-to-play":()=>{state.preview=null;renderBoard();renderReview();},
-  model:showModel,
-  "view-deck":()=>showDeck(),
+  settings:showSettings, help:showHelp, model:showModel,
+  reset:()=>resetPosition({newScenario:!state.scenario.custom,message:"Position reset."}),
+  undo:()=>{if(!state.history.length||state.reviewed)return;state.plan=state.history.pop();state.selected=null;render();announce("Placement undone.");},
+  clear:()=>{if(!state.plan.length||state.reviewed)return;saveHistory();state.plan=[];state.selected=null;render();},
+  submit:submitTurn, next:nextPosition,
+  retry:()=>resetPosition({newScenario:false}),
+  why:()=>{state.showWhy=!state.showWhy;renderResult();},
+  compare:()=>{if(state.preview===null&&!alternativePlan())return;state.preview=state.preview===null?0:null;state.showWhy=false;render();announce(state.preview===null?"Your submitted play.":"Example alternative. Changed lane totals show before and after.");},
+  "view-deck":()=>showDeck("player"),
+  "opponent-details":()=>showDeck("opponent"),
   "custom-player":()=>editCustomDeck("player"),
   "custom-opponent":()=>editCustomDeck("opponent"),
-  guide:showGuide,
-  shortcuts:showShortcuts,
-  turns:()=>openDialog("Choose a decision point.","<p>The turn rail opens a preset position at the selected turn. Each position has its own legal hand, energy budget, and public board.</p><p>Selecting an earlier turn starts a new drill. It does not rewind your submitted actions into a different history.</p>"),
-  future:()=>openDialog("More ways to study.",`<p>These game variations are planned for a later milestone:</p><ul><li>Adjust deck size and card variety.</li><li>Change the number of card slots in a lane.</li><li>Explore different power-to-energy values.</li><li>Add a seventh turn, as with Limbo.</li><li>Practice snapping and retreating with expected cube value.</li></ul><div class="dialog-notice">Each variation changes the game being analyzed and will need matching solver support.</div>`),
   "edit-position":editPosition,
-  "toggle-setup":()=>{state.mobileSettings=!state.mobileSettings;renderSettings();},
   "close-dialog":closeDialog,
+  future:()=>openDialog("Additional rules","<ul><li>Deck size</li><li>Slots per lane</li><li>Power-to-cost values</li><li>A seventh turn (Limbo)</li><li>Snapping and retreating</li></ul><p class=\"dialog-note\">These variants need corresponding solver support.</p>")
 };
-
-document.addEventListener("click",(event)=>{
-  if (Date.now()<suppressClickUntil && event.target.closest("[data-card-id],[data-lane]")) return;
+document.addEventListener("click",event=>{
+  if(Date.now()<suppressClickUntil&&event.target.closest("[data-card-id],[data-lane]"))return;
   const action=event.target.closest("[data-action]");
   if(action){actions[action.dataset.action]?.();return;}
   const mode=event.target.closest("[data-mode]");
-  if(mode && mode.dataset.mode!==state.mode){state.mode=mode.dataset.mode;state.mobileSettings=false;resetPosition({newScenario:false});return;}
+  if(mode&&mode.dataset.mode!==state.mode){state.mode=mode.dataset.mode;resetPosition({newScenario:false});return;}
   const turn=event.target.closest("[data-turn]");
-  if(turn){state.turn=Number(turn.dataset.turn);resetPosition({message:`Turn ${state.turn} drill ready.`});return;}
+  if(turn){state.turn=Number(turn.dataset.turn);resetPosition();return;}
   const pending=event.target.closest("[data-pending]");
   if(pending){removeCard(pending.dataset.pending);return;}
   const hand=event.target.closest(".hand-card");
-  if(hand && !state.reviewed){const card=cardById(hand.dataset.cardId);if(card.cost>state.turn-usedEnergy())return toast("There isn’t enough energy for this card.");state.selected=state.selected===card.id?null:card.id;renderBoard();return;}
+  if(hand&&!state.reviewed){
+    const card=cardById(hand.dataset.cardId);
+    if(card.cost>state.turn-usedEnergy())return toast("Not enough energy.");
+    state.selected=state.selected===card.id?null:card.id;renderBoard();
+    $(`[data-card-id="${card.id}"]`)?.focus({preventScroll:true});return;
+  }
   const lane=event.target.closest("[data-lane]");
-  if(lane&&state.selected){placeCard(state.selected,Number(lane.dataset.lane));return;}
-  const tab=event.target.closest("[data-review-tab]");
-  if(tab){state.reviewTab=tab.dataset.reviewTab;state.preview=null;renderBoard();renderReview();$( `[data-review-tab="${state.reviewTab}"]`).focus();return;}
-  const alternative=event.target.closest("[data-alternative]");
-  if(alternative){state.preview=Number(alternative.dataset.alternative);renderBoard();renderReview();return;}
-  if(state.mobileSettings && !event.target.closest("#settings-panel")){state.mobileSettings=false;renderSettings();}
+  if(lane&&state.selected)placeCard(state.selected,Number(lane.dataset.lane));
 });
-
-$("#player-deck").addEventListener("change",(event)=>{
-  if(event.target.value==="custom"){event.target.value=state.deck;return editCustomDeck("player");}
-  state.deck=event.target.value;resetPosition({message:`${deckName(state.deck)} deck selected.`});
+document.addEventListener("change",event=>{
+  if(event.target.id==="player-deck"){
+    if(event.target.value==="custom")return editCustomDeck("player");
+    state.deck=event.target.value;resetPosition();return;
+  }
+  if(event.target.id==="opponent-deck"){
+    if(event.target.value==="custom")return editCustomDeck("opponent");
+    state.opponent=event.target.value;resetPosition();return;
+  }
+  if(event.target.id==="feedback-example"){
+    state.feedbackExample=event.target.value;state.preview=null;state.showWhy=false;render();
+  }
 });
-$("#opponent-deck").addEventListener("change",(event)=>{
-  if(event.target.value==="custom"){event.target.value=state.opponent;return editCustomDeck("opponent");}
-  state.opponent=event.target.value;resetPosition({message:`Opponent: ${deckName(state.opponent).toLowerCase()}.`});
-});
-
-document.addEventListener("submit",(event)=>{
+document.addEventListener("submit",event=>{
   const form=event.target;
   if(form.id==="custom-deck-form"){
     event.preventDefault();
@@ -370,7 +319,7 @@ document.addEventListener("submit",(event)=>{
       const cards=parseCards(new FormData(form).get("cards"),12,{exact:true});
       if(form.dataset.deckOwner==="player"){state.customDeck=cards;state.deck="custom";}
       else{state.customOpponent=cards;state.opponent="custom";}
-      closeDialog();resetPosition({message:"Custom deck ready."});
+      closeDialog();resetPosition();
     }catch(error){$("#deck-error").textContent=error.message;}
   }
   if(form.id==="position-form"){
@@ -378,84 +327,65 @@ document.addEventListener("submit",(event)=>{
     try{
       const data=new FormData(form);
       const read=(key,max)=>parseCards(data.get(key),max).map((cost,index)=>({cost,id:`editor-${key}-${index}`}));
-      const scenario={player:[0,1,2].map((lane)=>read(`player-${lane}`,4)),opponent:[0,1,2].map((lane)=>read(`opponent-${lane}`,4)),hand:read("hand",7),custom:true};
-      state.turn=Number(data.get("turn"));state.scenario=scenario;
-      closeDialog();resetPosition({newScenario:false,message:"Your position is ready to explore."});
+      const scenario={player:[0,1,2].map(lane=>read(`player-${lane}`,4)),opponent:[0,1,2].map(lane=>read(`opponent-${lane}`,4)),hand:read("hand",7),custom:true};
+      state.turn=Number(data.get("turn"));state.scenario=scenario;closeDialog();resetPosition({newScenario:false});
     }catch(error){$("#position-error").textContent=error.message;}
   }
 });
-
-document.addEventListener("keydown",(event)=>{
-  if($("#app-dialog").open || event.target.closest("input,textarea,select"))return;
-  if(event.key==="Escape"){state.selected=null;state.preview=null;state.mobileSettings=false;render();return;}
-  if(event.key.toLowerCase()==="z" && !event.altKey){event.preventDefault();actions.undo();return;}
+document.addEventListener("keydown",event=>{
+  if($("#app-dialog").open||event.target.closest("input,textarea,select"))return;
+  if(event.key==="Escape"){state.selected=null;state.preview=null;render();return;}
+  const turn=event.target.closest("[data-turn]");
+  if(turn&&["ArrowUp","ArrowDown"].includes(event.key)){
+    event.preventDefault();const next=Math.max(1,Math.min(6,Number(turn.dataset.turn)+(event.key==="ArrowUp"?1:-1)));
+    state.turn=next;resetPosition();$(`[data-turn="${next}"]`)?.focus();return;
+  }
+  if(event.key.toLowerCase()==="z"&&!event.altKey){event.preventDefault();actions.undo();return;}
   if(["1","2","3"].includes(event.key)&&state.selected){event.preventDefault();placeCard(state.selected,Number(event.key)-1);return;}
-  if(event.key==="Enter" && !event.target.closest("button,a")){
-    const lane=event.target.closest("[data-lane]");
-    event.preventDefault();
+  if(event.key==="Enter"&&!event.target.closest("button,a")){
+    event.preventDefault();const lane=event.target.closest("[data-lane]");
     if(lane&&state.selected)placeCard(state.selected,Number(lane.dataset.lane));else submitTurn();
   }
 });
-
-// Pointer-based dragging works with a mouse, trackpad, or touch; click-to-place
-// and keyboard placement are independent alternatives.
-document.addEventListener("pointerdown",(event)=>{
+document.addEventListener("pointerdown",event=>{
   const origin=event.target.closest(".hand-card,.pending-card");
-  if(!origin || state.reviewed || event.button!==0)return;
-  const id=origin.dataset.cardId;
-  const card=cardById(id);
-  if(!card)return;
-  if(origin.classList.contains("hand-card")&&card.cost>state.turn-usedEnergy())return;
+  if(!origin||state.reviewed||event.button!==0)return;
+  const id=origin.dataset.cardId,card=cardById(id);
+  if(!card||(origin.classList.contains("hand-card")&&card.cost>state.turn-usedEnergy()))return;
   pointerDrag={id,origin,startX:event.clientX,startY:event.clientY,active:false,ghost:null,pointerId:event.pointerId};
 });
-document.addEventListener("pointermove",(event)=>{
+document.addEventListener("pointermove",event=>{
   if(!pointerDrag||pointerDrag.pointerId!==event.pointerId)return;
   const drag=pointerDrag;
-  if(!drag.active && Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)<7)return;
+  if(!drag.active&&Math.hypot(event.clientX-drag.startX,event.clientY-drag.startY)<7)return;
   if(!drag.active){
-    drag.active=true;
-    drag.ghost=document.createElement("div");
-    const card=cardById(drag.id);
-    drag.ghost.innerHTML=handCard(card);
-    drag.ghost=drag.ghost.firstElementChild;
-    drag.ghost.classList.remove("selected","unaffordable");
-    drag.ghost.classList.add("drag-ghost");
-    drag.ghost.removeAttribute("data-card-id");
-    drag.ghost.setAttribute("aria-hidden","true");
-    drag.ghost.tabIndex=-1;
-    document.body.append(drag.ghost);
-    drag.origin.classList.add("dragging-origin");
-    $$(".lane").forEach((lane)=>lane.classList.add("selected-target"));
+    drag.active=true;const holder=document.createElement("div");holder.innerHTML=handCard(cardById(drag.id));
+    drag.ghost=holder.firstElementChild;drag.ghost.classList.remove("selected","unaffordable");drag.ghost.classList.add("drag-ghost");
+    drag.ghost.removeAttribute("data-card-id");drag.ghost.setAttribute("aria-hidden","true");drag.ghost.tabIndex=-1;
+    document.body.append(drag.ghost);drag.origin.classList.add("dragging-origin");
+    $$(".lane").forEach(lane=>lane.classList.add("can-place"));
   }
   event.preventDefault();
-  drag.ghost.style.left=`${event.clientX-44}px`;
-  drag.ghost.style.top=`${event.clientY-48}px`;
+  drag.ghost.style.left=`${event.clientX-38}px`;drag.ghost.style.top=`${event.clientY-40}px`;
   const target=document.elementFromPoint(event.clientX,event.clientY)?.closest("[data-lane]");
-  $$(".lane").forEach((lane)=>lane.classList.toggle("drag-over",lane===target));
+  $$(".lane").forEach(lane=>lane.classList.toggle("drag-over",lane===target));
 },{passive:false});
 function finishDrag(event,cancelled=false){
   if(!pointerDrag||pointerDrag.pointerId!==event.pointerId)return;
-  const drag=pointerDrag;
-  pointerDrag=null;
-  if(!drag.active)return;
+  const drag=pointerDrag;pointerDrag=null;if(!drag.active)return;
   suppressClickUntil=Date.now()+350;
-  const target=document.elementFromPoint(event.clientX,event.clientY);
-  const lane=target?.closest("[data-lane]");
-  drag.ghost.remove();
-  drag.origin.classList.remove("dragging-origin");
-  $$(".lane").forEach((item)=>item.classList.remove("drag-over","selected-target"));
+  const target=document.elementFromPoint(event.clientX,event.clientY),lane=target?.closest("[data-lane]");
+  drag.ghost.remove();drag.origin.classList.remove("dragging-origin");
+  $$(".lane").forEach(item=>item.classList.remove("drag-over","can-place"));
   if(cancelled)return renderBoard();
-  if(lane)placeCard(drag.id,Number(lane.dataset.lane));
-  else if(target?.closest("#hand"))removeCard(drag.id);
-  else renderBoard();
+  if(lane)placeCard(drag.id,Number(lane.dataset.lane));else if(target?.closest("#hand"))removeCard(drag.id);else renderBoard();
 }
-document.addEventListener("pointerup",(event)=>finishDrag(event));
-document.addEventListener("pointercancel",(event)=>finishDrag(event,true));
-$("#app-dialog").addEventListener("click",(event)=>{
+document.addEventListener("pointerup",event=>finishDrag(event));
+document.addEventListener("pointercancel",event=>finishDrag(event,true));
+$("#app-dialog").addEventListener("click",event=>{
   const bounds=event.currentTarget.getBoundingClientRect();
-  if(event.target===event.currentTarget && (event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom)) closeDialog();
+  if(event.target===event.currentTarget&&(event.clientX<bounds.left||event.clientX>bounds.right||event.clientY<bounds.top||event.clientY>bounds.bottom))closeDialog();
 });
-$("#app-dialog").addEventListener("close",()=>{if(dialogReturnFocus?.isConnected)dialogReturnFocus.focus();});
+$("#app-dialog").addEventListener("close",()=>{if(dialogReturnFocus?.isConnected)dialogReturnFocus.focus();else $('[data-action="settings"]')?.focus();});
+state.scenario=makeScenario();render();
 
-state.scenario=makeScenario();
-render();
