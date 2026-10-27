@@ -68,7 +68,7 @@ The turn rail opens preset drills rather than rewinding the current history. Pla
 
 Syntax and a DOM-state harness cover 120 deck/opponent/turn combinations, draw composition, energy and capacity, comparison legality, undo, passing, all three verdict fixtures, hidden feedback, explanation and comparison controls, preservation of the submitted plan, retry, custom-value validation, and restoration of upper/lower power and slot-grid structure.
 
-Browser rendering remains unverified.
+The published desktop appearance has been reviewed in its saved screenshot. Interactive browser testing remains unavailable.
 
 ## Later
 
