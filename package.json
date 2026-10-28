@@ -1,11 +1,12 @@
 {
   "name": "theoretical-snap",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "private": true,
   "description": "A charcoal-print numerical Snap training mockup.",
   "scripts": {
     "dev": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
     "check": "node --check dist/app.js",
-    "export": "python3 scripts/export-preview.py"
+    "export": "python3 scripts/export-preview.py",
+    "test": "node --test tests/*.test.cjs"
   }
 }

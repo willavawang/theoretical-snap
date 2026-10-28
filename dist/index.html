@@ -9,6 +9,8 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23121624'/%3E%3Cpath d='M35 7 14 36h16l-3 21 23-31H33z' fill='%23b59aff'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./akira.css">
+  <link rel="stylesheet" href="./results.css">
+  <script src="./analysis.js" defer></script>
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -53,22 +55,24 @@
         <div class="select-wrap"><select id="opponent-deck"><option value="unknown">Unknown</option><option value="midrange">Midrange</option><option value="low">Low curve</option><option value="balanced">Balanced</option><option value="custom">Custom</option></select><svg class="icon"><use href="#i-down"/></svg></div>
       </div>
       <button class="edit-position-button" id="edit-position" data-action="edit-position" hidden><svg class="icon"><use href="#i-lab"/></svg>Edit position</button>
-      
+
     </aside>
 
     <main class="workspace">
-      <div class="workspace-topline"><div class="workspace-tools"><button class="mobile-setup icon-button" data-action="toggle-setup" title="Deck settings" aria-label="Deck settings"><svg class="icon"><use href="#i-settings"/></svg></button></div></div>
+      <div class="workspace-topline"><div id="known-opponent-hand" class="known-opponent-hand" hidden></div><div class="workspace-tools"><button class="mobile-setup icon-button" data-action="toggle-setup" title="Deck settings" aria-label="Deck settings"><svg class="icon"><use href="#i-settings"/></svg></button></div></div>
+      <div id="result-heading" class="result-heading" aria-live="polite" hidden></div>
       <div class="table-wrap">
         <div class="game-table" id="game-table" aria-label="Three-lane board"></div>
         <div class="turn-rail"><span class="turn-label" aria-hidden="true">TURN</span><div id="turn-selector" class="turn-selector" aria-label="Choose a turn drill"></div></div>
       </div>
+      <section id="comparison-panel" class="comparison-panel" aria-label="Complete-turn comparison" hidden></section>
       <div class="hand-section"><div class="hand-heading"><div class="energy-meter" aria-label="Available energy"><span class="energy-orb" aria-hidden="true"><svg><use href="#i-bolt"/></svg></span><div><strong><span id="energy-remaining">6</span><span class="energy-divider">/</span><span id="energy-total">6</span></strong></div></div></div><div class="hand" id="hand" aria-label="Your cards"></div></div>
-      <div class="action-bar"><button class="secondary-button undo-button" data-action="undo" id="undo-button" title="Undo last placement (Z)" aria-label="Undo last placement" disabled><svg class="icon"><use href="#i-undo"/></svg>Undo</button><span class="action-spacer"></span><button class="primary-button" id="submit-button" data-action="submit">Submit<svg class="icon"><use href="#i-chevron"/></svg></button></div>
+      <div class="action-bar"><button class="secondary-button undo-button" data-action="undo" id="undo-button" title="Undo last placement (Z)" aria-label="Undo last placement" disabled><svg class="icon"><use href="#i-undo"/></svg>Undo</button><button class="secondary-button" id="retry-button" data-action="retry" hidden><svg class="icon"><use href="#i-refresh"/></svg>Retry</button><span class="action-spacer"></span><button class="primary-button" id="submit-button" data-action="submit">Submit<svg class="icon"><use href="#i-chevron"/></svg></button></div>
     </main>
 
     <aside class="review-panel" id="review-panel" aria-label="Turn review">
       <div id="review-content" aria-live="polite"></div>
-      
+
     </aside>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

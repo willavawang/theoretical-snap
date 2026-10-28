@@ -16,13 +16,10 @@ previously requested reduction of redundant interface copy still applies.
 
 Use the first workspace's spatial arrangement: three tall lanes, the opponent
 above the player, four slots in a two-by-two grid on each side, a narrow location
-band, and totals at opposing ends. The user's hand sits below. Turns progress
+band, and the two totals between the players’ slot groups. The user's hand sits below. Turns progress
 upward from 1 to 6. Preserve this geometry in reviews and alternative previews.
 
-Use the first version’s three-column workspace and side review. Put decision quality before other result
-detail. The earlier experiment with a large opponent-side verdict overlay and
-flattened row-of-four slots was rejected. New result concepts need user review
-before replacing the accepted structure.
+Before commitment, retain the first version’s three-column workspace and concealed side review. The accepted October 28 results handoff supersedes the old submitted sidebar: expand the board workspace, put EV loss above it, place Your EV and Maximum EV beside it, and align complete-turn comparison rows below the three lanes. Your Move and Alternates are equal-level headings outside the selectable boxes. A row is a whole commitment: preserve 4+2 rather than replacing it with 6. Selecting a row changes only the preview; the submitted headline and EV context stay fixed. On narrow screens, EV context moves above the board and row losses below the three move cells. The earlier large opponent-side verdict overlay and flattened row-of-four slots remain rejected.
 
 ## The reference language
 
@@ -54,11 +51,11 @@ Use the original shallow layered gradients, subtle grain, delicate panel
 frames, and controlled hatching. Dark hand cards regain the first version’s
 geometric energy artwork and fine inner borders, with one central number.
 Cost and power are the same in this model; avoid duplicate numeral badges.
-Board-card numbers recede; lane totals and slot occupancy stay prominent.
+Board-card numbers recede; lane totals and slot occupancy stay prominent. Empty slots, existing cards, and planned cards share 3:4 portrait proportions inside a two-by-two grid.
 Leadership is computed from the revealed board only. It gets an edge glow and
 a brighter, heavier unboxed total; ties get neither. Queued and submitted-but-
-unresolved cards never change that highlight. Keep the revealed score primary
-and show a small neutral projected total beside it while a turn is unresolved.
+unresolved cards never change that highlight. Keep the revealed score primary before submission
+and show a small neutral projected total beside it while a turn is unresolved. In the accepted results view, use a small prior total and arrow beside the stronger projected number. Its styling remains neutral: it cannot change revealed leadership.
 Group each total with its own two-by-two slots, inset from the frame; separate
 the two players with a larger middle interval. Avoid lane chevrons and score
 badges. Card artwork uses clean wireframe contours without counted dots. Use a single labeled Undo beside Submit;
@@ -74,8 +71,7 @@ empty-results prompt. The numbered turn rail and energy meter provide state. Tur
 fixed-size rectangles with clipped corners and equal gaps, vertically centered
 beside the lanes, with a small TURN label above.
 They never stretch to fill the board height.
-Keep deck labels, actionable control names, error messages, and the illustrative
-result badge. Put model explanations and help behind their controls.
+Keep deck labels, actionable control names, error messages, and the exact-analysis scope. Show the known opponent hand before committing in a public-hand drill. Put mathematical definitions, outcome probabilities, and model explanations behind the analysis-details control. Do not restore the scoring legend or preview subheaders.
 
 The promotional headline, motivational sidebar copy,
 session-summary filler, and duplicate numerical labels were deliberately
@@ -89,5 +85,4 @@ reduced-motion preferences. Keep totals and slots anchored during transitions.
 
 See `docs/results-contract.md`. Distinguish action value from sampled outcome,
 expected match score from win probability, and action quality from mixing
-frequency. Label model scope and uncertainty. Current site verdicts are visual
-examples; validated analysis has not been connected to the trainer.
+frequency. Label model scope and uncertainty. Exact grading now covers only the public-hand final-turn drill and its lane rotations. Other positions must show analysis unavailable. The default Midrange / Unknown workspace and deck presets are retained; the dedicated solved drill explicitly switches to Balanced decks with known hands. See `docs/results-contract.md` for coverage and scoring units.

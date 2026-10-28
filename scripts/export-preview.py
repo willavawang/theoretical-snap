@@ -3,13 +3,15 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 html = (root / "dist/index.html").read_text()
-css = (root / "dist/styles.css").read_text().removeprefix('@charset "UTF-8";')
-theme = (root / "dist/akira.css").read_text()
-javascript = (root / "dist/app.js").read_text()
-html = html.replace('<link rel="stylesheet" href="./styles.css">', "<style>\n" + css + "\n</style>")
-html = html.replace('<link rel="stylesheet" href="./akira.css">', "<style>\n" + theme + "\n</style>")
-html = html.replace('<script src="./app.js" defer></script>', "")
-html = html.replace("</body>", "<script>\n" + javascript + "\n</script>\n</body>")
+for filename in ("styles.css", "akira.css", "results.css"):
+    css = (root / "dist" / filename).read_text().removeprefix('@charset "UTF-8";')
+    html = html.replace(f'<link rel="stylesheet" href="./{filename}">', "<style>\n" + css + "\n</style>")
+scripts = []
+for filename in ("analysis.js", "app.js"):
+    scripts.append((root / "dist" / filename).read_text())
+    html = html.replace(f'<script src="./{filename}" defer></script>', "")
+html = html.replace("</body>", "<script>\n" + "\n".join(scripts) + "\n</script>\n</body>")
+html = "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
 output = root / "theoretical-snap.html"
 output.write_text(html)
 print(output)

@@ -1,4 +1,4 @@
-/* Milestone One: browser-local interactions and explicitly illustrative review data. */
+/* Local training workspace with bounded, certified public-hand analysis. */
 "use strict";
 
 const $ = (selector, root = document) => root.querySelector(selector);
@@ -24,7 +24,7 @@ const CARD_COLORS = {
 const state = {
   mode:"training", turn:6, deck:"midrange", opponent:"unknown", exercise:1,
   customDeck:[...PRESETS.midrange.cards], customOpponent:[...PRESETS.midrange.cards],
-  plan:[], history:[], selected:null, reviewed:false, reviewTab:"overview", preview:null, showWhy:false, feedbackExample:"good",
+  plan:[], history:[], selected:null, reviewed:false, preview:null, analysis:null, drill:null,
   scenario:null, completed:new Set(), mobileSettings:false,
 };
 let toastTimer;
@@ -50,9 +50,10 @@ function deckName(choice) { return choice === "unknown" ? "Unknown deck" : choic
 function cardById(id) { return state.scenario.hand.find((card) => card.id === id); }
 function usedEnergy(plan = state.plan) { return plan.reduce((sum, item) => sum + (cardById(item.id)?.cost || 0), 0); }
 function boardTotals(board) { return board.map((cards) => cards.reduce((sum, card) => sum + card.cost, 0)); }
-function displayedPlan() { return state.preview === null ? state.plan : examplePlans()[state.preview]?.plan || state.plan; }
+function displayedPlan() { return state.preview === null ? state.plan : state.analysis?.alternates?.[state.preview]?.plan || state.plan; }
 
 function makeScenario() {
+  if (state.drill === "solved" && state.turn === 6 && state.deck === "balanced" && state.opponent === "balanced") return SnapAnalysis.createFixture((state.exercise - 1) % 3);
   const rotation = (state.exercise - 1) % 3;
   function simulate(choice, opponent) {
     let values;
@@ -87,8 +88,7 @@ function resetPosition({newScenario=true, message=""} = {}) {
   state.history = [];
   state.selected = null;
   state.reviewed = false;
-  state.reviewTab = "overview";
-  state.showWhy = false;
+  state.analysis = null;
   state.preview = null;
   if (newScenario) state.scenario = makeScenario();
   render();
@@ -151,7 +151,9 @@ function renderBoard() {
   const plan=displayedPlan();
   const theirs=boardTotals(state.scenario.opponent);
   const ours=boardTotals(state.scenario.player);
-  const powerTotal=(value,margin,projected=null)=>`<span class="power-total${margin>0?" leading-total":""}" title="${margin>0?`Revealed board: ahead by ${margin} power`:`${value} revealed power`}" aria-label="${value} revealed power${margin>0?`, ahead by ${margin}`:""}">${value}</span>${projected!==null?`<span class="planned-total" title="Planned total: ${projected}. The opponent's current-turn play is not revealed." aria-label="Planned total ${projected}; opponent turn unresolved"><span class="projection-arrow" aria-hidden="true">→</span><span>${projected}</span></span>`:""}`;
+  const powerTotal=(value,margin,projected=null)=>state.reviewed && projected!==null
+    ? `<span class="previous-total" aria-hidden="true">${value} →</span><span class="power-total projected-total" title="Projected ${projected}; opponent commitment is unresolved" aria-label="${value} revealed power, projected ${projected}; opponent commitment unresolved">${projected}</span>`
+    : `<span class="power-total${margin>0?" leading-total":""}" title="${margin>0?`Revealed board: ahead by ${margin} power`:`${value} revealed power`}" aria-label="${value} revealed power${margin>0?`, ahead by ${margin}`:""}">${value}</span>${projected!==null?`<span class="planned-total" title="Planned total: ${projected}. The opponent's current-turn play is not revealed." aria-label="Planned total ${projected}; opponent turn unresolved"><span class="projection-arrow" aria-hidden="true">→</span><span>${projected}</span></span>`:""}`;
   $("#game-table").innerHTML=LANES.map((name,lane)=>{
     const pending=plan.filter((item)=>item.lane===lane).map((item)=>cardById(item.id)).filter(Boolean);
     const added=pending.reduce((sum,card)=>sum+card.cost,0);
@@ -165,8 +167,8 @@ function renderBoard() {
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
     const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed,true)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" data-revealed-leader="${leader}" tabindex="0" aria-label="${name} lane. Revealed power: opponent ${theirs[lane]}, you ${ours[lane]}. ${added?`Your planned total ${projected}; opponent turn unresolved. `:""}${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to queue your selected card." : ""}"><div class="lane-side opponent-side"><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],-margin)}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="lane-side player-side"><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap">${powerTotal(ours[lane],margin,added?projected:null)}</div></div></section>`;
-  }).join("");
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" data-revealed-leader="${leader}" tabindex="0" aria-label="${name} lane. Revealed power: opponent ${theirs[lane]}, you ${ours[lane]}. ${added?`Your planned total ${projected}; opponent turn unresolved. `:""}${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to queue your selected card." : ""}"><div class="lane-side opponent-side"><div class="board-zone opponent-zone"><div class="card-grid" role="group" aria-label="Opponent ${name}: ${state.scenario.opponent[lane].length} of 4 slots occupied">${slots(state.scenario.opponent[lane],false)}</div></div><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],-margin)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="lane-side player-side"><div class="lane-cap player-cap">${powerTotal(ours[lane],margin,added?projected:null)}</div><div class="board-zone player-zone"><div class="card-grid" role="group" aria-label="Your ${name}: ${state.scenario.player[lane].length+pending.length} of 4 slots occupied">${selfCards}</div></div></div></section>`;
+  }).join("")+(state.reviewed?`<dl class="ev-context" aria-label="Expected values for the original submitted turn"><div><dt>Your EV</dt><dd>${state.analysis?.available?signedEV(state.analysis.yours.evNumerator/state.analysis.denominator):"—"}</dd></div><div><dt>Maximum EV</dt><dd>${state.analysis?.available?signedEV(state.analysis.maximumNumerator/state.analysis.denominator):"—"}</dd></div></dl>`:"");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
   const remaining=state.scenario.hand.length-plan.length;
@@ -174,11 +176,19 @@ function renderBoard() {
   $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
   $("#undo-button").disabled=!state.history.length||state.reviewed;
+  $("#undo-button").hidden=state.reviewed;
+  $("#retry-button").hidden=!state.reviewed;
   $("#submit-button").innerHTML=state.reviewed ? `Next${icon("chevron")}` : state.mode==="playground" ? `Review${icon("chevron")}` : `Submit${icon("chevron")}`;
   $(".workspace").classList.toggle("previewing",state.preview!==null);
+  $(".workspace").classList.toggle("reviewing-submitted",state.reviewed&&state.preview===null);
+  $(".app-layout").classList.toggle("results-open",state.reviewed);
 }
 
 function renderSettings() {
+  const publicHand=state.scenario.opponentHand;
+  $(".app-layout").classList.toggle("public-hand-position",Boolean(publicHand));
+  $("#known-opponent-hand").hidden=!publicHand||state.reviewed;
+  $("#known-opponent-hand").innerHTML=publicHand?`<span class="opponent-dot" aria-hidden="true"></span><span>Opponent · public</span><span class="public-hand-values" aria-label="Opponent's known hand: ${publicHand.join(", ")}">${publicHand.map(value=>`<span>${value}</span>`).join("")}</span>`:"";
   const cards=deckCards();
   const counts=Array.from({length:6},(_,index)=>cards.filter((cost)=>cost===index+1).length);
   const max=Math.max(...counts,1);
@@ -195,46 +205,67 @@ function renderSettings() {
   $("#opponent-deck").value=state.opponent;
 }
 
-function examplePlans() {
-  // A legal comparison fixture, not a solver recommendation.
-  if(state.plan.length) {
-    for(const rotation of [1,2]) {
-      const occupied=state.scenario.player.map(lane=>lane.length),plan=[];
-      for(const item of state.plan) {
-        const lane=[(item.lane+rotation)%3,(item.lane+3-rotation)%3,item.lane].find(index=>occupied[index]<4);
-        if(lane===undefined)break;
-        plan.push({id:item.id,lane});occupied[lane]++;
-      }
-      const key=items=>items.map(item=>`${item.id}:${item.lane}`).sort().join("|");
-      if(plan.length===state.plan.length&&key(plan)!==key(state.plan))return[{plan}];
-    }
-    return [];
-  }
-  const card=[...state.scenario.hand].filter(card=>card.cost<=state.turn).sort((a,b)=>b.cost-a.cost)[0];
-  const lane=state.scenario.player.findIndex(cards=>cards.length<4);
-  return card&&lane!==-1?[{plan:[{id:card.id,lane}]}]:[];
-}
-
 function planLabel(plan) {
   if (!plan.length) return "Pass this turn";
-  return plan.map((item)=>`${cardById(item.id)?.cost || "?"} → ${LANES[item.lane]}`).join(" · ");
+  return plan.map(item => `${cardById(item.id)?.cost || "?"} → ${LANES[item.lane]}`).join(" · ");
+}
+
+function signedEV(value) {
+  return Math.abs(value)<1e-9 ? "0.00" : (value>0 ? "+" : "−")+Math.abs(value).toFixed(2);
 }
 
 function renderReview() {
-  const root=$("#review-content");
+  const root=$("#review-content"), heading=$("#result-heading"), comparison=$("#comparison-panel");
+  heading.hidden=comparison.hidden=!state.reviewed;
   $("#review-panel").classList.toggle("review-idle",!state.reviewed);
-  if(!state.reviewed){
-    root.innerHTML=`<div class="review-panel-heading" aria-hidden="true">${icon("chart")}<span class="review-heading-rule"></span></div><div class="concealed-review" role="img" aria-label="Review is available after you submit your turn."><div class="concealed-grid"></div><svg class="concealed-routes" viewBox="0 0 240 220" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".6"><path d="M-12 210C105 198 43 33 118 37S153 170 252 186"/><path d="M-10 218C111 203 49 37 120 42S151 174 250 195"/><path d="M-8 226C117 210 55 42 122 47S148 179 248 204"/><circle cx="120" cy="110" r="66" stroke-dasharray="1 7"/></g></svg><span class="lock-orbit">${icon(state.mode==="training"?"lock":"lab")}</span></div>`;
+  if (!state.reviewed) {
+    heading.innerHTML=comparison.innerHTML="";
+    root.innerHTML=`<div class="review-panel-heading" aria-hidden="true">${icon("chart")}<span class="review-heading-rule"></span></div><div class="concealed-review" role="img" aria-label="Review is available after you submit your turn."><div class="concealed-grid"></div><svg class="concealed-routes" viewBox="0 0 240 220" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".6"><path d="M-12 210C105 198 43 33 118 37S153 170 252 186"/><path d="M-10 218C111 203 49 37 120 42S151 174 250 195"/><circle cx="120" cy="110" r="66" stroke-dasharray="1 7"/></g></svg><span class="lock-orbit">${icon(state.mode==="training"?"lock":"lab")}</span></div><button class="solved-drill-link text-button" data-action="solved-drill">Public-hand drill${icon("chevron")}</button>`;
     return;
   }
-  const heading=`<div class="result-label"><button class="example-switch" data-action="review-example" title="Illustrative feedback; solver not connected. Cycle example verdicts." aria-label="Illustrative feedback, solver not connected. Cycle example verdicts.">Example${icon("down")}</button></div>`;
-  const samples={
-    good:{title:"Good move",loss:0,symbol:"check",why:"The same energy keeps two lanes competitive instead of adding more power to a lane already secured."},
-    close:{title:"Small loss",loss:2,symbol:"warning",why:"A different placement contests a second lane more effectively without spending more energy."},
-    mistake:{title:"Mistake",loss:14,symbol:"close",why:"The turn commits too much power to one lane, leaving too little to compete for a second."}
+  const analysis=state.analysis;
+  const available=analysis?.available;
+  const loss=available?(analysis.yours.lossNumerator/analysis.denominator).toFixed(2):null;
+  const good=available&&analysis.yours.lossNumerator===0;
+  heading.innerHTML=available
+    ? `<h2 class="review-verdict ${good?"quality-good":"quality-loss"}"><span class="review-verdict-mark" aria-hidden="true">${icon(good?"check":"close")}</span><span>EV loss: <strong>${loss}</strong></span></h2><button class="analysis-scope text-button" data-action="analysis-details" aria-label="Exact public-hand analysis: assumptions and details">Exact · public hands${icon("info")}</button>`
+    : `<h2 class="review-verdict unavailable-verdict">Analysis unavailable</h2><button class="analysis-scope text-button" data-action="analysis-details">Details${icon("info")}</button>`;
+  const row=(plan,choice,action)=>{
+    const cells=LANES.map((_,lane)=>plan.filter(item=>item.lane===lane).map(item=>cardById(item.id)?.cost).sort((a,b)=>b-a).join("+")||"—");
+    const selected=choice==="yours"?state.preview===null:state.preview===Number(choice);
+    const value=action?(action.lossNumerator/analysis.denominator).toFixed(2):"—";
+    const label=choice==="yours"?"Your Move":"Alternate";
+    return `<button type="button" class="complete-turn-row move-columns ${choice==="yours"?"submitted-row":""}" data-review-choice="${choice}" aria-pressed="${selected}" aria-label="${label}: ${escapeHtml(planLabel(plan))}. ${action?`EV loss ${value}`:"Analysis unavailable"}">${cells.map((cell,lane)=>`<span class="turn-cell turn-cell-${lane}">${cell}</span>`).join("")}<span class="turn-loss ${action?(action.lossNumerator===0?"loss-zero":"loss-positive"):"loss-unavailable"}"><span class="mobile-loss-label">EV loss: </span>${value}</span></button>`;
   };
-  const sample=samples[state.feedbackExample];
-  root.innerHTML=`${heading}<div class="result-body result-${state.feedbackExample} ${state.preview!==null?"result-comparing":""}"><div class="result-verdict"><span class="result-check ${sample.symbol==="warning"?"warning":""}" aria-hidden="true">${sample.symbol==="warning"?"!":icon(sample.symbol)}</span><h2>${sample.title}</h2></div><div class="result-loss"><strong>${sample.loss}<abbr class="loss-unit" title="Percentage points of expected match score">pp</abbr></strong><p>Value lost</p></div><button class="result-why-button" data-action="review-why" aria-expanded="${state.showWhy}">${state.showWhy?"Close":"Why?"}${icon("down")}</button>${state.showWhy?`<p class="result-explanation">${sample.why}</p>`:""}<button class="result-compare" data-action="review-compare" ${examplePlans().length?"":"disabled"}>${state.preview===null?"Compare":"Your play"}${icon(state.preview===null?"chevron":"undo")}</button><div class="result-controls"><button class="secondary-button" data-action="retry">${icon("refresh")}Retry</button></div></div>`;
+  comparison.innerHTML=`<div class="comparison-columns move-columns" aria-hidden="true"><span>Left</span><span>Middle</span><span>Right</span><span class="loss-column-heading">EV loss</span></div><h3 class="turn-section-heading" id="your-move-heading">Your Move</h3><div role="group" aria-labelledby="your-move-heading">${row(state.plan,"yours",available?analysis.yours:null)}</div><h3 class="turn-section-heading" id="alternates-heading">Alternates</h3><div role="group" aria-labelledby="alternates-heading">${available?analysis.alternates.map((action,index)=>row(action.plan,String(index),action)).join(""):`<div class="unavailable-analysis"><span>This position has no validated analysis.</span><button class="text-button" data-action="solved-drill">Open solved drill${icon("chevron")}</button></div>`}</div>`;
+  root.innerHTML="";
+}
+
+function loadSolvedDrill({review=false}={}) {
+  state.drill="solved";
+  state.mode="training";
+  state.turn=6;
+  state.deck=state.opponent="balanced";
+  state.exercise=1;
+  resetPosition({message:"Public-hand drill ready. Both players' hands are 1, 2, 4, 6. See rules for the analysis scope."});
+  if(review){
+    state.plan=[{id:state.scenario.hand.find(card=>card.cost===6).id,lane:2}];
+    submitTurn();
+  }
+}
+
+function showAnalysisDetails() {
+  const analysis=state.analysis;
+  if(!analysis?.available){
+    return openDialog("Analysis coverage",`<p>This position has no validated analysis. It remains available for arranging cards and reviewing your commitment.</p><p>The public-hand drill is a certified final-turn game with both hands known. Other turns, edited positions, hidden-hand beliefs, and cube decisions are not yet covered.</p><button class="primary-button" data-action="solved-drill">Open solved drill${icon("chevron")}</button>`);
+  }
+  const describePower=power=>power.map((value,lane)=>value?`${value} → ${LANES[lane]}`:null).filter(Boolean).join(" · ")||"Pass";
+  const resultWord=value=>value>0?"wins":value<0?"loses":"draws";
+  const branch=analysis.branch;
+  const why=analysis.yours.lossNumerator===0
+    ? "Your complete turn has maximum EV against the reference opponent strategy. Choosing a lower-frequency action once does not make it a mistake. Repeated mixing is a separate assessment."
+    : `Against ${describePower(branch.power)} (${branch.weight/analysis.denominator*100}% in this opponent strategy), your turn ${resultWord(branch.yours)}; ${planLabel(analysis.best.plan)} ${resultWord(branch.alternate)}. This is a counterfactual reply, not a revealed opponent commitment.`;
+  openDialog("Decision analysis",`<p>${escapeHtml(why)}</p><div class="outcome-probabilities" aria-label="Submitted turn outcome probabilities">${["Win","Draw","Loss"].map((label,i)=>`<div><span>${label}</span><strong>${analysis.yours.wdl[i]/analysis.denominator*100}%</strong></div>`).join("")}</div><p><strong>Outcome EV = P(win) − P(loss).</strong><br>EV loss is the difference from the best complete turn. It is not a percentage or a win probability. All values refer to your original commitment.</p><p><strong>Exact · public-hand final turn.</strong><br>Both hands: 1, 2, 4, 6. Six energy, four slots per lane side, power equals cost, no abilities or special locations. Tied lane wins use total power; equal power draws.</p><p>All ${analysis.candidateCount} legal card turns per player were checked. Integer payoff bounds certify EV +0.20 for this fixture. The three displayed alternates are evaluated against the same equilibrium opponent strategy. Other equilibrium mixtures may exist.</p><p>No hidden-hand inference, future-turn continuation, snapping, retreating, or sampled showdown is included.</p>`);
 }
 
 function render() { renderSettings(); renderBoard(); renderReview(); }
@@ -244,11 +275,11 @@ function submitTurn() {
   state.selected=null;
   state.reviewed=true;
   state.preview=null;
-  state.reviewTab="overview";
+  state.analysis=SnapAnalysis.analyze(state.scenario,state.turn,state.plan);
   state.completed.add(state.exercise);
   render();
-  announce("Turn submitted. The example review is open. All numerical feedback is illustrative.");
-  if (window.matchMedia("(max-width: 730px)").matches) $("#review-panel").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"});
+  announce(state.analysis.available?`Turn submitted. EV loss ${(state.analysis.yours.lossNumerator/state.analysis.denominator).toFixed(2)}. Exact public-hand analysis.`:"Turn submitted. Analysis is unavailable for this position.");
+  if (window.matchMedia("(max-width: 730px)").matches) $("#result-heading").scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"instant":"smooth",block:"start"});
 }
 function nextPosition() {
   state.exercise=state.exercise===12 ? 1 : state.exercise+1;
@@ -265,7 +296,7 @@ function openDialog(title,body) {
 function closeDialog() { $("#app-dialog").close(); }
 
 function showModel() {
-  openDialog("Numerical model",`<p>Numerical Snap keeps the decisions about <strong>timing, energy, and lane allocation</strong>, using cards whose power equals their energy cost.</p><ul><li>12 cards per deck. Three opening cards, then one draw at the start of each turn.</li><li>Energy equals the current turn, from 1 through 6. Unspent energy does not carry over.</li><li>Three neutral lanes, with four card slots per player in each lane.</li><li>Both players commit their entire turn before revealing their actions.</li><li>Win more lanes. If lane wins are tied, compare total power. Equal total power is a draw.</li><li>No card abilities, special locations, snapping, or retreating in this initial workspace.</li></ul><div class="dialog-notice"><strong>Milestone One · visual mockup</strong><br>Card placement and energy checks work locally. Review numbers illustrate the proposed interface. They are not solver results or recommendations for a live game.</div>`);
+  openDialog("Numerical model",`<p>Numerical Snap keeps the decisions about <strong>timing, energy, and lane allocation</strong>, using cards whose power equals their energy cost.</p><ul><li>12 cards per deck. Three opening cards, then one draw at the start of each turn.</li><li>Energy equals the current turn, from 1 through 6. Unspent energy does not carry over.</li><li>Three neutral lanes, with four card slots per player in each lane.</li><li>Both players commit their entire turn before revealing their actions.</li><li>Win more lanes. If lane wins are tied, compare total power. Equal total power is a draw.</li><li>No card abilities, special locations, snapping, or retreating.</li></ul><div class="dialog-notice"><strong>Analysis coverage</strong><br>The solved public-hand drill uses Balanced decks, turn six, and known hands of 1, 2, 4, 6 for both players. Its outcome EV is P(win) − P(loss). Other preset turns and edited positions have no validated analysis. “Unknown” does not yet run deck-belief inference.</div>`);
 }
 function showDeck(which="player") {
   const cards=deckCards(which);
@@ -277,7 +308,7 @@ function editCustomDeck(which="player") {
   openDialog(`Your ${which==="player" ? "custom deck" : "opponent’s deck"}`,`<form id="custom-deck-form" data-deck-owner="${which}"><p>Enter exactly 12 energy values between 1 and 6, separated by commas. Each card has matching power.</p><label for="custom-deck-values">Deck composition</label><textarea id="custom-deck-values" name="cards" spellcheck="false" required>${cards.join(", ")}</textarea><div class="form-error" id="deck-error" role="alert"></div><button class="primary-button" type="submit">Use this deck${icon("check")}</button></form>`);
 }
 function showGuide() {
-  openDialog("Controls",`<p><strong>1. Read the position.</strong><br>Your hand and the public board are visible. Your opponent’s hand stays hidden.</p><p><strong>2. Make a complete turn.</strong><br>Drag cards into lanes, or select a card and click a lane. Click a queued card to return it to your hand. You can also pass.</p><p><strong>3. Submit, then investigate.</strong><br>Open the review, compare alternatives, and retry the position. Your decisions are kept separate from the outcome of a particular game.</p><div class="dialog-notice">This first milestone demonstrates the experience. The review values are illustrative. Validated solver feedback is the next milestone.</div>`);
+  openDialog("Controls",`<p><strong>1. Read the position.</strong><br>Your hand and public board are visible. The solved public-hand drill additionally states both hands in its analysis scope.</p><p><strong>2. Make a complete turn.</strong><br>Drag cards into lanes, or select a card and click a lane. Click a queued card to return it to your hand. You can also pass.</p><p><strong>3. Submit, then investigate.</strong><br>Select a complete-turn row to preview all its placements. The submitted EV loss, Your EV, and Maximum EV stay fixed. Retry to make a different commitment.</p><div class="dialog-notice">Exact grading covers the included public-hand drill. Unsupported positions clearly show analysis unavailable. Submission does not reveal or simulate the opponent’s simultaneous play.</div>`);
 }
 function showShortcuts() {
   openDialog("Shortcuts",`<div class="keyboard-row"><span>Submit turn / next position</span><span class="keycap">Enter</span></div><div class="keyboard-row"><span>Undo your last placement</span><span class="keycap">Z</span></div><div class="keyboard-row"><span>Place selected card in a lane</span><span><span class="keycap">1</span><span class="keycap">2</span><span class="keycap">3</span></span></div><div class="keyboard-row"><span>Cancel selection / close dialog</span><span class="keycap">Esc</span></div><p style="margin-top:18px">Use Tab to move between controls. Select a card, then focus a lane and press Enter to place it.</p>`);
@@ -297,9 +328,8 @@ function parseCards(value,maximum,{exact=false}={}) {
 }
 
 const actions={
-  "review-example":()=>{const order=["good","close","mistake"];state.feedbackExample=order[(order.indexOf(state.feedbackExample)+1)%3];renderReview();},
-  "review-why":()=>{state.showWhy=!state.showWhy;renderReview();},
-  "review-compare":()=>{if(state.preview===null&&!examplePlans().length)return;state.preview=state.preview===null?0:null;renderBoard();renderReview();},
+  "solved-drill":()=>{if($("#app-dialog").open)closeDialog();loadSolvedDrill();},
+  "analysis-details":showAnalysisDetails,
 
   undo:()=>{if(!state.history.length||state.reviewed)return;state.plan=state.history.pop();state.selected=null;render();announce("Last placement undone.");},
   submit:submitTurn,
@@ -333,20 +363,26 @@ document.addEventListener("click",(event)=>{
   if(hand && !state.reviewed){const card=cardById(hand.dataset.cardId);if(card.cost>state.turn-usedEnergy())return toast("There isn’t enough energy for this card.");state.selected=state.selected===card.id?null:card.id;renderBoard();return;}
   const lane=event.target.closest("[data-lane]");
   if(lane&&state.selected){placeCard(state.selected,Number(lane.dataset.lane));return;}
-  const tab=event.target.closest("[data-review-tab]");
-  if(tab){state.reviewTab=tab.dataset.reviewTab;state.preview=null;renderBoard();renderReview();$( `[data-review-tab="${state.reviewTab}"]`).focus();return;}
-  const alternative=event.target.closest("[data-alternative]");
-  if(alternative){state.preview=Number(alternative.dataset.alternative);renderBoard();renderReview();return;}
+  const choice=event.target.closest("[data-review-choice]");
+  if(choice&&state.reviewed){
+    const value=choice.dataset.reviewChoice;
+    if(value!=="yours"&&!state.analysis?.alternates?.[Number(value)])return;
+    state.preview=value==="yours"?null:Number(value);
+    renderBoard();renderReview();
+    $(`[data-review-choice="${value}"]`).focus();
+    announce(`Board showing ${value==="yours"?"Your Move":planLabel(displayedPlan())}. Opponent commitment remains unresolved.`);
+    return;
+  }
   if(state.mobileSettings && !event.target.closest("#settings-panel")){state.mobileSettings=false;renderSettings();}
 });
 
 $("#player-deck").addEventListener("change",(event)=>{
   if(event.target.value==="custom"){event.target.value=state.deck;return editCustomDeck("player");}
-  state.deck=event.target.value;resetPosition({message:`${deckName(state.deck)} deck selected.`});
+  state.drill=null;state.deck=event.target.value;resetPosition({message:`${deckName(state.deck)} deck selected.`});
 });
 $("#opponent-deck").addEventListener("change",(event)=>{
   if(event.target.value==="custom"){event.target.value=state.opponent;return editCustomDeck("opponent");}
-  state.opponent=event.target.value;resetPosition({message:`Opponent: ${deckName(state.opponent).toLowerCase()}.`});
+  state.drill=null;state.opponent=event.target.value;resetPosition({message:`Opponent: ${deckName(state.opponent).toLowerCase()}.`});
 });
 
 document.addEventListener("submit",(event)=>{
@@ -355,6 +391,7 @@ document.addEventListener("submit",(event)=>{
     event.preventDefault();
     try{
       const cards=parseCards(new FormData(form).get("cards"),12,{exact:true});
+      state.drill=null;
       if(form.dataset.deckOwner==="player"){state.customDeck=cards;state.deck="custom";}
       else{state.customOpponent=cards;state.opponent="custom";}
       closeDialog();resetPosition({message:"Custom deck ready."});
@@ -366,7 +403,7 @@ document.addEventListener("submit",(event)=>{
       const data=new FormData(form);
       const read=(key,max)=>parseCards(data.get(key),max).map((cost,index)=>({cost,id:`editor-${key}-${index}`}));
       const scenario={player:[0,1,2].map((lane)=>read(`player-${lane}`,4)),opponent:[0,1,2].map((lane)=>read(`opponent-${lane}`,4)),hand:read("hand",7),custom:true};
-      state.turn=Number(data.get("turn"));state.scenario=scenario;
+      state.drill=null;state.turn=Number(data.get("turn"));state.scenario=scenario;
       closeDialog();resetPosition({newScenario:false,message:"Your position is ready to explore."});
     }catch(error){$("#position-error").textContent=error.message;}
   }
@@ -446,3 +483,6 @@ $("#app-dialog").addEventListener("close",()=>{if(dialogReturnFocus?.isConnected
 
 state.scenario=makeScenario();
 render();
+const initialParams=new URLSearchParams(window.location.search);
+if(initialParams.get("review")==="example")loadSolvedDrill({review:true});
+else if(initialParams.get("drill")==="public-hands")loadSolvedDrill();

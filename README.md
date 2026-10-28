@@ -1,54 +1,41 @@
 # Theoretical Snap
 
-A numerical Marvel Snap study workspace.
+A numerical Marvel Snap study workspace with the accepted charcoal / comic treatment and complete-turn results comparison.
 
-## Current mockup — original fidelity, charcoal ink
+## Results
 
-The original workspace supplies the visual foundation: three tall lanes, the
-opponent above the player, two-by-two slots, layered surfaces, fine borders,
-and detailed geometric hand-card artwork. A charcoal treatment adds subtle
-red, blue, and violet cues, restrained print grain, and off-white typography.
-The original stylesheet is retained with a focused `dist/akira.css` theme.
+Submit a turn to see its review. Your Move and Alternates share the board's three lane tracks. Selecting a row previews every card in its actual slots while the original EV loss, Your EV, and Maximum EV stay fixed. Card composition stays visible (`4+2`, not an interchangeable six). Unresolved plays never change the revealed lead glow.
 
-Redundant turn/hand/board/lane captions, promotional copy, placement hints, and
-position counters stay removed. Each card has one central value and clean wireframe artwork. Each lane groups its revealed total with its four slots, with room between the two players. Leadership is based only on revealed cards, with unboxed emphasized totals; a queued turn shows a small projected total and cannot flip the lead highlight. Submitted cards stay unresolved because this prototype does not reveal an opponent action. Turn buttons are fixed-size angular rectangles with a small TURN label. A single labeled Undo replaces the separate Clear and reset controls. A concealed
-review graphic occupies the side panel before submission; results retain the
-verdict-first hierarchy and compact Example disclosure.
+The original layered workspace, geometric hand cards, subtle red/blue accents, angular turn rail, single Undo, and reduced interface copy are retained. Empty slots and board cards now share 3:4 portrait proportions, with totals between the two players' grids.
 
-## Design continuity
+## Analysis coverage
 
-`DESIGN.md` records the latest screenshot review and visual direction. Read
-`docs/results-contract.md` before connecting solver feedback.
+Exact grading covers the dedicated public-hand final-turn drill and its lane rotations. Open **Public-hand drill** from the concealed review panel, or use `?drill=public-hands`. Both hands are `[1,2,4,6]`; the drill explicitly switches to compatible Balanced decks. The opponent's hand is shown before commitment.
 
-## Example feedback
+`?review=example` opens the accepted six-Right example directly in results mode. This is an explicit review/demo link; the ordinary root still opens Training with Midrange and Unknown selected and recommendations hidden.
 
-**Verdicts, losses, and explanations are illustrative fixtures, not solver grades.** The result panel labels them as examples. Its Example control cycles Good move, Small loss, and Mistake for design review. Compare previews a legal reallocation and preserves the submitted turn; it is not a certified higher-value line. No opponent response is simulated or revealed.
+Other preset turns, unknown-hand positions, and edited boards display **Analysis unavailable**. There are no fabricated verdicts or cycled example losses. The provider enumerates all 40 legal turns per side and certifies the finite equilibrium with exact integer payoff bounds. It is not a general hidden-hand or multi-turn solver.
 
-Validated solver feedback is the next milestone.
+Outcome EV = P(win) − P(loss). EV loss is the difference from the maximum available turn EV, on a 0–2 scale, not a percentage. Outcome probabilities and model scope are available on demand. No opponent commitment is sampled or revealed.
 
-## Run or open
-
-Open `theoretical-snap.html` directly in a browser. It has no external assets or dependencies.
-
-Editable source is in `dist/`. Python 3 serves the development version; Node.js checks syntax.
+## Run and validate
 
 ```sh
 npm run dev
 npm run check
+npm test
 npm run export
 ```
 
-The development URL is http://127.0.0.1:4173. Export regenerates the standalone HTML.
+Development: http://127.0.0.1:4173. Editable source is in `dist/`. Export regenerates the self-contained `theoretical-snap.html` with all styles and scripts embedded.
 
-## Numerical model
+Tests cover both rational equilibrium bounds, all 40 legal actions across the three lane rotations, passing, distinct card compositions, unsupported information states, fixed submitted evaluation during previews, six four-slot grids, retry, undo, and fixture/deck compatibility. The DOM harness does not measure actual browser layout.
 
-- Twelve cards; three opening cards and one draw at the start of each turn.
-- Six turns; energy equals the turn number and does not carry over.
-- Power equals cost; no abilities or special locations.
-- Three lanes with four slots per side.
-- Both players commit complete current-turn plans before revealing them.
-- Win more lanes; tied lane wins use total power; equal total power is a draw.
-- Planned objective: win = 1, draw = 0.5, loss = 0.
+Read `DESIGN.md` and `docs/results-contract.md` before changing interface behavior or solver claims.
+
+## Model and presets
+
+Twelve cards per deck; three opening cards and one draw per turn. Six turns, energy equal to turn, power equal to cost, four slots per player per lane. Both players commit simultaneously. Win more lanes; tied lane wins use total power; equal total power draws. No abilities or special locations.
 
 | Deck | Costs / power |
 | --- | --- |
@@ -56,20 +43,10 @@ The development URL is http://127.0.0.1:4173. Export regenerates the standalone 
 | Low curve | 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4, 5 |
 | Balanced | 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6 |
 
-These are interface presets rather than a claim to reproduce the research archive's curves. Unknown opponent proposes an equal prior over these presets. Belief updating is not implemented.
+Unknown opponent's proposed equal prior over presets and observed-play belief updates remain unimplemented. General preset boards are interactive layouts, not certified solver positions.
 
-## Controls
+## Controls and later coverage
 
-Drag a card to a lane, or select it and click a lane. Click a queued card to return it. Z undoes; 1/2/3 places a selected card. Enter submits, advances, or activates the focused button; Escape cancels selection or closes a dialog. Submitting an empty turn passes.
+Drag a card or select it and click a lane. Click a queued card to return it. Z undoes; 1/2/3 places a selected card. Enter submits or advances; Escape cancels selection. An empty commitment passes. Retry restarts the same position; Next opens another drill, not a simulated continuation. The turn rail opens drills rather than rewinding history. Playground supports edited positions and custom decks.
 
-The turn rail opens preset drills rather than rewinding the current history. Playground supports custom positions and decks.
-
-## Validation
-
-Syntax and a DOM-state harness cover 120 deck/opponent/turn combinations, draw composition, energy and capacity, comparison legality, undo, passing, all three verdict fixtures, hidden feedback, explanation and comparison controls, preservation of the submitted plan, retry, custom-value validation, and restoration of upper/lower power and slot-grid structure.
-
-The published desktop appearance has been reviewed in its saved screenshot. Interactive browser testing remains unavailable.
-
-## Later
-
-Connect validated position values, hidden-state beliefs, continuation policies, and equilibrium frequencies where solved. Further variants include slot counts, deck sizes, power ratios, a seventh Limbo turn, and cube-value snapping/retreating.
+Broader solving, hidden-hand beliefs, multi-turn continuation, and cube-aware snapping/retreating remain future work. Additional complexity levels require matching analysis providers.
