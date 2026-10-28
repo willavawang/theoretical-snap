@@ -1,6 +1,6 @@
 {
   "name": "theoretical-snap",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "private": true,
   "description": "A charcoal-print numerical Snap training mockup.",
   "scripts": {

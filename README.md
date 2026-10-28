@@ -11,7 +11,7 @@ red, blue, and violet cues, restrained print grain, and off-white typography.
 The original stylesheet is retained with a focused `dist/akira.css` theme.
 
 Redundant turn/hand/board/lane captions, promotional copy, placement hints, and
-position counters stay removed. Each card has one central value. A concealed
+position counters stay removed. Each card has one central value and the same number of background pips. Leading lanes use an edge glow and emphasized totals; tied lanes stay neutral. Turn buttons remain compact circles across breakpoints. A single labeled Undo replaces the separate Clear and reset controls. A concealed
 review graphic occupies the side panel before submission; results retain the
 verdict-first hierarchy and compact Example disclosure.
 

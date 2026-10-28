@@ -68,7 +68,6 @@ body:after {
 .workspace { background:radial-gradient(ellipse at 50% 32%,#28304017,transparent 75%); }
 .workspace-topline { display:flex;justify-content:flex-end;min-height:31px;margin-bottom:20px; }
 .workspace-tools { margin-left:auto;display:flex;align-items:center;gap:14px; }
-.reset-button { border-color:#343d4c;margin-left:0; }
 .table-wrap { gap:13px; }
 .game-table { gap:11px; }
 .game-table:before { background:radial-gradient(ellipse at 50% 70%,#829bbb09,transparent 68%); }
@@ -82,13 +81,34 @@ body:after {
   border-left-color:#c29aa70c;border-right-color:#9ec3db13;
   background-image:radial-gradient(#a3aabc0c .6px,transparent .6px);background-size:7px 7px;
 }
-.lane.opponent-leading { border-top-color:#736370; }
-.lane.player-leading { border-bottom-color:#7a879e; }
+.lane.opponent-leading {
+  border-top-color:#b18495;
+  box-shadow:inset 0 2px #b8889a70,inset 0 40px 45px -35px #c68a9b67,0 -5px 24px #c284951b,0 8px 17px #0002;
+}
+.lane.player-leading {
+  border-bottom-color:#93b8d2;
+  box-shadow:inset 0 -2px #9bc6e587,inset 0 -40px 45px -35px #83bce96e,0 7px 27px #76b2e128,0 1px 0 #06090d;
+}
+.lane.player-leading:after,.lane.opponent-leading:after {
+  content:"";position:absolute;left:16px;right:16px;height:2px;border-radius:3px;pointer-events:none;z-index:2;
+}
+.lane.player-leading:after { bottom:-1px;background:#a6d6f1a8;box-shadow:0 0 14px 3px #8cc9ef44; }
+.lane.opponent-leading:after { top:-1px;background:#d4a2b39c;box-shadow:0 0 13px 2px #d6a2b23b; }
 .lane-cap { height:48px; }
-.power-total { color:#c6ced9;font-size:25px;font-weight:650; }
-.lane.opponent-leading .opponent-cap .power-total { color:#d6b4bf; }
-.lane.player-leading .player-cap .power-total { color:#c6c5dc; }
-.lane-rank { color:#b0a2b8;opacity:.75; }
+.power-total {
+  display:inline-flex;align-items:center;justify-content:center;min-width:40px;padding:4px 8px;
+  border:1px solid transparent;border-radius:5px;color:#a3adbc;font-size:25px;font-weight:550;
+  transition:color .18s,background .18s,border-color .18s,transform .18s;
+}
+.lane.opponent-leading .opponent-cap { background:radial-gradient(ellipse at 50% 0%,#c18c9c20,transparent 76%); }
+.lane.player-leading .player-cap { background:radial-gradient(ellipse at 50% 100%,#8cbfe329,transparent 76%); }
+.lane.opponent-leading .opponent-cap .power-total {
+  color:#f6dce4;background:#b47a8f19;border-color:#b98b9d55;text-shadow:0 0 13px #ce8da56b;
+}
+.lane.player-leading .player-cap .power-total {
+  color:#e0f3ff;background:#77a8ce1f;border-color:#9bc8e35c;text-shadow:0 0 14px #8ec8ec80;
+}
+.power-total.winning-total { font-weight:750;transform:scale(1.09); }
 .board-zone,.player-zone { min-height:116px; }
 .card-grid { grid-template-rows:repeat(2,43px); }
 .empty-slot { background:#0e141e24;border-color:#717b9030; }
@@ -112,11 +132,29 @@ body:after {
 }
 .location-divider:before,.location-divider:after { top:20px;width:18px;background:#9da8b23b; }
 .location-marker { width:7px;height:7px;border:1px solid #a8a6b572;transform:rotate(45deg);box-shadow:-2px 1px 0 #bb8d9b16,2px -1px 0 #8fb9d01f; }
-.turn-rail { padding-top:7px; }
-.turn-selector { flex:1;justify-content:space-between;gap:9px;padding-bottom:7px; }
-.turn-selector:before { z-index:0;background:#454b5b; }
-.turn-button { position:relative;z-index:1;background:#171d27;border-color:#363f50;color:#8491a7; }
-.turn-button.active { background:linear-gradient(145deg,#393648,#292c3c);border-color:#938da8;color:#e0dbe9;box-shadow:0 0 16px #a6a2bf10,inset 0 1px #d6d4e40d; }
+.turn-rail {
+  --turn-size:32px;--turn-gap:12px;width:var(--turn-size);flex:0 0 var(--turn-size);
+  align-self:stretch;justify-content:center;padding:0;
+}
+.turn-selector {
+  flex:0 0 auto;align-items:center;justify-content:center;gap:var(--turn-gap);
+  width:var(--turn-size);padding:0;
+}
+.turn-selector:before { z-index:0;top:calc(var(--turn-size)/2);bottom:calc(var(--turn-size)/2);background:#454b5b70; }
+.turn-button {
+  display:grid;place-items:center;position:relative;z-index:1;padding:0;
+  flex:0 0 var(--turn-size);width:var(--turn-size);height:var(--turn-size);
+  min-width:var(--turn-size);max-width:var(--turn-size);min-height:var(--turn-size);max-height:var(--turn-size);
+  aspect-ratio:1;border-radius:50%;background:#171d27;border:1px solid #3b4454;
+  color:#929db0;font:11px/1 var(--mono);box-shadow:none;
+}
+.turn-button:before { content:"";position:absolute;inset:-6px;border-radius:50%; }
+.turn-button:hover { background:#252d3a;border-color:#7c8da7;color:#d7e1e9; }
+.turn-button.active {
+  background:linear-gradient(145deg,#403e52,#282e3e);border-color:#b1a9c8;color:#f0edf6;font-weight:700;
+  box-shadow:0 0 0 3px #aba4c610,inset 0 1px #dbd6ec12;
+}
+@media(pointer:coarse) { .turn-rail { --turn-size:34px; } }
 .hand-section { margin-top:27px; }
 .hand-heading { justify-content:flex-end;margin-bottom:17px; }
 .energy-orb { background:linear-gradient(135deg,#334658,#1e2b3c);border-color:#5f7d97;color:#bfd8e6;box-shadow:0 0 12px #7ca3cb12; }
@@ -254,13 +292,13 @@ body:after {
     </aside>
 
     <main class="workspace">
-      <div class="workspace-topline"><div class="workspace-tools"><button class="mobile-setup icon-button" data-action="toggle-setup" title="Deck settings" aria-label="Deck settings"><svg class="icon"><use href="#i-settings"/></svg></button><button class="icon-button reset-button" data-action="reset" title="Reset position" aria-label="Reset position"><svg class="icon"><use href="#i-refresh"/></svg></button></div></div>
+      <div class="workspace-topline"><div class="workspace-tools"><button class="mobile-setup icon-button" data-action="toggle-setup" title="Deck settings" aria-label="Deck settings"><svg class="icon"><use href="#i-settings"/></svg></button></div></div>
       <div class="table-wrap">
         <div class="game-table" id="game-table" aria-label="Three-lane board"></div>
         <div class="turn-rail"><div id="turn-selector" class="turn-selector" aria-label="Choose a turn drill"></div></div>
       </div>
       <div class="hand-section"><div class="hand-heading"><div class="energy-meter" aria-label="Available energy"><span class="energy-orb" aria-hidden="true"><svg><use href="#i-bolt"/></svg></span><div><strong><span id="energy-remaining">6</span><span class="energy-divider">/</span><span id="energy-total">6</span></strong></div></div></div><div class="hand" id="hand" aria-label="Your cards"></div></div>
-      <div class="action-bar"><button class="secondary-button undo-button" data-action="undo" id="undo-button" title="Undo" aria-label="Undo" disabled><svg class="icon"><use href="#i-undo"/></svg></button><button class="text-button clear-button" data-action="clear" id="clear-button" disabled>Clear</button><span class="action-spacer"></span><button class="primary-button" id="submit-button" data-action="submit">Submit<svg class="icon"><use href="#i-chevron"/></svg></button></div>
+      <div class="action-bar"><button class="secondary-button undo-button" data-action="undo" id="undo-button" title="Undo last placement (Z)" aria-label="Undo last placement" disabled><svg class="icon"><use href="#i-undo"/></svg>Undo</button><span class="action-spacer"></span><button class="primary-button" id="submit-button" data-action="submit">Submit<svg class="icon"><use href="#i-chevron"/></svg></button></div>
     </main>
 
     <aside class="review-panel" id="review-panel" aria-label="Turn review">
@@ -405,11 +443,17 @@ function miniCard(card, player, pending=false) {
 function cardArt(cost) {
   const color=CARD_COLORS[cost].ink;
   const rotation=cost*13;
+  const pips=Array.from({length:cost},(_,index)=>{
+    const angle=-Math.PI/2+index*Math.PI*2/cost;
+    const x=(50+Math.cos(angle)*42).toFixed(2);
+    const y=(50+Math.sin(angle)*42).toFixed(2);
+    return `<circle class="card-pip" cx="${x}" cy="${y}" r="2.1" fill="${color}" opacity=".88"/>`;
+  }).join("");
   const lines=Array.from({length:cost+2},(_,i)=>{
     const angle=(i/(cost+2))*Math.PI*2;
     return `<path d="M50 50 ${50+Math.cos(angle)*29} ${50+Math.sin(angle)*29}" opacity=".2"/>`;
   }).join("");
-  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" stroke-dasharray="2 5" opacity=".35"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text><circle cx="50" cy="9" r="1.5" fill="${color}" opacity=".8"/><circle cx="85.5" cy="70.5" r="1.2" fill="${color}" opacity=".6"/></svg>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" opacity=".18"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text>${pips}</svg>`;
 }
 
 function handCard(card) {
@@ -423,6 +467,7 @@ function renderBoard() {
   const plan=displayedPlan();
   const theirs=boardTotals(state.scenario.opponent);
   const ours=boardTotals(state.scenario.player);
+  const powerTotal=(value,margin)=>`<span class="power-total${margin>0?" winning-total":""}" title="${margin>0?`Currently leading by ${margin} power`:`${value} power`}" aria-label="${value} power${margin>0?`, currently leading by ${margin}`:""}">${value}</span>`;
   $("#game-table").innerHTML=LANES.map((name,lane)=>{
     const pending=plan.filter((item)=>item.lane===lane).map((item)=>cardById(item.id)).filter(Boolean);
     const added=pending.reduce((sum,card)=>sum+card.cost,0);
@@ -432,7 +477,7 @@ function renderBoard() {
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
     const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],theirs[lane]-total)}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap">${powerTotal(total,total-theirs[lane])}</div></section>`;
   }).join("");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
@@ -442,7 +487,6 @@ function renderBoard() {
   $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
   $("#undo-button").disabled=!state.history.length||state.reviewed;
-  $("#clear-button").disabled=!state.plan.length||state.reviewed;
   $("#submit-button").innerHTML=state.reviewed ? `Next${icon("chevron")}` : state.mode==="playground" ? `Review${icon("chevron")}` : `Submit${icon("chevron")}`;
   $(".workspace").classList.toggle("previewing",state.preview!==null);
 }
@@ -570,9 +614,7 @@ const actions={
   "review-why":()=>{state.showWhy=!state.showWhy;renderReview();},
   "review-compare":()=>{if(state.preview===null&&!examplePlans().length)return;state.preview=state.preview===null?0:null;renderBoard();renderReview();},
 
-  reset:()=>resetPosition({newScenario:!state.scenario.custom,message:"Position reset."}),
   undo:()=>{if(!state.history.length||state.reviewed)return;state.plan=state.history.pop();state.selected=null;render();announce("Last placement undone.");},
-  clear:()=>{if(!state.plan.length||state.reviewed)return;saveHistory();state.plan=[];state.selected=null;render();announce("Turn cleared.");},
   submit:submitTurn,
   retry:()=>resetPosition({newScenario:false,message:"Turn reset."}),
   next:nextPosition,

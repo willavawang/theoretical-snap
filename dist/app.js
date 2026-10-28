@@ -131,11 +131,17 @@ function miniCard(card, player, pending=false) {
 function cardArt(cost) {
   const color=CARD_COLORS[cost].ink;
   const rotation=cost*13;
+  const pips=Array.from({length:cost},(_,index)=>{
+    const angle=-Math.PI/2+index*Math.PI*2/cost;
+    const x=(50+Math.cos(angle)*42).toFixed(2);
+    const y=(50+Math.sin(angle)*42).toFixed(2);
+    return `<circle class="card-pip" cx="${x}" cy="${y}" r="2.1" fill="${color}" opacity=".88"/>`;
+  }).join("");
   const lines=Array.from({length:cost+2},(_,i)=>{
     const angle=(i/(cost+2))*Math.PI*2;
     return `<path d="M50 50 ${50+Math.cos(angle)*29} ${50+Math.sin(angle)*29}" opacity=".2"/>`;
   }).join("");
-  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" stroke-dasharray="2 5" opacity=".35"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text><circle cx="50" cy="9" r="1.5" fill="${color}" opacity=".8"/><circle cx="85.5" cy="70.5" r="1.2" fill="${color}" opacity=".6"/></svg>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" opacity=".18"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text>${pips}</svg>`;
 }
 
 function handCard(card) {
@@ -149,6 +155,7 @@ function renderBoard() {
   const plan=displayedPlan();
   const theirs=boardTotals(state.scenario.opponent);
   const ours=boardTotals(state.scenario.player);
+  const powerTotal=(value,margin)=>`<span class="power-total${margin>0?" winning-total":""}" title="${margin>0?`Currently leading by ${margin} power`:`${value} power`}" aria-label="${value} power${margin>0?`, currently leading by ${margin}`:""}">${value}</span>`;
   $("#game-table").innerHTML=LANES.map((name,lane)=>{
     const pending=plan.filter((item)=>item.lane===lane).map((item)=>cardById(item.id)).filter(Boolean);
     const added=pending.reduce((sum,card)=>sum+card.cost,0);
@@ -158,7 +165,7 @@ function renderBoard() {
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
     const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap"><span class="power-total">${theirs[lane]}</span>${theirs[lane]>total?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap"><span class="power-total">${total}</span>${total>theirs[lane]?`<span class="lane-rank">${icon("chevron")}</span>`:""}</div></section>`;
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],theirs[lane]-total)}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap">${powerTotal(total,total-theirs[lane])}</div></section>`;
   }).join("");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
@@ -168,7 +175,6 @@ function renderBoard() {
   $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
   $("#undo-button").disabled=!state.history.length||state.reviewed;
-  $("#clear-button").disabled=!state.plan.length||state.reviewed;
   $("#submit-button").innerHTML=state.reviewed ? `Next${icon("chevron")}` : state.mode==="playground" ? `Review${icon("chevron")}` : `Submit${icon("chevron")}`;
   $(".workspace").classList.toggle("previewing",state.preview!==null);
 }
@@ -296,9 +302,7 @@ const actions={
   "review-why":()=>{state.showWhy=!state.showWhy;renderReview();},
   "review-compare":()=>{if(state.preview===null&&!examplePlans().length)return;state.preview=state.preview===null?0:null;renderBoard();renderReview();},
 
-  reset:()=>resetPosition({newScenario:!state.scenario.custom,message:"Position reset."}),
   undo:()=>{if(!state.history.length||state.reviewed)return;state.plan=state.history.pop();state.selected=null;render();announce("Last placement undone.");},
-  clear:()=>{if(!state.plan.length||state.reviewed)return;saveHistory();state.plan=[];state.selected=null;render();announce("Turn cleared.");},
   submit:submitTurn,
   retry:()=>resetPosition({newScenario:false,message:"Turn reset."}),
   next:nextPosition,

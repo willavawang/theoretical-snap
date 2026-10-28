@@ -55,6 +55,10 @@ frames, and controlled hatching. Dark hand cards regain the first version’s
 geometric energy artwork and fine inner borders, with one central number.
 Cost and power are the same in this model; avoid duplicate numeral badges.
 Board-card numbers recede; lane totals and slot occupancy stay prominent.
+The currently leading side gets an edge glow and a brighter, heavier total;
+ties get neither. Avoid lane chevrons. Card artwork has exactly as many
+background pips as its value. Use a single labeled Undo beside Submit;
+Clear and the separate reset icon above the turn rail are removed.
 The concealed-review graphic gives the panel an intentional inactive state.
 Avoid heavy paper-card slabs, broad white frames, and flat monochrome recasts.
 
@@ -62,7 +66,9 @@ Avoid heavy paper-card slabs, broad white frames, and flat monochrome recasts.
 
 Use functional labels. The board has no visible hand/board headings, duplicate
 turn badge, lane-name captions, position counter, placement instructions, or
-empty-results prompt. The numbered turn rail and energy meter provide state.
+empty-results prompt. The numbered turn rail and energy meter provide state. Turn buttons are compact
+fixed-size circles with equal gaps, vertically centered beside the lanes.
+They never stretch to fill the board height.
 Keep deck labels, actionable control names, error messages, and the illustrative
 result badge. Put model explanations and help behind their controls.
 
