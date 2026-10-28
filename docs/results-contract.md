@@ -10,6 +10,15 @@ includes affordable cards, their lane assignments, passing, and relevant order
 when abilities are introduced. A card-by-card greedy recommendation is not a
 substitute for comparing complete turns.
 
+## Revealed board versus unresolved turn
+
+Lane leadership and its glow describe only cards already revealed. A queued
+or submitted action cannot establish a lane win before the opponent's turn is
+revealed. Show the revealed total as the primary figure and an explicitly
+projected secondary total for unresolved cards. Alternative previews follow
+the same rule. The current prototype does not resolve an opponent action, so
+submission alone must not convert its planned cards into revealed board state.
+
 ## Values
 
 For the fixed-stakes baseline, use terminal score win = 1, draw = 0.5, loss = 0.

@@ -110,7 +110,7 @@ function placeCard(id, lane) {
   state.plan = [...others,{id,lane}];
   state.selected=null;
   render();
-  announce(`${card.cost}-energy card placed in ${LANES[lane].toLowerCase()} lane. ${state.turn-usedEnergy()} energy remaining.`);
+  announce(`${card.cost}-energy card queued in ${LANES[lane].toLowerCase()} lane. ${state.turn-usedEnergy()} energy remaining.`);
 }
 
 function removeCard(id) {
@@ -123,25 +123,21 @@ function removeCard(id) {
   announce("Card returned to your hand.");
 }
 
-function miniCard(card, player, pending=false) {
+function miniCard(card, player, pending=false, planned=false) {
   const tag=pending ? "button" : "span";
-  return `<${tag} class="mini-card ${player ? "player-card" : ""} ${pending ? "pending-card" : ""}" ${pending ? `data-pending="${card.id}" data-card-id="${card.id}" aria-label="${card.cost} power, pending. Click to return this card to your hand."` : `aria-label="${card.cost} power"`}><span class="mini-value">${card.cost}</span>${pending ? '<span class="pending-remove" aria-hidden="true">×</span>' : ""}</${tag}>`;
+  const phase=state.preview!==null ? "alternative, unresolved" : state.reviewed ? "submitted, unresolved" : "queued, unresolved";
+  const label=`${card.cost} power${planned?`, ${phase}`:""}${pending?". Click to return this card to your hand.":""}`;
+  return `<${tag} class="mini-card ${player ? "player-card" : ""} ${pending ? "pending-card" : ""} ${planned ? "planned-card" : ""}" ${pending ? `data-pending="${card.id}" data-card-id="${card.id}"` : ""} aria-label="${label}"><span class="mini-value">${card.cost}</span>${pending ? '<span class="pending-remove" aria-hidden="true">×</span>' : ""}</${tag}>`;
 }
 
 function cardArt(cost) {
   const color=CARD_COLORS[cost].ink;
   const rotation=cost*13;
-  const pips=Array.from({length:cost},(_,index)=>{
-    const angle=-Math.PI/2+index*Math.PI*2/cost;
-    const x=(50+Math.cos(angle)*42).toFixed(2);
-    const y=(50+Math.sin(angle)*42).toFixed(2);
-    return `<circle class="card-pip" cx="${x}" cy="${y}" r="2.1" fill="${color}" opacity=".88"/>`;
-  }).join("");
   const lines=Array.from({length:cost+2},(_,i)=>{
     const angle=(i/(cost+2))*Math.PI*2;
     return `<path d="M50 50 ${50+Math.cos(angle)*29} ${50+Math.sin(angle)*29}" opacity=".2"/>`;
   }).join("");
-  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" opacity=".18"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text>${pips}</svg>`;
+  return `<svg viewBox="0 0 100 100" aria-hidden="true"><defs><radialGradient id="glow-${cost}"><stop stop-color="${color}" stop-opacity=".22"/><stop offset="1" stop-color="${color}" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="50" r="48" fill="url(#glow-${cost})"/><g fill="none" stroke="${color}" stroke-width=".7"><circle cx="50" cy="50" r="34" opacity=".18"/><path d="m50 9 35.5 20.5v41L50 91 14.5 70.5v-41z" opacity=".14"/>${lines}<g transform="rotate(${rotation} 50 50)"><path d="M50 19 77 35v30L50 81 23 65V35Z" opacity=".55" fill="${color}" fill-opacity=".05"/><path d="m50 29 18 10v22L50 71 32 61V39Z" opacity=".25"/><path d="M50 19v62M23 35l54 30M77 35 23 65" opacity=".2"/></g></g><text x="50" y="61" fill="${color}" text-anchor="middle" font-size="33" font-family="-apple-system,BlinkMacSystemFont,sans-serif" font-weight="600" style="paint-order:stroke;stroke:#1d222b;stroke-width:3">${cost}</text></svg>`;
 }
 
 function handCard(card) {
@@ -155,23 +151,26 @@ function renderBoard() {
   const plan=displayedPlan();
   const theirs=boardTotals(state.scenario.opponent);
   const ours=boardTotals(state.scenario.player);
-  const powerTotal=(value,margin)=>`<span class="power-total${margin>0?" winning-total":""}" title="${margin>0?`Currently leading by ${margin} power`:`${value} power`}" aria-label="${value} power${margin>0?`, currently leading by ${margin}`:""}">${value}</span>`;
+  const powerTotal=(value,margin,projected=null)=>`<span class="power-total${margin>0?" leading-total":""}" title="${margin>0?`Revealed board: ahead by ${margin} power`:`${value} revealed power`}" aria-label="${value} revealed power${margin>0?`, ahead by ${margin}`:""}">${value}</span>${projected!==null?`<span class="planned-total" title="Planned total: ${projected}. The opponent's current-turn play is not revealed." aria-label="Planned total ${projected}; opponent turn unresolved"><span class="projection-arrow" aria-hidden="true">→</span><span>${projected}</span></span>`:""}`;
   $("#game-table").innerHTML=LANES.map((name,lane)=>{
     const pending=plan.filter((item)=>item.lane===lane).map((item)=>cardById(item.id)).filter(Boolean);
     const added=pending.reduce((sum,card)=>sum+card.cost,0);
-    const total=ours[lane]+added;
-    const leading=theirs[lane]>total ? "opponent-leading" : theirs[lane]<total ? "player-leading" : "";
+    const projected=ours[lane]+added;
+    // Leadership describes only the revealed board. Neither queued nor
+    // submitted-but-unresolved cards establish a current-turn lane result.
+    const margin=ours[lane]-theirs[lane];
+    const leader=margin>0?"player":margin<0?"opponent":"tie";
+    const leading=leader==="tie"?"":`${leader}-leading`;
     const available=state.scenario.player[lane].length+pending.length<4;
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" tabindex="0" aria-label="${name} lane. Opponent ${theirs[lane]} power. You ${total} power. ${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to place your selected card." : ""}"><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],theirs[lane]-total)}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap">${powerTotal(total,total-theirs[lane])}</div></section>`;
+    const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed,true)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" data-revealed-leader="${leader}" tabindex="0" aria-label="${name} lane. Revealed power: opponent ${theirs[lane]}, you ${ours[lane]}. ${added?`Your planned total ${projected}; opponent turn unresolved. `:""}${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to queue your selected card." : ""}"><div class="lane-side opponent-side"><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],-margin)}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="lane-side player-side"><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap">${powerTotal(ours[lane],margin,added?projected:null)}</div></div></section>`;
   }).join("");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
   const remaining=state.scenario.hand.length-plan.length;
   $("#hand").classList.toggle("empty",remaining===0);
-
   $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
   $("#undo-button").disabled=!state.history.length||state.reviewed;

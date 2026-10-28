@@ -11,7 +11,7 @@ red, blue, and violet cues, restrained print grain, and off-white typography.
 The original stylesheet is retained with a focused `dist/akira.css` theme.
 
 Redundant turn/hand/board/lane captions, promotional copy, placement hints, and
-position counters stay removed. Each card has one central value and the same number of background pips. Leading lanes use an edge glow and emphasized totals; tied lanes stay neutral. Turn buttons remain compact circles across breakpoints. A single labeled Undo replaces the separate Clear and reset controls. A concealed
+position counters stay removed. Each card has one central value and clean wireframe artwork. Each lane groups its revealed total with its four slots, with room between the two players. Leadership is based only on revealed cards, with unboxed emphasized totals; a queued turn shows a small projected total and cannot flip the lead highlight. Submitted cards stay unresolved because this prototype does not reveal an opponent action. Turn buttons are fixed-size angular rectangles with a small TURN label. A single labeled Undo replaces the separate Clear and reset controls. A concealed
 review graphic occupies the side panel before submission; results retain the
 verdict-first hierarchy and compact Example disclosure.
 
