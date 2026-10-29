@@ -86,3 +86,8 @@ reduced-motion preferences. Keep totals and slots anchored during transitions.
 See `docs/results-contract.md`. Distinguish action value from sampled outcome,
 expected match score from win probability, and action quality from mixing
 frequency. Label model scope and uncertainty. Exact grading now covers only the public-hand final-turn drill and its lane rotations. Other positions must show analysis unavailable. The default Midrange / Unknown workspace and deck presets are retained; the dedicated solved drill explicitly switches to Balanced decks with known hands. See `docs/results-contract.md` for coverage and scoring units.
+
+
+## Playing-solver workbench
+
+The numerical engine in `dist/solver/` and separate `dist/solver.html` workbench add configurable hidden deck ranges, CFR, full continuations, and measured accuracy diagnostics. They do not replace the trainer's bounded `dist/analysis.js` provider or alter its board geometry. Keep research controls and performance diagnostics in the workbench; integrating a validated general provider into the trainer is a separate change. See `docs/solver/README.md` and `docs/solver/engineering-report.md`.

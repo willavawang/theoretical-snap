@@ -1,6 +1,6 @@
 # Theoretical Snap
 
-A numerical Marvel Snap study workspace with the accepted charcoal / comic treatment and complete-turn results comparison.
+A numerical Marvel Snap study workspace, with a separate CFR playing-solver engine and benchmark workbench.
 
 ## Results
 
@@ -18,12 +18,21 @@ Other preset turns, unknown-hand positions, and edited boards display **Analysis
 
 Outcome EV = P(win) − P(loss). EV loss is the difference from the maximum available turn EV, on a 0–2 scale, not a percentage. Outcome probabilities and model scope are available on demand. No opponent commitment is sampled or revealed.
 
+## Playing solver
+
+Open `/solver.html` when serving `dist/`. The separate workbench supports configurable private deck/hand ranges, simultaneous commitments, future hidden draws, mixed strategies, action EV/WDL/loss, and accuracy diagnostics. Solving runs in a cancellable Web Worker; identical public-position policies can resume from IndexedDB checkpoints. This does not alter the trainer's current fixture-only grading.
+
+The engine uses Bayesian matrix CFR+ for terminal turns, full-tree CFR with exhaustive best responses for small continuations, and outcome-sampling MCCFR for larger games. All legal moves remain available to both players. Larger sampled runs currently return provisional estimates: fast output does not establish equilibrium.
+
+Read the [rules and API](docs/solver/README.md), [engineering findings](docs/solver/engineering-report.md), and [reproducible benchmark data](benchmarks/solver-results.json). Browser-specific timings remain to be measured using **Benchmark this browser** in the workbench.
+
 ## Run and validate
 
 ```sh
 npm run dev
 npm run check
 npm test
+npm run benchmark:solver
 npm run export
 ```
 
@@ -35,7 +44,7 @@ Read `DESIGN.md` and `docs/results-contract.md` before changing interface behavi
 
 ## Model and presets
 
-Twelve cards per deck; three opening cards and one draw per turn. Six turns, energy equal to turn, power equal to cost, four slots per player per lane. Both players commit simultaneously. Win more lanes; tied lane wins use total power; equal total power draws. No abilities or special locations.
+Twelve cards per deck; three opening cards and one draw at the start of every turn (four available on turn one). Hand limit seven; a full hand skips its draw. Unspent energy expires. Six turns, energy equal to turn, power equal to cost, four slots per player per lane. Both players commit simultaneously. Win more lanes; tied lane wins use total power; equal total power draws. No abilities or special locations.
 
 | Deck | Costs / power |
 | --- | --- |
@@ -43,10 +52,10 @@ Twelve cards per deck; three opening cards and one draw per turn. Six turns, ene
 | Low curve | 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4, 5 |
 | Balanced | 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6 |
 
-Unknown opponent's proposed equal prior over presets and observed-play belief updates remain unimplemented. General preset boards are interactive layouts, not certified solver positions.
+The separate solver defaults to equal private priors over these three presets for both players. It supports custom distributions and explicit historical belief assumptions. The trainer's Unknown control remains unconnected to that engine; its general preset boards are interactive layouts, not certified solver positions.
 
 ## Controls and later coverage
 
 Drag a card or select it and click a lane. Click a queued card to return it. Z undoes; 1/2/3 places a selected card. Enter submits or advances; Escape cancels selection. An empty commitment passes. Retry restarts the same position; Next opens another drill, not a simulated continuation. The turn rail opens drills rather than rewinding history. Playground supports edited positions and custom decks.
 
-Broader solving, hidden-hand beliefs, multi-turn continuation, and cube-aware snapping/retreating remain future work. Additional complexity levels require matching analysis providers.
+The playing engine now models hidden decks and multi-turn continuations. A converged broad full-game strategy, safe online re-solving, equilibrium deck construction, trainer integration, and cube-aware snapping/retreating remain further work.

@@ -1,12 +1,12 @@
 # Results contract
 
-Implemented scope: the accepted results handoff, 2026-10-28. Exact analysis is connected only to the included public-hand final-turn fixture and its three lane rotations. General preset positions and edited positions are ungraded.
+Trainer scope: the accepted results handoff, 2026-10-28. Exact analysis is connected only to the included public-hand final-turn fixture and its three lane rotations. General preset positions and edited positions are ungraded.
 
 ## Unit and information set
 
 Evaluate a complete legal turn: every affordable card and lane assignment, including passing. Preserve card composition in each row. Relevant play order must be added to the model when abilities are introduced. Never grade using an opponent commitment learned after the player's decision.
 
-The solved drill states the opponent's public hand before submission. In ordinary positions the opponent hand is unknown and analysis is unavailable. The proposed equal deck prior and belief updater have not been implemented; do not describe the current Unknown setting as an inference engine.
+The solved drill states the opponent's public hand before submission. In ordinary positions the opponent hand is unknown and analysis is unavailable. The trainer's Unknown setting is not yet connected to a belief updater. The separate playing-solver engine implements configurable deck priors and explicit historical belief models; do not transfer its coverage claims to this trainer setting.
 
 ## EV convention
 
@@ -67,3 +67,17 @@ Against six Middle (20% of this reference opponent mixture), six Right loses whi
 ## Research archive coverage
 
 The older v0.5 research archive's no-card allocation dynamic program permits all integer allocations of six points, unlike the card/energy/slot action space here. It is not the trainer's provider. Its restricted cube module covers a one-sided final-turn offer, without counter-snap or earlier cube-aware strategy; its portability issues also remain separate from this integration.
+
+## General playing-solver workbench
+
+`dist/solver/engine.js` implements the numerical game independently of the trainer's rational fixture provider. Its full-tree and Bayesian matrix paths compute exhaustive numerical best-response bounds while keeping deviations identical across indistinguishable hidden states. Its outcome-sampling MCCFR path supports larger continuations, with unvisited information states extending the strategy uniformly. All legal actions remain available; a resource cap stops training rather than removing choices.
+
+`analysis.strategyValidated` requires both the global Nash gap and the maximum conditional root-private-type deviation gain to meet the requested tolerance (default 0.01 outcome EV). Merely having computed bounds, a high iteration count, or a stable strategy is insufficient. `diagnostics.certified` alone means exhaustive deviation bounds were evaluated; they may still be large.
+
+Action frequency is reported separately from EV loss. Workbench grading compares complete action EVs against the same averaged opponent strategy, using a default 0.02 EV-loss tolerance. Uncertified sampled runs are always provisional; rollout EVs report simultaneous Hoeffding uncertainty. These are approximate numerical results, not the exact rational bounds of the public-hand drill.
+
+Both players' public private-state distributions must be supplied. An actual hand is a separate query; it must never replace its public prior, reveal itself to the opponent, or rebuild that opponent's strategy. Custom correlated joint beliefs are supported. Draws are without replacement; private draw histories are remembered.
+
+Default midgame examples condition on explicitly uniform historical legal play. They are not equilibrium-history posteriors. `SnapRanges.fromReferencePolicy` conditions on an averaged full-game reference policy, preserving private histories and reporting unvisited-policy fallbacks. A well-solved supplied-range continuation is not, by itself, a guarantee of safe full-game re-solving.
+
+See [rules and API](solver/README.md) and [engineering results](solver/engineering-report.md). Deck-construction equilibrium, cubes, a certified broad full-game strategy, safe online re-solving and general trainer integration remain further work.

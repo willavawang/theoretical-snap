@@ -58,6 +58,15 @@ module.exports=function checks(S,R){
   equal(s.diagnostics().certified,false);
   ok(s.analyze({hand:[1,2,4,6],remaining:[3,5,6]},{samplesPerAction:40}).actions.every(a=>a.grade==='provisional'));
  });
+ test('Sampled private future draws approach an independently enumerated two-turn equilibrium',()=>{
+  const model={turn:1,rules:{turns:2,deckSize:null},ranges:[0,1].map(()=>[{hand:[1],remaining:[1,2]}])};
+  const exact=new S.Solver(model,{algorithm:'full'}),initialGap=exact.diagnostics().nashGap;
+  exact.run({iterations:1000,targetGap:.01});ok(exact.diagnostics().nashGap<.01);ok(Math.abs(exact.diagnostics().value)<1e-10);
+  const sampled=new S.Solver(model,{algorithm:'sampled',seed:71});sampled.run({iterations:80000});
+  for(const [key,n]of exact.nodes){const source=sampled.nodes.get(key);if(source)n.average.set(source.average);else n.average.fill(0);}
+  const measured=exact.diagnostics();ok(measured.nashGap<.12);ok(measured.nashGap<initialGap/4);
+  equal(sampled.diagnostics().certified,false);
+ });
  test('Chance is without replacement, full-hand draws are skipped, and private observations are remembered',()=>{
   const m=S.normalizeModel({turn:1,rules:{turns:3,deckSize:null},ranges:[0,1].map(()=>[{hand:[1,2,3,4,5,6,6],remaining:[1,2]}])});
   let s=S.initialState(m,{players:m.ranges.map(r=>r[0])});const pass=S.legalActions(s.players[0].hand,1,[0,0,0])[0];s=S.apply(S.apply(s,pass,m),pass,m);

@@ -13,7 +13,7 @@ async function solve(request,token,emit=true){
  const solver=new SnapSolver.Solver(model,options),id=await cacheKey(solver);let cached=false,cacheError=null;
  if(request.cache!==false&&request.readCache!==false)try{const old=await cacheRead(id);if(old){solver.restore(old);cached=true;}}catch(e){cacheError=String(e);}
  const initialIterations=solver.iterations,trainStart=performance.now(),budget=request.maxMs===undefined?2000:request.maxMs,maxIterations=request.iterations===undefined?10000:request.iterations,target=request.targetGap===undefined?.01:request.targetGap;
- let last=solver.stats(),lastEmission=0;
+ let last=solver.stats(),lastEmission=-Infinity;
  while(generation===token&&solver.iterations-initialIterations<maxIterations&&performance.now()-trainStart<budget){
   if(last.diagnostics.certified&&last.diagnostics.nashGap<=target&&last.diagnostics.maxConditionalGain<=target)break;
   last=solver.run({iterations:Math.min(50,maxIterations-(solver.iterations-initialIterations)),maxMs:25,targetGap:target});
@@ -43,7 +43,7 @@ onmessage=async event=>{
     results.push({name,coldMs:cold.solveWallMs,warmMs:warm?.cached?warm.solveWallMs:null,cacheAvailable:!!warm?.cached,coldWasCached:cold.cached,converged:cold.analysis.strategyValidated,gap:cold.stats.diagnostics.nashGap,maxConditionalGain:cold.stats.diagnostics.maxConditionalGain,states:cold.stats.informationStates,checkpointBytes:cold.checkpointBytes,algorithm:cold.stats.algorithm});
     postMessage({type:'benchmark-progress',results});
    }
-   postMessage({type:'benchmark-result',results,metadata:{engineVersion:SnapSolver.VERSION,userAgent:typeof navigator==='object'?navigator.userAgent:'unknown',hardwareConcurrency:typeof navigator==='object'?navigator.hardwareConcurrency:null,budgetMs:1500,targetGap:.01,measurement:'This browser Worker. Existing IndexedDB cache hits are identified; they are not fresh cold solves.'}});
+   postMessage({type:'benchmark-result',results,metadata:{engineVersion:SnapSolver.VERSION,userAgent:typeof navigator==='object'?navigator.userAgent:'unknown',hardwareConcurrency:typeof navigator==='object'?navigator.hardwareConcurrency:null,budgetMs:1500,targetGap:.01,measurement:'This browser Worker. Cold runs bypass existing cache; warm runs restore the immediately preceding checkpoint. Unavailable storage is reported.'}});
   }else{
    const result=await solve(request,token,true);if(result&&generation===token)postMessage({type:'result',...result});
   }
