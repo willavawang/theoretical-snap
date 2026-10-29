@@ -151,9 +151,7 @@ function renderBoard() {
   const plan=displayedPlan();
   const theirs=boardTotals(state.scenario.opponent);
   const ours=boardTotals(state.scenario.player);
-  const powerTotal=(value,margin,projected=null)=>state.reviewed && projected!==null
-    ? `<span class="previous-total" aria-hidden="true">${value} →</span><span class="power-total projected-total" title="Projected ${projected}; opponent commitment is unresolved" aria-label="${value} revealed power, projected ${projected}; opponent commitment unresolved">${projected}</span>`
-    : `<span class="power-total${margin>0?" leading-total":""}" title="${margin>0?`Revealed board: ahead by ${margin} power`:`${value} revealed power`}" aria-label="${value} revealed power${margin>0?`, ahead by ${margin}`:""}">${value}</span>${projected!==null?`<span class="planned-total" title="Planned total: ${projected}. The opponent's current-turn play is not revealed." aria-label="Planned total ${projected}; opponent turn unresolved"><span class="projection-arrow" aria-hidden="true">→</span><span>${projected}</span></span>`:""}`;
+  const powerTotal=(value,margin,projected=null)=>`<span class="power-total${margin>0?" leading-total":""}" title="${margin>0?`Revealed board: ahead by ${margin} power`:`${value} revealed power`}" aria-label="${value} revealed power${margin>0?`, ahead by ${margin}`:""}">${value}</span>${projected!==null?`<span class="planned-total" title="Planned total: ${projected}. The opponent's current-turn play is not revealed." aria-label="Planned total ${projected}; opponent turn unresolved"><span class="projection-arrow" aria-hidden="true">→</span><span>${projected}</span></span>`:""}`;
   $("#game-table").innerHTML=LANES.map((name,lane)=>{
     const pending=plan.filter((item)=>item.lane===lane).map((item)=>cardById(item.id)).filter(Boolean);
     const added=pending.reduce((sum,card)=>sum+card.cost,0);
@@ -167,8 +165,8 @@ function renderBoard() {
     const target=state.selected && available && !state.reviewed;
     const slots=(cards,player)=>[...cards.map((card)=>miniCard(card,player)),...Array.from({length:Math.max(0,4-cards.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
     const selfCards=[...state.scenario.player[lane].map((card)=>miniCard(card,true)),...pending.map((card)=>miniCard(card,true,state.preview===null&&!state.reviewed,true)),...Array.from({length:Math.max(0,4-state.scenario.player[lane].length-pending.length)},()=>'<span class="empty-slot" aria-hidden="true"></span>')].join("");
-    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" data-revealed-leader="${leader}" tabindex="0" aria-label="${name} lane. Revealed power: opponent ${theirs[lane]}, you ${ours[lane]}. ${added?`Your planned total ${projected}; opponent turn unresolved. `:""}${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to queue your selected card." : ""}"><div class="lane-side opponent-side"><div class="board-zone opponent-zone"><div class="card-grid" role="group" aria-label="Opponent ${name}: ${state.scenario.opponent[lane].length} of 4 slots occupied">${slots(state.scenario.opponent[lane],false)}</div></div><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],-margin)}</div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="lane-side player-side"><div class="lane-cap player-cap">${powerTotal(ours[lane],margin,added?projected:null)}</div><div class="board-zone player-zone"><div class="card-grid" role="group" aria-label="Your ${name}: ${state.scenario.player[lane].length+pending.length} of 4 slots occupied">${selfCards}</div></div></div></section>`;
-  }).join("")+(state.reviewed?`<dl class="ev-context" aria-label="Expected values for the original submitted turn"><div><dt>Your EV</dt><dd>${state.analysis?.available?signedEV(state.analysis.yours.evNumerator/state.analysis.denominator):"—"}</dd></div><div><dt>Maximum EV</dt><dd>${state.analysis?.available?signedEV(state.analysis.maximumNumerator/state.analysis.denominator):"—"}</dd></div></dl>`:"");
+    return `<section class="lane ${leading} ${target ? "selected-target" : ""}" data-lane="${lane}" data-revealed-leader="${leader}" tabindex="0" aria-label="${name} lane. Revealed power: opponent ${theirs[lane]}, you ${ours[lane]}. ${added?`Your planned total ${projected}; opponent turn unresolved. `:""}${4-state.scenario.player[lane].length-pending.length} free slots. ${state.selected ? "Press Enter to queue your selected card." : ""}"><div class="lane-side opponent-side"><div class="lane-cap opponent-cap">${powerTotal(theirs[lane],-margin)}</div><div class="board-zone opponent-zone"><div class="card-grid">${slots(state.scenario.opponent[lane],false)}</div></div></div><div class="location-divider" aria-hidden="true"><span class="location-marker"></span></div><div class="lane-side player-side"><div class="board-zone player-zone"><div class="card-grid">${selfCards}</div></div><div class="lane-cap player-cap">${powerTotal(ours[lane],margin,added?projected:null)}</div></div></section>`;
+  }).join("");
   $("#turn-selector").innerHTML=[6,5,4,3,2,1].map(turn=>`<button class="turn-button ${state.turn===turn?"active":""}" data-turn="${turn}" aria-label="Practice turn ${turn}" aria-current="${state.turn===turn?"step":"false"}">${turn}</button>`).join("");
   $("#hand").innerHTML=state.scenario.hand.filter((card)=>!plan.some((item)=>item.id===card.id)).map(handCard).join("");
   const remaining=state.scenario.hand.length-plan.length;
@@ -176,11 +174,10 @@ function renderBoard() {
   $("#energy-remaining").textContent=state.turn-usedEnergy(plan);
   $("#energy-total").textContent=state.turn;
   $("#undo-button").disabled=!state.history.length||state.reviewed;
-  $("#undo-button").hidden=state.reviewed;
-  $("#retry-button").hidden=!state.reviewed;
   $("#submit-button").innerHTML=state.reviewed ? `Next${icon("chevron")}` : state.mode==="playground" ? `Review${icon("chevron")}` : `Submit${icon("chevron")}`;
   $(".workspace").classList.toggle("previewing",state.preview!==null);
-  $(".workspace").classList.toggle("reviewing-submitted",state.reviewed&&state.preview===null);
+  $("#undo-button").hidden=state.reviewed;
+  $("#retry-button").hidden=!state.reviewed;
   $(".app-layout").classList.toggle("results-open",state.reviewed);
 }
 
@@ -215,12 +212,12 @@ function signedEV(value) {
 }
 
 function renderReview() {
-  const root=$("#review-content"), heading=$("#result-heading"), comparison=$("#comparison-panel");
-  heading.hidden=comparison.hidden=!state.reviewed;
+  const root=$("#review-content"), heading=$("#result-heading"), comparison=$("#comparison-panel"), mobileContext=$("#mobile-review-context");
+  heading.hidden=comparison.hidden=mobileContext.hidden=!state.reviewed;
   $("#review-panel").classList.toggle("review-idle",!state.reviewed);
   if (!state.reviewed) {
-    heading.innerHTML=comparison.innerHTML="";
-    root.innerHTML=`<div class="review-panel-heading" aria-hidden="true">${icon("chart")}<span class="review-heading-rule"></span></div><div class="concealed-review" role="img" aria-label="Review is available after you submit your turn."><div class="concealed-grid"></div><svg class="concealed-routes" viewBox="0 0 240 220" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".6"><path d="M-12 210C105 198 43 33 118 37S153 170 252 186"/><path d="M-10 218C111 203 49 37 120 42S151 174 250 195"/><circle cx="120" cy="110" r="66" stroke-dasharray="1 7"/></g></svg><span class="lock-orbit">${icon(state.mode==="training"?"lock":"lab")}</span></div><button class="solved-drill-link text-button" data-action="solved-drill">Public-hand drill${icon("chevron")}</button>`;
+    heading.innerHTML=comparison.innerHTML=mobileContext.innerHTML="";
+    root.innerHTML=`<div class="review-panel-heading" aria-hidden="true">${icon("chart")}<span class="review-heading-rule"></span></div><div class="concealed-review" role="img" aria-label="Review is available after you submit your turn."><div class="concealed-grid"></div><svg class="concealed-routes" viewBox="0 0 240 220" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width=".6"><path d="M-12 210C105 198 43 33 118 37S153 170 252 186"/><path d="M-10 218C111 203 49 37 120 42S151 174 250 195"/><path d="M-8 226C117 210 55 42 122 47S148 179 248 204"/><circle cx="120" cy="110" r="66" stroke-dasharray="1 7"/></g></svg><span class="lock-orbit">${icon(state.mode==="training"?"lock":"lab")}</span></div><button class="solved-drill-link text-button" data-action="solved-drill">Public-hand drill${icon("chevron")}</button>`;
     return;
   }
   const analysis=state.analysis;
@@ -228,17 +225,19 @@ function renderReview() {
   const loss=available?(analysis.yours.lossNumerator/analysis.denominator).toFixed(2):null;
   const good=available&&analysis.yours.lossNumerator===0;
   heading.innerHTML=available
-    ? `<h2 class="review-verdict ${good?"quality-good":"quality-loss"}"><span class="review-verdict-mark" aria-hidden="true">${icon(good?"check":"close")}</span><span>EV loss: <strong>${loss}</strong></span></h2><button class="analysis-scope text-button" data-action="analysis-details" aria-label="Exact public-hand analysis: assumptions and details">Exact · public hands${icon("info")}</button>`
-    : `<h2 class="review-verdict unavailable-verdict">Analysis unavailable</h2><button class="analysis-scope text-button" data-action="analysis-details">Details${icon("info")}</button>`;
+    ? `<h2 class="review-verdict ${good?"quality-good":"quality-loss"}"><span class="review-verdict-mark" aria-hidden="true">${icon(good?"check":"close")}</span><span>EV loss: <strong>${loss}</strong></span></h2>`
+    : `<h2 class="review-verdict unavailable-verdict">Analysis unavailable</h2>`;
+  const context=`<dl class="ev-context" aria-label="Expected values for the original submitted turn"><div><dt>Your EV</dt><dd>${available?signedEV(analysis.yours.evNumerator/analysis.denominator):"—"}</dd></div><div><dt>Maximum EV</dt><dd>${available?signedEV(analysis.maximumNumerator/analysis.denominator):"—"}</dd></div></dl><button class="analysis-scope text-button" data-action="analysis-details" aria-label="${available?"Exact public-hand analysis: assumptions and details":"Analysis coverage details"}">${available?"Exact · public hands":"Analysis details"}${icon("info")}</button>`;
+  root.innerHTML=`<div class="review-panel-heading" aria-hidden="true">${icon("chart")}<span class="review-heading-rule"></span></div><div class="review-metrics">${context}</div>`;
+  mobileContext.innerHTML=context;
   const row=(plan,choice,action)=>{
     const cells=LANES.map((_,lane)=>plan.filter(item=>item.lane===lane).map(item=>cardById(item.id)?.cost).sort((a,b)=>b-a).join("+")||"—");
     const selected=choice==="yours"?state.preview===null:state.preview===Number(choice);
     const value=action?(action.lossNumerator/analysis.denominator).toFixed(2):"—";
     const label=choice==="yours"?"Your Move":"Alternate";
-    return `<button type="button" class="complete-turn-row move-columns ${choice==="yours"?"submitted-row":""}" data-review-choice="${choice}" aria-pressed="${selected}" aria-label="${label}: ${escapeHtml(planLabel(plan))}. ${action?`EV loss ${value}`:"Analysis unavailable"}">${cells.map((cell,lane)=>`<span class="turn-cell turn-cell-${lane}">${cell}</span>`).join("")}<span class="turn-loss ${action?(action.lossNumerator===0?"loss-zero":"loss-positive"):"loss-unavailable"}"><span class="mobile-loss-label">EV loss: </span>${value}</span></button>`;
+    return `<button type="button" class="complete-turn-row move-columns ${choice==="yours"?"submitted-row":""}" data-review-choice="${choice}" aria-pressed="${selected}" aria-label="${label}: ${escapeHtml(planLabel(plan))}. ${action?`EV loss ${value}`:"Analysis unavailable"}"><span class="turn-cells">${cells.map((cell,lane)=>`<span class="turn-cell turn-cell-${lane}">${cell}</span>`).join("")}</span><span class="turn-loss ${action?(action.lossNumerator===0?"loss-zero":"loss-positive"):"loss-unavailable"}"><span class="mobile-loss-label">EV loss: </span>${value}</span></button>`;
   };
-  comparison.innerHTML=`<div class="comparison-columns move-columns" aria-hidden="true"><span>Left</span><span>Middle</span><span>Right</span><span class="loss-column-heading">EV loss</span></div><h3 class="turn-section-heading" id="your-move-heading">Your Move</h3><div role="group" aria-labelledby="your-move-heading">${row(state.plan,"yours",available?analysis.yours:null)}</div><h3 class="turn-section-heading" id="alternates-heading">Alternates</h3><div role="group" aria-labelledby="alternates-heading">${available?analysis.alternates.map((action,index)=>row(action.plan,String(index),action)).join(""):`<div class="unavailable-analysis"><span>This position has no validated analysis.</span><button class="text-button" data-action="solved-drill">Open solved drill${icon("chevron")}</button></div>`}</div>`;
-  root.innerHTML="";
+  comparison.innerHTML=`<div class="comparison-columns move-columns" aria-hidden="true"><span class="turn-cells"><span>Left</span><span>Middle</span><span>Right</span></span><span class="loss-column-heading">EV loss</span></div><h3 class="turn-section-heading" id="your-move-heading">Your Move</h3><div role="group" aria-labelledby="your-move-heading">${row(state.plan,"yours",available?analysis.yours:null)}</div><h3 class="turn-section-heading" id="alternates-heading">Alternates</h3><div role="group" aria-labelledby="alternates-heading">${available?analysis.alternates.map((action,index)=>row(action.plan,String(index),action)).join(""):`<div class="unavailable-analysis"><span>This position has no validated analysis.</span><button class="text-button" data-action="solved-drill">Open solved drill${icon("chevron")}</button></div>`}</div>`;
 }
 
 function loadSolvedDrill({review=false}={}) {

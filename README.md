@@ -4,9 +4,9 @@ A numerical Marvel Snap study workspace with the accepted charcoal / comic treat
 
 ## Results
 
-Submit a turn to see its review. Your Move and Alternates share the board's three lane tracks. Selecting a row previews every card in its actual slots while the original EV loss, Your EV, and Maximum EV stay fixed. Card composition stays visible (`4+2`, not an interchangeable six). Unresolved plays never change the revealed lead glow.
+Submit a turn to see EV loss above the board, Your EV and Maximum EV in the existing right sidebar, and the move comparison below the board. Your Move and Alternates share the board's three lane tracks. Selecting a row previews every card in its actual slots while the original EV loss, Your EV, and Maximum EV stay fixed. Card composition stays visible (`4+2`, not an interchangeable six). Unresolved plays never change the revealed lead glow.
 
-The original layered workspace, geometric hand cards, subtle red/blue accents, angular turn rail, single Undo, and reduced interface copy are retained. Empty slots and board cards now share 3:4 portrait proportions, with totals between the two players' grids.
+The original layered workspace, geometric hand cards, subtle red/blue accents, angular turn rail, single Undo, and reduced interface copy are retained. Lane widths, heights, compact slot shapes, and totals above/below the respective slot groups retain their pre-results geometry. The side-chat HTML guides information placement, without replacing the site's board styling. The hand reappears on Retry.
 
 ## Analysis coverage
 
@@ -29,7 +29,7 @@ npm run export
 
 Development: http://127.0.0.1:4173. Editable source is in `dist/`. Export regenerates the self-contained `theoretical-snap.html` with all styles and scripts embedded.
 
-Tests cover both rational equilibrium bounds, all 40 legal actions across the three lane rotations, passing, distinct card compositions, unsupported information states, fixed submitted evaluation during previews, six four-slot grids, retry, undo, and fixture/deck compatibility. The DOM harness does not measure actual browser layout.
+Tests cover both rational equilibrium bounds, all 40 legal actions across the three lane rotations, passing, distinct card compositions, unsupported information states, fixed submitted evaluation during previews, six four-slot grids, retry, undo, and fixture/deck compatibility. The DOM harness does not measure actual browser layout. Separate Chrome checks verified unchanged lane dimensions across submission and previews, exact comparison alignment, and a 375px viewport without horizontal overflow. Safari and physical-device checks remain unverified.
 
 Read `DESIGN.md` and `docs/results-contract.md` before changing interface behavior or solver claims.
 

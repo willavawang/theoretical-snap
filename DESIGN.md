@@ -14,12 +14,13 @@ previously requested reduction of redundant interface copy still applies.
 
 ## The composition to preserve
 
-Use the first workspace's spatial arrangement: three tall lanes, the opponent
-above the player, four slots in a two-by-two grid on each side, a narrow location
-band, and the two totals between the players’ slot groups. The user's hand sits below. Turns progress
-upward from 1 to 6. Preserve this geometry in reviews and alternative previews.
+The latest user correction rejects copying the side-chat prototype's board or card styling into the site. That HTML is an information-layout reference only. Restore the pre-results workspace (`340bb104c43a63b5f928e0282bf1717e586072ea`) and fit results around it.
 
-Before commitment, retain the first version’s three-column workspace and concealed side review. The accepted October 28 results handoff supersedes the old submitted sidebar: expand the board workspace, put EV loss above it, place Your EV and Maximum EV beside it, and align complete-turn comparison rows below the three lanes. Your Move and Alternates are equal-level headings outside the selectable boxes. A row is a whole commitment: preserve 4+2 rather than replacing it with 6. Selecting a row changes only the preview; the submitted headline and EV context stay fixed. On narrow screens, EV context moves above the board and row losses below the three move cells. The earlier large opponent-side verdict overlay and flattened row-of-four slots remain rejected.
+Keep the existing three-column app: deck settings, the training workspace, and the right review sidebar. Submission must not expand the workspace across that sidebar. The three lanes retain their established width, height, slot proportions, interior spacing, and total positions. Opponent totals sit above their two-by-two slots; player totals sit below their slots. Preserve the location band between the two sides, original geometric card art, and angular turn rail. Do not impose the handoff's portrait slot aspect ratio or move both totals into the middle.
+
+Place EV loss in the existing topline above the board. Your EV and Maximum EV belong in the existing right sidebar. The complete-turn comparison sits below the unchanged board, in the review area that replaces the hand after submission. Your Move and Alternates remain equal-level headings outside selectable rows. Use a three-cell group aligned to the board plus the existing turn-rail gutter for row loss; do not add a wide fourth board column. A turn preserves composition such as 4+2.
+
+Selecting a row changes only its preview; the submitted EV loss and both contextual EV values stay fixed. At narrow widths, move the two EV values above the board and the per-row loss beneath its move cells. Keep lane geometry unchanged through these state transitions. The hidden live announcer is anchored at the top, and the page reserves a stable scrollbar gutter, so announcements or taller results cannot resize the board.
 
 ## The reference language
 
@@ -51,11 +52,10 @@ Use the original shallow layered gradients, subtle grain, delicate panel
 frames, and controlled hatching. Dark hand cards regain the first version’s
 geometric energy artwork and fine inner borders, with one central number.
 Cost and power are the same in this model; avoid duplicate numeral badges.
-Board-card numbers recede; lane totals and slot occupancy stay prominent. Empty slots, existing cards, and planned cards share 3:4 portrait proportions inside a two-by-two grid.
+Board-card numbers recede; lane totals and slot occupancy stay prominent. Empty slots and board cards keep the established compact two-by-two slot geometry from the original theme.
 Leadership is computed from the revealed board only. It gets an edge glow and
 a brighter, heavier unboxed total; ties get neither. Queued and submitted-but-
-unresolved cards never change that highlight. Keep the revealed score primary before submission
-and show a small neutral projected total beside it while a turn is unresolved. In the accepted results view, use a small prior total and arrow beside the stronger projected number. Its styling remains neutral: it cannot change revealed leadership.
+unresolved cards never change that highlight. Keep the revealed score primary in every state and show a small neutral projected total beside it while a turn is unresolved. Results and alternate previews use that same hierarchy; projections cannot change revealed leadership.
 Group each total with its own two-by-two slots, inset from the frame; separate
 the two players with a larger middle interval. Avoid lane chevrons and score
 badges. Card artwork uses clean wireframe contours without counted dots. Use a single labeled Undo beside Submit;

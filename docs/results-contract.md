@@ -26,14 +26,14 @@ When an actual cube model is connected, optimize expected cubes and display cube
 
 Leader classes, edge glow, and emphasis describe revealed board power only. Queued, submitted, and alternative cards remain unresolved and occupy real empty slots. Submission does not reveal or simulate an opponent commitment.
 
-Before submission, the revealed total is primary with a small projected total. In results, the accepted handoff uses a small prior total and arrow next to the stronger projected figure. Neither projection changes the revealed-leader classification or establishes a lane win.
+The revealed total remains primary before and after submission, with a small projected total beside it. This retains the established workspace hierarchy. A projection never changes the revealed-leader classification or establishes a lane win.
 
 ## Results hierarchy and comparison
 
 1. Symbol and explicit text `EV loss: 0.40`, with real whitespace between label and number.
-2. Your EV and Maximum EV beside the board, fixed to the original commitment.
+2. Your EV and Maximum EV in the existing right sidebar, fixed to the original commitment. The board never expands or changes its slot geometry to accommodate these values.
 3. Equal-level Your Move and Alternates headings outside selectable row boxes.
-4. Every row is one complete three-cell turn, aligned to the board lanes, plus EV loss. Preserve composition such as `4+2`.
+4. Every row is one complete three-cell turn below the board, aligned to its lane tracks, plus EV loss in the existing turn-rail gutter. Preserve composition such as `4+2`. The side-chat HTML is a conceptual reference, not a board restyle.
 5. Clicking a row previews its whole turn in the same six four-slot grids. It never overwrites the submitted plan or its evaluation.
 6. Explanations, W/D/L, scoring definition, and exact model scope are available in Analysis details. The main view has no scoring legend, frequency columns, or absolute EV in each comparison row.
 
@@ -62,7 +62,7 @@ The maximum player payoff against this opponent mix and minimum payoff against t
 
 Against six Middle (20% of this reference opponent mixture), six Right loses while six Left wins. That branch accounts for their entire 0.40 EV difference. It is an explanatory counterfactual, not advance knowledge of the opponent's play. Lane outcomes are correlated; the provider computes joint match results rather than multiplying lane marginals.
 
-`dist/analysis.js` is the bounded provider. `tests/analysis.test.cjs` verifies the rational bounds and action values. `tests/workspace.test.cjs` checks commitment/preview invariants and rendered slot structure without claiming browser layout coverage.
+`dist/analysis.js` is the bounded provider. `tests/analysis.test.cjs` verifies the rational bounds and action values. `tests/workspace.test.cjs` checks commitment/preview invariants and rendered slot structure. Separate Chrome preview checks verified identical lane rectangles before submission and through all four selections, exact lane/cell alignment, and a 375px iframe viewport without horizontal overflow. These are not Safari or physical-device tests.
 
 ## Research archive coverage
 

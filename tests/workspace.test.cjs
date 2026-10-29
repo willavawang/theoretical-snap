@@ -78,10 +78,10 @@ test('all four complete-turn selections preserve submitted EV and unresolved lea
     ui.select(choice);
     const board = ui.element('#game-table').innerHTML;
     assertSlots(board);
-    assert.match(board, new RegExp(`projected ${projected}; opponent commitment unresolved`));
+    assert.match(board, new RegExp(`Planned total ${projected}; opponent turn unresolved`));
     assert.deepEqual(leaders(board), leaders(originalBoard));
-    assert.match(board, /<dt>Your EV<\/dt><dd>−0\.20/);
-    assert.match(board, /<dt>Maximum EV<\/dt><dd>\+0\.20/);
+    assert.match(ui.element('#review-content').innerHTML, /<dt>Your EV<\/dt><dd>−0\.20/);
+    assert.match(ui.element('#review-content').innerHTML, /<dt>Maximum EV<\/dt><dd>\+0\.20/);
     assert.equal(ui.element('#result-heading').innerHTML, originalHeading);
     assert.equal(ui.run('JSON.stringify(state.plan)'), originalPlan);
     assert.match(ui.element('#comparison-panel').innerHTML, new RegExp(`data-review-choice="${choice}" aria-pressed="true"`));
@@ -112,7 +112,7 @@ test('retry, undo, passing, split cards, and a new optimal commitment use fresh 
   assert.match(ui.element('#result-heading').innerHTML, /quality-good/);
   ui.run('actions.retry();placeCard(state.scenario.hand.find(c=>c.cost===6).id,0);submitTurn()');
   assert.match(ui.element('#result-heading').innerHTML, /EV loss: <strong>0\.00/);
-  assert.match(ui.element('#game-table').innerHTML, /<dt>Your EV<\/dt><dd>\+0\.20/);
+  assert.match(ui.element('#review-content').innerHTML, /<dt>Your EV<\/dt><dd>\+0\.20/);
   ui.run('nextPosition()');
   assert.equal(ui.run('state.scenario.rotation'), 1);
   assert.equal(ui.run('state.reviewed'), false);
