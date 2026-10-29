@@ -100,7 +100,15 @@ body:after {
 .lane-side { display:flex;flex-direction:column;gap:var(--lane-total-gap); }
 .lane .lane-cap { height:var(--lane-total-height);min-height:var(--lane-total-height);flex:0 0 auto;gap:8px;padding:0; }
 .lane .board-zone { min-height:0;flex:0 0 auto;padding:0; }
-.lane .card-grid { grid-template-rows:repeat(2,var(--lane-slot-height));gap:var(--lane-slot-gap);max-width:145px; }
+/* Fit the hand's 94:132 portrait form into the existing slot-row heights. */
+.lane .card-grid {
+  --lane-card-width:calc(var(--lane-slot-height) * 47 / 66);
+  grid-template-rows:repeat(2,var(--lane-slot-height));gap:var(--lane-slot-gap);
+  max-width:calc(var(--lane-card-width) + var(--lane-card-width) + var(--lane-slot-gap));
+}
+.lane .card-grid > .mini-card,.lane .card-grid > .empty-slot {
+  width:100%;height:auto;aspect-ratio:47 / 66;max-height:var(--lane-slot-height);align-self:center;
+}
 .power-total {
   display:inline-block;min-width:0;padding:0;border:0;border-radius:0;background:none;
   color:#a3adbc;font-size:25px;font-weight:550;line-height:1;
