@@ -16,7 +16,7 @@ previously requested reduction of redundant interface copy still applies.
 
 The latest user correction rejects copying the side-chat prototype's board or card styling into the site. That HTML is an information-layout reference only. Restore the pre-results workspace (`340bb104c43a63b5f928e0282bf1717e586072ea`) and fit results around it.
 
-Keep the existing three-column app: deck settings, the training workspace, and the right review sidebar. Submission must not expand the workspace across that sidebar. The three lanes retain their established width, height, slot proportions, interior spacing, and total positions. Opponent totals sit above their two-by-two slots; player totals sit below their slots. Preserve the location band between the two sides, original geometric card art, and angular turn rail. Do not impose the handoff's portrait slot aspect ratio or move both totals into the middle.
+Keep the existing three-column app: deck settings, the training workspace, and the right review sidebar. Submission must not expand the workspace across that sidebar. The three lanes retain their established width, height, interior spacing, and total positions. Opponent totals sit above their two-by-two slots; player totals sit below their slots. Preserve the location band between the two sides, original geometric card art, and angular turn rail. The latest card-proportion refinement fits portrait thumbnails into the existing slot-row heights; it does not adopt the handoff's board layout or move both totals into the middle.
 
 Place EV loss in the existing topline above the board. Your EV and Maximum EV belong in the existing right sidebar. The complete-turn comparison sits below the unchanged board, in the review area that replaces the hand after submission. Your Move and Alternates remain equal-level headings outside selectable rows. Use a three-cell group aligned to the board plus the existing turn-rail gutter for row loss; do not add a wide fourth board column. A turn preserves composition such as 4+2.
 
@@ -52,7 +52,7 @@ Use the original shallow layered gradients, subtle grain, delicate panel
 frames, and controlled hatching. Dark hand cards regain the first version’s
 geometric energy artwork and fine inner borders, with one central number.
 Cost and power are the same in this model; avoid duplicate numeral badges.
-Board-card numbers recede; lane totals and slot occupancy stay prominent. Empty slots and board cards keep the established compact two-by-two slot geometry from the original theme.
+Board-card numbers recede; lane totals and slot occupancy stay prominent. Empty slots, existing cards, queued cards, and alternative previews share the hand cards' 47:66 portrait ratio. Center their compact two-by-two grids and size them to the existing slot-row heights, scaling down without distortion when width is limited. Keep the lane footprint and score positions stable.
 Leadership is computed from the revealed board only. It gets an edge glow and
 a brighter, heavier unboxed total; ties get neither. Queued and submitted-but-
 unresolved cards never change that highlight. Keep the revealed score primary in every state and show a small neutral projected total beside it while a turn is unresolved. Results and alternate previews use that same hierarchy; projections cannot change revealed leadership.
