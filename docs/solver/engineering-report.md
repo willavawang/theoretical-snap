@@ -75,6 +75,28 @@ The separate `/solver.html` workbench accepts edited public ranges and private q
 
 Twenty-seven Node tests pass locally: rational fixture bounds, information privacy, fair versus peeking best responses, optimized versus general joint beliefs, sequential CFR, sampled hidden future draws checked against an enumerated game, no-replacement/skipped draws, exact resumption, invalid inputs, Worker errors and cancellation, plus existing trainer invariants. Browser layout, IndexedDB operation and physical-device runtime remain unverified.
 
+
+## Scale of the all-deck request
+
+There are exactly `C(17,5) = 6,188` unordered twelve-card cost compositions over values 1–6. Ordered deck lists that differ only by card order are not different deck types; draws are randomized. With uniform positive mass over these compositions, four-card opening hands and eight-card remaining decks produce `C(9,5) × C(13,5) = 126 × 1,287 = 162,162` private opening types per player. Both players together have 38,291,344 deck-type pairings and 26,296,514,244 private opening-state pairings.
+
+The sampling algorithm avoids enumerating that entire joint deal cross-product. A turn-one solve includes all five later turns; it is not six independent solves. Solving play under a fixed all-deck distribution remains distinct from finding an equilibrium deck-selection distribution.
+
+A [reproducible scale probe](../../scripts/solver/scale-probe.cjs), run once per configuration on the Apple M2 under Node v18.15.0, produced [these raw results](../../benchmarks/solver-scale-probe.json):
+
+| Probe | Preparation | Training budget | States reached | Retained memory after training | Equilibrium bound |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Three preset decks, raised 100,000-state cap | 12 ms | 3 seconds | 88,900 | 573.6 MiB | Unavailable |
+| All 6,188 deck types, 25,000-state cap | 2146 ms | 3 seconds | 9,436 | 381.5 MiB | Unavailable |
+
+The all-deck root alone retains approximately 328.6 MiB before training; range construction took 1390 ms and solver construction 756 ms. The all-deck probe completed 394 sampled iterations in three seconds. These are baseline resource measurements, not full-solve timings.
+
+At 88,900 visited states, the three-deck numeric strategy/regret arrays occupy 21.8 MiB, compared with 573.6 MiB total retained growth. Objects, action metadata, strings and per-state storage dominate. Compact encoding, stronger sharing and lazy root generation could reduce overhead substantially. Root sampling currently also rebuilds/scans probability arrays per sampled deal, a removable implementation cost.
+
+If this run's average bytes per visited state held constant, one million states would use roughly 6.3 GiB and ten million roughly 63 GiB in this implementation. This is a rough storage extrapolation, not an estimate of how many states or iterations equilibrium requires.
+
+The current evidence cannot establish that we are a particular factor short of completing the full game. A finite run hitting a cap supplies no such convergence estimate. The goal is reasonable to investigate as an offline solver project, while fast accurate arbitrary-position browser solving remains unproven.
+
 ## Outstanding measurements
 
 | Question | Current answer | Next evidence |
