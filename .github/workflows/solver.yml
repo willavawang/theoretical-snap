@@ -4,6 +4,8 @@ on:
     branches: [codex/milestone-one-mockup]
     paths:
       - 'dist/solver/**'
+      - 'dist/solver.html'
+      - 'package.json'
       - 'tests/solver/**'
       - 'scripts/solver/**'
       - '.github/workflows/solver.yml'
@@ -23,6 +25,8 @@ jobs:
         run: |
           node --check dist/solver/engine.js
           node --check dist/solver/ranges.js
+          node --check dist/solver/worker.js
+          node --check dist/solver/lab.js
           node --test tests/*.test.cjs tests/solver/*.test.cjs
       - name: Benchmark cold solves and warm checkpoints
         run: node --expose-gc scripts/solver/benchmark.cjs

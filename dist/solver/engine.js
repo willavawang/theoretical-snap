@@ -12,7 +12,7 @@ function costs(cs){const a=[0,0,0,0,0,0];for(const c of cs){if(!Number.isInteger
 const cards=a=>a.flatMap((n,c)=>Array(n).fill(c+1));
 const signature=p=>p.hand.join(',')+'/'+p.remaining.join(',')+(p.observations?'@'+p.observations:'');
 function normalize(ws){if(!ws.length||ws.some(w=>!Number.isFinite(w)||w<0)||!(sum(ws)>0))throw new RangeError('Invalid probability distribution.');const n=sum(ws);return ws.map(w=>w/n);}
-function rng(seed=1){let x=seed>>>0;return {next(){x+=0x6D2B79F5;let t=x;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296;},get state(){return x>>>0;},set state(v){x=v>>>0;}};}
+function rng(seed=1){let x=seed>>>0;return {next(){x=(x+0x6D2B79F5)>>>0;let t=x;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296;},get state(){return x>>>0;},set state(v){x=v>>>0;}};}
 function sample(ps,r){let v=r.next();for(let i=0;i<ps.length;i++){v-=ps[i];if(v<0)return i;}return ps.length-1;}
 function regretPolicy(rs){const p=Float64Array.from(rs,x=>Math.max(0,x)),n=sum(p);if(n>0)for(let i=0;i<p.length;i++)p[i]/=n;else p.fill(1/p.length);return p;}
 function averagePolicy(n){const t=sum(n.average);return t>0?Float64Array.from(n.average,x=>x/t):new Float64Array(n.actions.length).fill(1/n.actions.length);}
@@ -31,6 +31,30 @@ function legalActions(hand,energy,occupied,limit=4){
  visit(0,energy);return out;
 }
 function terminal(board){let locations=0,total=0;for(let l=0;l<3;l++){const d=board.power[0][l]-board.power[1][l];locations+=Math.sign(d);total+=d;}return Math.sign(locations||total);}
+
+function reachableSnapshot(revealed,turn,handSize,rules){
+ if(rules.deckSize===null)return true;
+ const target=costs(revealed),memo=new Set();
+ function visit(t,left,h){
+  if(t===turn)return sum(left)===0&&h===handSize;
+  const remainingCount=sum(left),seen=revealed.length-remainingCount+h;
+  if(h<0||seen>rules.deckSize)return false;
+  const key=t+'|'+left.join(',')+'|'+h;if(memo.has(key))return false;memo.add(key);
+  const used=Array(6).fill(0);
+  function choose(c,energy,n){
+   if(c===6){
+    const rest=left.map((v,i)=>v-used[i]),after=h-n,seenNow=revealed.length-sum(rest)+after;
+    const next=after<rules.handLimit&&seenNow<rules.deckSize?after+1:after;
+    return visit(t+1,rest,next);
+   }
+   const maximum=Math.min(left[c],Math.floor(energy/(c+1)),h-n);
+   for(let k=maximum;k>=0;k--){used[c]=k;if(choose(c+1,energy-k*(c+1),n+k))return true;}used[c]=0;return false;
+  }
+  return choose(0,t,0);
+ }
+ return visit(1,target,Math.min(4,rules.handLimit,rules.deckSize));
+}
+
 function normalizeModel(input){
  const config=copy(input),rules={turns:6,handLimit:7,deckSize:12,...config.rules},turn=config.turn===undefined?1:config.turn;
  if(!Number.isInteger(turn)||!Number.isInteger(rules.turns)||turn<1||turn>rules.turns||rules.turns>7||!Number.isInteger(rules.handLimit)||rules.handLimit<1||rules.handLimit>12)throw new RangeError('Invalid rules or starting turn.');
@@ -42,7 +66,7 @@ function normalizeModel(input){
  let ranges=null,cases=null;
  if(config.cases){cases=config.cases.map(c=>{if(c.players.length!==2)throw new RangeError('Joint cases need two players.');return {players:c.players.map(priv),weight:c.weight===undefined?1:c.weight};});const ps=normalize(cases.map(c=>c.weight));cases=cases.map((c,i)=>({...c,weight:ps[i]})).filter(c=>c.weight>0);}
  else{if(!config.ranges||config.ranges.length!==2)throw new RangeError('Supply private ranges for BOTH players, or weighted joint cases. The actual query is separate.');ranges=config.ranges.map((list,i)=>{const m=new Map();for(const p of list){const q=priv(p,i),k=signature(q);if(m.has(k))m.get(k).weight+=q.weight;else m.set(k,q);}const xs=[...m.values()],ps=normalize(xs.map(x=>x.weight));return xs.map((x,j)=>({...x,weight:ps[j]})).filter(x=>x.weight>0);});}
- for(let p=0;p<2;p++){const ts=ranges?ranges[p]:cases.map(c=>c.players[p]);if(new Set(ts.map(t=>sum(t.hand)+','+sum(t.remaining))).size!==1)throw new RangeError('Root hypotheses disagree on PUBLIC hand/deck counts.');}
+ for(let p=0;p<2;p++){const ts=ranges?ranges[p]:cases.map(c=>c.players[p]);if(new Set(ts.map(t=>sum(t.hand)+','+sum(t.remaining))).size!==1)throw new RangeError('Root hypotheses disagree on PUBLIC hand/deck counts.');if(!reachableSnapshot(raw[p].flat(),turn,sum(ts[0].hand),rules))throw new RangeError('Snapshot cannot be reached under the energy, draw and hand-limit rules.');}
  return {config,rules,turn,board,rawBoard:raw,ranges,cases,fingerprint:VERSION+'|'+JSON.stringify(config),scope:config.beliefScope||'User-specified conditional continuation ranges'};
 }
 function enumerateCases(m,limit=Infinity){if(m.cases){if(m.cases.length>limit)throw new BudgetError('Root-case budget exceeded.');return m.cases;}if(m.ranges[0].length*m.ranges[1].length>limit)throw new BudgetError('Root-case budget exceeded.');return m.ranges[0].flatMap(a=>m.ranges[1].map(b=>({players:[a,b],weight:a.weight*b.weight})));}
@@ -66,7 +90,7 @@ class Solver{
   if(!this.matrix&&(this.options.algorithm==='full'||(this.options.algorithm==='auto'&&this.model.turn>=this.model.rules.turns-1))){try{this.compileTree();}catch(e){if(!(e instanceof BudgetError)||this.options.algorithm==='full')throw e;this.nodes.clear();this.tree=null;}}
   this.algorithm=this.matrix?'Bayesian matrix CFR+':this.tree?'Full-tree CFR':'Outcome-sampling MCCFR';this.setupMs=now()-start;
  }
- actions(s,p){const k=s.players[p].hand.join('')+'|'+s.turn+'|'+s.board.slots[p].join(',');let as=this.actionCache.get(k);if(as)return as;as=legalActions(s.players[p].hand,s.turn,s.board.slots[p]);if(this.actionCache.size>=this.options.maxActionCache)this.actionCache.delete(this.actionCache.keys().next().value);this.actionCache.set(k,as);return as;}
+ actions(s,p){const k=s.players[p].hand.join(',')+'|'+s.turn+'|'+s.board.slots[p].join(',');let as=this.actionCache.get(k);if(as)return as;as=legalActions(s.players[p].hand,s.turn,s.board.slots[p]);if(this.actionCache.size>=this.options.maxActionCache)this.actionCache.delete(this.actionCache.keys().next().value);this.actionCache.set(k,as);return as;}
  node(s,p){const key=infoKey(s,p);let n=this.nodes.get(key);if(!n){if(this.nodes.size>=this.options.maxInfoStates)throw new BudgetError('Information-state memory budget reached.');const actions=this.actions(s,p);n={key,player:p,actions,regret:new Float64Array(actions.length),average:new Float64Array(actions.length),updates:0};this.nodes.set(key,n);}return n;}
  policy(s,p){const n=this.nodes.get(infoKey(s,p));return n?averagePolicy(n):new Float64Array(this.actions(s,p).length).fill(1/this.actions(s,p).length);}
  sampleWorld(){const m=this.model;if(m.cases)return m.cases[sample(m.cases.map(c=>c.weight),this.random)];const players=m.ranges.map(r=>r[sample(r.map(t=>t.weight),this.random)]);return {players,weight:players[0].weight*players[1].weight};}
@@ -151,6 +175,6 @@ class Solver{
  restore(c){if(c.version!==VERSION||c.fingerprint!==this.model.fingerprint||c.algorithm!==this.algorithm)throw new Error('Checkpoint rules, beliefs or algorithm do not match.');if(c.nodes.length>this.options.maxInfoStates)throw new BudgetError('Checkpoint exceeds memory budget.');for(const x of c.nodes){const actions=c.actionSets[x.actionSet];if(!actions||actions.length!==x.regret.length||actions.length!==x.average.length||x.regret.some(v=>!Number.isFinite(v))||x.average.some(v=>!Number.isFinite(v)||v<0))throw new Error('Invalid checkpoint action set or numeric data.');let n=this.nodes.get(x.key);if(n&&n.actions.map(a=>a.key).join('|')!==actions.map(a=>a.key).join('|'))throw new Error('Checkpoint actions mismatch.');if(!n){n={key:x.key,player:x.player,actions,regret:new Float64Array(actions.length),average:new Float64Array(actions.length)};this.nodes.set(x.key,n);}n.regret.set(x.regret);n.average.set(x.average);n.updates=x.updates;}this.iterations=c.iterations;this.passes=c.passes;this.random.state=c.randomState;return this;}
 }
 function label(a){return a.lanes.map((cs,l)=>cs.length?cs.join('+')+' → '+['Left','Middle','Right'][l]:null).filter(Boolean).join(' · ')||'Pass';}
-const api={VERSION,PRESETS,Solver,BudgetError,costs,cards,signature,normalizeModel,legalActions,terminal,initialState,infoKey,apply,applyDraw,chance,rng,regretPolicy,averagePolicy,label,clock:now};
+const api={VERSION,PRESETS,Solver,BudgetError,costs,cards,signature,normalizeModel,legalActions,terminal,reachableSnapshot,initialState,infoKey,apply,applyDraw,chance,rng,regretPolicy,averagePolicy,label,clock:now};
 if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.SnapSolver=api;
 })(typeof self!=='undefined'?self:globalThis);

@@ -8,7 +8,7 @@ function run(name,repeat){
  if(global.gc)global.gc();
  const coldStart=performance.now(),model=R.example(name),rangeMs=performance.now()-coldStart;
  const options={seed:17+repeat,maxInfoStates:25000,maxMatrixCells:2000000,maxTreeNodes:50000};
- const before=process.memoryUsage(),solver=new S.Solver(model,options);
+ if(global.gc)global.gc();const before=process.memoryUsage(),solver=new S.Solver(model,options);
  const stats=solver.run({iterations:10000,maxMs:budgetMs,targetGap:target});
  const query=model.ranges[0][0],analysis=solver.analyze(query,{targetGap:target,samplesPerAction:128});
  const coldTotalMs=performance.now()-coldStart;

@@ -99,6 +99,10 @@ module.exports=function checks(S,R){
   throws(()=>new S.Solver(R.publicFixture(),{exploration:0}),/Exploration/);
   const m=R.publicFixture();m.turn=0;throws(()=>new S.Solver(m),/Invalid/);
  });
+ test('Impossible past energy and draw counts are rejected without constraining future legal moves',()=>{
+  const m=R.publicFixture();m.board[0][0]=[6];m.ranges[0][0].remaining=[3,5,5];throws(()=>new S.Solver(m),/cannot be reached/);
+  equal(S.reachableSnapshot([],6,7,{deckSize:12,handLimit:7}),true);equal(S.reachableSnapshot([],6,4,{deckSize:12,handLimit:7}),false);
+ });
  test('Invalid decks, public counts, and probability weights are rejected',()=>{
   const a=R.publicFixture();a.ranges[0][0].remaining=[];throws(()=>new S.Solver(a),/deck size/);
   const b=R.hiddenFixture();b.ranges[0][1].hand.pop();b.ranges[0][1].remaining.push(1);throws(()=>new S.Solver(b),/PUBLIC/);
