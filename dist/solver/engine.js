@@ -10,7 +10,7 @@ const sum=a=>a.reduce((s,v)=>s+v,0),copy=x=>JSON.parse(JSON.stringify(x));
 class BudgetError extends Error{}
 function costs(cs){const a=[0,0,0,0,0,0];for(const c of cs){if(!Number.isInteger(c)||c<1||c>6)throw new RangeError('Costs must be integers 1–6.');a[c-1]++;}return a;}
 const cards=a=>a.flatMap((n,c)=>Array(n).fill(c+1));
-const signature=p=>p.hand.join(',')+'/'+p.remaining.join(',');
+const signature=p=>p.hand.join(',')+'/'+p.remaining.join(',')+(p.observations?'@'+p.observations:'');
 function normalize(ws){if(!ws.length||ws.some(w=>!Number.isFinite(w)||w<0)||!(sum(ws)>0))throw new RangeError('Invalid probability distribution.');const n=sum(ws);return ws.map(w=>w/n);}
 function rng(seed=1){let x=seed>>>0;return {next(){x+=0x6D2B79F5;let t=x;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return ((t^t>>>14)>>>0)/4294967296;},get state(){return x>>>0;},set state(v){x=v>>>0;}};}
 function sample(ps,r){let v=r.next();for(let i=0;i<ps.length;i++){v-=ps[i];if(v<0)return i;}return ps.length-1;}
@@ -32,13 +32,13 @@ function legalActions(hand,energy,occupied,limit=4){
 }
 function terminal(board){let locations=0,total=0;for(let l=0;l<3;l++){const d=board.power[0][l]-board.power[1][l];locations+=Math.sign(d);total+=d;}return Math.sign(locations||total);}
 function normalizeModel(input){
- const config=copy(input),rules={turns:6,handLimit:7,deckSize:12,...config.rules},turn=config.turn||1;
+ const config=copy(input),rules={turns:6,handLimit:7,deckSize:12,...config.rules},turn=config.turn===undefined?1:config.turn;
  if(!Number.isInteger(turn)||!Number.isInteger(rules.turns)||turn<1||turn>rules.turns||rules.turns>7||!Number.isInteger(rules.handLimit)||rules.handLimit<1||rules.handLimit>12)throw new RangeError('Invalid rules or starting turn.');
  const raw=config.board||[[[],[],[]],[[],[],[]]];
  if(raw.length!==2||raw.some(p=>p.length!==3))throw new RangeError('board[player][lane] must contain six card arrays.');
  raw.forEach(p=>p.forEach(l=>{costs(l);if(l.length>4)throw new RangeError('Four slots per lane side.');}));
  const board={power:raw.map(p=>p.map(sum)),slots:raw.map(p=>p.map(l=>l.length))},revealed=raw.map(p=>sum(p.map(l=>l.length)));
- function priv(p,i){const hand=costs(p.hand),remaining=costs(p.remaining);if(sum(hand)>rules.handLimit)throw new RangeError('Hand exceeds hand limit.');if(rules.deckSize!==null&&sum(hand)+sum(remaining)+revealed[i]!==rules.deckSize)throw new RangeError('Revealed cards, hand and remaining deck must equal the deck size.');return {hand,remaining,weight:p.weight===undefined?1:p.weight};}
+ function priv(p,i){const hand=costs(p.hand),remaining=costs(p.remaining);if(sum(hand)>rules.handLimit)throw new RangeError('Hand exceeds hand limit.');if(rules.deckSize!==null&&sum(hand)+sum(remaining)+revealed[i]!==rules.deckSize)throw new RangeError('Revealed cards, hand and remaining deck must equal the deck size.');return {hand,remaining,weight:p.weight===undefined?1:p.weight,...(p.observations?{observations:String(p.observations)}:{})};}
  let ranges=null,cases=null;
  if(config.cases){cases=config.cases.map(c=>{if(c.players.length!==2)throw new RangeError('Joint cases need two players.');return {players:c.players.map(priv),weight:c.weight===undefined?1:c.weight};});const ps=normalize(cases.map(c=>c.weight));cases=cases.map((c,i)=>({...c,weight:ps[i]})).filter(c=>c.weight>0);}
  else{if(!config.ranges||config.ranges.length!==2)throw new RangeError('Supply private ranges for BOTH players, or weighted joint cases. The actual query is separate.');ranges=config.ranges.map((list,i)=>{const m=new Map();for(const p of list){const q=priv(p,i),k=signature(q);if(m.has(k))m.get(k).weight+=q.weight;else m.set(k,q);}const xs=[...m.values()],ps=normalize(xs.map(x=>x.weight));return xs.map((x,j)=>({...x,weight:ps[j]})).filter(x=>x.weight>0);});}
@@ -59,6 +59,7 @@ function applyDraw(s,cost){const p=s.draw,players=s.players.slice(),hand=players
 class Solver{
  constructor(config,options={}){
   this.model=normalizeModel(config);this.options={algorithm:'auto',seed:1,maxInfoStates:60000,maxActionCache:5000,maxTreeNodes:50000,maxMatrixCells:2000000,exploration:0.6,...options};
+  if(!['auto','matrix','full','sampled'].includes(this.options.algorithm))throw new RangeError('Unknown algorithm.');if(!(this.options.exploration>0&&this.options.exploration<=1))throw new RangeError('Exploration must be greater than zero and at most one.');
   this.random=rng(this.options.seed);this.nodes=new Map();this.actionCache=new Map();this.iterations=0;this.passes=0;this.visits=0;this.trainingMs=0;this.stopReason=null;this.matrix=null;this.tree=null;
   const start=now();
   if(this.options.algorithm==='matrix'||(this.options.algorithm==='auto'&&this.model.turn===this.model.rules.turns)){try{this.compileMatrix();}catch(e){if(!(e instanceof BudgetError)||this.options.algorithm==='matrix')throw e;this.nodes.clear();}}
@@ -70,14 +71,40 @@ class Solver{
  policy(s,p){const n=this.nodes.get(infoKey(s,p));return n?averagePolicy(n):new Float64Array(this.actions(s,p).length).fill(1/this.actions(s,p).length);}
  sampleWorld(){const m=this.model;if(m.cases)return m.cases[sample(m.cases.map(c=>c.weight),this.random)];const players=m.ranges.map(r=>r[sample(r.map(t=>t.weight),this.random)]);return {players,weight:players[0].weight*players[1].weight};}
  compileMatrix(){
-  const ws=enumerateCases(this.model,10000),pre=[],groups=[new Map(),new Map()],blocks=[];let cells=0;
-  for(const w of ws){const s=initialState(this.model,w),as=[this.actions(s,0),this.actions(s,1)];cells+=as[0].length*as[1].length;if(cells>this.options.maxMatrixCells)throw new BudgetError('Payoff-matrix memory budget exceeded.');pre.push({w,s,as});}
-  for(const {w,s,as}of pre){const a=this.node(s,0),b=this.node(s,1);for(const [p,n]of [[0,a],[1,b]]){if(!groups[p].has(n.key))groups[p].set(n.key,{node:n,mass:0});groups[p].get(n.key).mass+=w.weight;}
-   const payoff=new Int8Array(as[0].length*as[1].length);for(let i=0;i<as[0].length;i++)for(let j=0;j<as[1].length;j++)payoff[i*as[1].length+j]=terminal(apply(apply(s,as[0][i],this.model),as[1][j],this.model).board);
-   blocks.push({a,b,weight:w.weight,payoff,na:as[0].length,nb:as[1].length});}
-  this.matrix={groups,blocks,cells};
+  const groups=[new Map(),new Map()],blocks=[],union=[[],[]],unionIds=[new Map(),new Map()],storage=new Map();let cells=0,equivalentCells=0;
+  const add=(p,n,mass)=>{if(!groups[p].has(n.key)){const ids=n.actions.map(a=>{if(!unionIds[p].has(a.key)){unionIds[p].set(a.key,union[p].length);union[p].push(a);}return unionIds[p].get(a.key);});groups[p].set(n.key,{node:n,mass:0,ids});}groups[p].get(n.key).mass+=mass;};
+  const difference=this.model.board.power[0].map((x,l)=>x-this.model.board.power[1][l]),total=sum(difference);
+  const payoff=(a,b)=>{let lanes=0;for(let l=0;l<3;l++)lanes+=Math.sign(difference[l]+a.power[l]-b.power[l]);return Math.sign(lanes||total+a.spent-b.spent);};
+  if(this.model.ranges){
+   const first=this.model.ranges.map(r=>r[0]);
+   for(let p=0;p<2;p++)for(const type of this.model.ranges[p]){const players=first.slice();players[p]=type;add(p,this.node(initialState(this.model,{players}),p),type.weight);}
+   cells=union[0].length*union[1].length;if(cells>this.options.maxMatrixCells)throw new BudgetError('Payoff-matrix memory budget exceeded.');
+   const payoffs=new Int8Array(cells);for(let i=0;i<union[0].length;i++)for(let j=0;j<union[1].length;j++)payoffs[i*union[1].length+j]=payoff(union[0][i],union[1][j]);
+   equivalentCells=sum([...groups[0].values()].map(g=>g.ids.length))*sum([...groups[1].values()].map(g=>g.ids.length));
+   this.matrix={groups,blocks,cells,equivalentCells,independent:true,union,payoffs};return;
+  }
+  for(const w of enumerateCases(this.model,10000)){
+   const s=initialState(this.model,w),a=this.node(s,0),b=this.node(s,1);add(0,a,w.weight);add(1,b,w.weight);
+   const k=a.actions.map(a=>a.key).join(',')+'/'+b.actions.map(a=>a.key).join(',');let payoffs=storage.get(k);
+   const n=a.actions.length*b.actions.length;equivalentCells+=n;
+   if(!payoffs){cells+=n;if(cells>this.options.maxMatrixCells)throw new BudgetError('Payoff-matrix memory budget exceeded.');payoffs=new Int8Array(n);for(let i=0;i<a.actions.length;i++)for(let j=0;j<b.actions.length;j++)payoffs[i*b.actions.length+j]=payoff(a.actions[i],b.actions[j]);storage.set(k,payoffs);}
+   blocks.push({a,b,weight:w.weight,payoff:payoffs,na:a.actions.length,nb:b.actions.length});
+  }
+  this.matrix={groups,blocks,cells,equivalentCells,independent:false};
  }
- matrixValues(strategies){const q=new Map([...this.nodes.values()].map(n=>[n.key,new Float64Array(n.actions.length)]));for(const b of this.matrix.blocks){const x=strategies.get(b.a.key),y=strategies.get(b.b.key),qa=q.get(b.a.key),qb=q.get(b.b.key);for(let i=0;i<b.na;i++)for(let j=0;j<b.nb;j++){const u=b.weight*b.payoff[i*b.nb+j];qa[i]+=u*y[j];qb[j]-=u*x[i];}}for(let p=0;p<2;p++)for(const [k,g]of this.matrix.groups[p])for(let a=0;a<q.get(k).length;a++)q.get(k)[a]/=g.mass;return q;}
+ matrixValues(strategies){
+  const q=new Map([...this.nodes.values()].map(n=>[n.key,new Float64Array(n.actions.length)]));
+  if(this.matrix.independent){
+   const {union,groups,payoffs}=this.matrix,marginals=union.map(as=>new Float64Array(as.length));
+   for(let p=0;p<2;p++)for(const [key,g]of groups[p]){const strategy=strategies.get(key);g.ids.forEach((id,a)=>marginals[p][id]+=g.mass*strategy[a]);}
+   const values=union.map(as=>new Float64Array(as.length));
+   for(let i=0;i<union[0].length;i++)for(let j=0;j<union[1].length;j++){const u=payoffs[i*union[1].length+j];values[0][i]+=u*marginals[1][j];values[1][j]-=u*marginals[0][i];}
+   for(let p=0;p<2;p++)for(const [key,g]of groups[p])g.ids.forEach((id,a)=>q.get(key)[a]=values[p][id]);
+   return q;
+  }
+  for(const b of this.matrix.blocks){const x=strategies.get(b.a.key),y=strategies.get(b.b.key),qa=q.get(b.a.key),qb=q.get(b.b.key);for(let i=0;i<b.na;i++)for(let j=0;j<b.nb;j++){const u=b.weight*b.payoff[i*b.nb+j];qa[i]+=u*y[j];qb[j]-=u*x[i];}}
+  for(let p=0;p<2;p++)for(const [k,g]of this.matrix.groups[p])for(let a=0;a<q.get(k).length;a++)q.get(k)[a]/=g.mass;return q;
+ }
  matrixIteration(){for(let p=0;p<2;p++){const ps=new Map([...this.nodes.values()].map(n=>[n.key,regretPolicy(n.regret)])),q=this.matrixValues(ps);for(const g of this.matrix.groups[p].values()){const n=g.node,v=q.get(n.key),s=ps.get(n.key),base=sum(v.map((x,i)=>x*s[i]));for(let i=0;i<v.length;i++)n.regret[i]=Math.max(0,n.regret[i]+v[i]-base);n.updates++;}}
   const w=this.iterations+1;for(const n of this.nodes.values()){const p=regretPolicy(n.regret);for(let a=0;a<p.length;a++)n.average[a]+=w*p[a];}this.iterations++;this.passes+=2;
  }
@@ -104,8 +131,8 @@ class Solver{
   const nashGap=Math.max(0,upper-lower);return {certified:true,value,upper,lower,nashGap,exploitability:nashGap/2,maxConditionalGain,method:'Exhaustive information-set-constrained best responses to the averaged strategy',scope:'This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving.'};
  }
  run(o={}){const count=o.iterations===undefined?1000:o.iterations,maxMs=o.maxMs===undefined?Infinity:o.maxMs,target=o.targetGap===undefined?.01:o.targetGap,start=now(),initial=this.iterations;this.stopReason=null;while(this.iterations-initial<count){if(this.iterations>initial&&now()-start>=maxMs){this.stopReason='time';break;}try{if(this.matrix)this.matrixIteration();else if(this.tree)this.fullIteration();else this.sampledIteration();}catch(e){if(!(e instanceof BudgetError))throw e;this.stopReason='memory';break;}if((this.matrix||this.tree)&&this.iterations%25===0&&o.stopAtTarget!==false){const d=this.diagnostics();if(d.nashGap<=target&&d.maxConditionalGain<=target){this.stopReason='accuracy';break;}}}this.trainingMs+=now()-start;return this.stats();}
- stats(){const entries=sum([...this.nodes.values()].map(n=>n.actions.length));return {version:VERSION,algorithm:this.algorithm,iterations:this.iterations,passes:this.passes,informationStates:this.nodes.size,actionEntries:entries,numericTableBytes:entries*16,treeNodes:this.tree?this.tree.nodes.length:0,matrixCells:this.matrix?this.matrix.cells:0,visitedNodes:this.visits,setupMs:this.setupMs,trainingMs:this.trainingMs,stopReason:this.stopReason,diagnostics:this.diagnostics()};}
- queryWorlds(query){const player=query.player||0,needle=signature({hand:costs(query.hand),remaining:costs(query.remaining)});let worlds;if(this.model.cases){worlds=this.model.cases.filter(w=>signature(w.players[player])===needle);if(!worlds.length)throw new RangeError('Queried private type has zero probability.');const p=normalize(worlds.map(w=>w.weight));worlds=worlds.map((w,i)=>({...w,weight:p[i]}));}else{const own=this.model.ranges[player].find(t=>signature(t)===needle);if(!own)throw new RangeError('Queried hand/deck is absent from its public range. Querying must not reveal a private hand to the opponent.');worlds=this.model.ranges[1-player].map(other=>({players:player===0?[own,other]:[other,own],weight:other.weight}));}return {player,worlds};}
+ stats(){const entries=sum([...this.nodes.values()].map(n=>n.actions.length));return {version:VERSION,algorithm:this.algorithm,iterations:this.iterations,passes:this.passes,informationStates:this.nodes.size,actionEntries:entries,numericTableBytes:entries*16,treeNodes:this.tree?this.tree.nodes.length:0,matrixCells:this.matrix?this.matrix.cells:0,equivalentUnsharedCells:this.matrix?this.matrix.equivalentCells:0,visitedNodes:this.visits,setupMs:this.setupMs,trainingMs:this.trainingMs,stopReason:this.stopReason,diagnostics:this.diagnostics()};}
+ queryWorlds(query){const player=query.player||0,needle=signature({hand:costs(query.hand),remaining:costs(query.remaining),observations:query.observations});let worlds;if(this.model.cases){worlds=this.model.cases.filter(w=>signature(w.players[player])===needle);if(!worlds.length)throw new RangeError('Queried private type has zero probability.');const p=normalize(worlds.map(w=>w.weight));worlds=worlds.map((w,i)=>({...w,weight:p[i]}));}else{const own=this.model.ranges[player].find(t=>signature(t)===needle);if(!own)throw new RangeError('Queried hand/deck is absent from its public range. Querying must not reveal a private hand to the opponent.');worlds=this.model.ranges[1-player].map(other=>({players:player===0?[own,other]:[other,own],weight:other.weight}));}return {player,worlds};}
  rollout(s,r){while(s.phase!==3){if(s.phase===2){const xs=chance(s,this.model),x=xs[sample(xs.map(x=>x.probability),r)];s=applyDraw(s,x.cost);}else{const p=s.phase,as=this.actions(s,p);s=apply(s,as[sample(this.policy(s,p),r)],this.model);}}return terminal(s.board);}
  analyze(query,o={}){
   const started=now(),{player,worlds}=this.queryWorlds(query),state=initialState(this.model,worlds[0]),actions=this.actions(state,player),n=this.nodes.get(infoKey(state,player)),frequency=n?averagePolicy(n):new Float64Array(actions.length).fill(1/actions.length),sign=player===0?1:-1;

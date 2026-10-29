@@ -1,0 +1,36 @@
+name: Solver correctness and scaling
+on:
+  push:
+    branches: [codex/milestone-one-mockup]
+    paths:
+      - 'dist/solver/**'
+      - 'tests/solver/**'
+      - 'scripts/solver/**'
+      - '.github/workflows/solver.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  numerical-solver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate the existing workspace and solver
+        run: |
+          node --check dist/solver/engine.js
+          node --check dist/solver/ranges.js
+          node --test tests/*.test.cjs tests/solver/*.test.cjs
+      - name: Benchmark cold solves and warm checkpoints
+        run: node --expose-gc scripts/solver/benchmark.cjs
+        env:
+          SNAP_BENCH_REPEATS: 3
+          SNAP_BENCH_MS: 1500
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: numerical-solver-benchmarks
+          path: benchmarks/
