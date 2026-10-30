@@ -18,6 +18,12 @@ Other preset turns, unknown-hand positions, and edited boards display **Analysis
 
 Outcome EV = P(win) − P(loss). EV loss is the difference from the maximum available turn EV, on a 0–2 scale, not a percentage. Outcome probabilities and model scope are available on demand. No opponent commitment is sampled or revealed.
 
+## Offline equilibrium research
+
+The offline backend optimizes private deck selection and play from turn one over all 6,188 legal numerical deck compositions. It supports background runs, compact binary checkpoints, exact resumption, independent small-game deviation checks, and an inspectable full Game State Object with submitted-turn and alternative EV data.
+
+Read [offline engine instructions](docs/solver/offline.md) and [the first unrestricted measurements](benchmarks/offline-first-run.json). The unrestricted game is still an uncertified research run; current deck mixtures are not established equilibrium decks. Site integration remains deferred.
+
 ## Playing solver
 
 Open `/solver.html` when serving `dist/`. The separate workbench supports configurable private deck/hand ranges, simultaneous commitments, future hidden draws, mixed strategies, action EV/WDL/loss, and accuracy diagnostics. Solving runs in a cancellable Web Worker; identical public-position policies can resume from IndexedDB checkpoints. This does not alter the trainer's current fixture-only grading.

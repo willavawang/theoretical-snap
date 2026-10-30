@@ -89,10 +89,11 @@ Game-model identity is separate from the training-policy identity, so a saved ga
     const G = require('./solver/offline/game-state.cjs');
     const D = require('./solver/offline/decision.cjs');
     const gameState = G.makeGameState(solver, {seed: 701});
-    const analysis = D.analyzeDecision(
-      solver, gameState, 0,
-      [{cardId: gameState.players[0].hand[0], lane: 0}]
-    );
+    const state = G.toSolverState(solver, gameState);
+    const legal = solver.actions(state, 0);
+    const action = legal.find(a => a.spent > 0) || legal[0];
+    const placements = G.placementsForAction(gameState, 0, action);
+    const analysis = D.analyzeDecision(solver, gameState, 0, placements);
 
 The supplied placements must be legal. Production callers should validate or let actionForPlacements reject energy, ownership, duplicate-card and lane-capacity errors.
 

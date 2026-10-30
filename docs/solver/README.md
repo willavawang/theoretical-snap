@@ -1,5 +1,7 @@
 # Numerical Snap playing solver
 
+For the newer offline engine, unrestricted deck-selection training, checkpoint continuation and Game State/EV contract, see [Offline equilibrium research](offline.md). The document below describes the earlier browser engine and its workbench.
+
 The engine models the numerical game, including private decks, hands and future draws. It computes approximate playing equilibria for supplied distributions. Broad early-game runs still reach resource limits before establishing equilibrium; see [engineering findings](engineering-report.md).
 
 ## Implemented rules

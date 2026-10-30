@@ -81,3 +81,8 @@ Both players' public private-state distributions must be supplied. An actual han
 Default midgame examples condition on explicitly uniform historical legal play. They are not equilibrium-history posteriors. `SnapRanges.fromReferencePolicy` conditions on an averaged full-game reference policy, preserving private histories and reporting unvisited-policy fallbacks. A well-solved supplied-range continuation is not, by itself, a guarantee of safe full-game re-solving.
 
 See [rules and API](solver/README.md) and [engineering results](solver/engineering-report.md). Deck-construction equilibrium, cubes, a certified broad full-game strategy, safe online re-solving and general trainer integration remain further work.
+
+
+## Offline engine contract
+
+The offline research engine lives under `solver/offline/` and does not change this trainer provider. It exports a complete reproducible Game State Object and a separate decision analysis containing stable card IDs, submitted EV, mixed-strategy hand EV, maximum EV, loss and complete alternative placements. The result records the game-model and policy identities and sampling uncertainty. Uncertified strategy values remain provisional; inadequate historical conditioning returns unavailable. `game-replay.json` supplies complete state snapshots for later UI inspection. See `docs/solver/offline.md`. No integration into the trainer is authorized by the existence of these research artifacts.
