@@ -1,0 +1,12 @@
+{
+  "deckSelection": "equilibrium",
+  "decks": [
+    "all",
+    "all"
+  ],
+  "rules": {
+    "turns": 6,
+    "handLimit": 7,
+    "deckSize": 12
+  }
+}

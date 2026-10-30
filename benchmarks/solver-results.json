@@ -1,0 +1,1590 @@
+{
+  "metadata": {
+    "generatedAt": "2026-10-29T22:44:26.583Z",
+    "engineVersion": "playing-solver-1",
+    "sourceHash": "a71391d4c44895bee28d4f0bce1dd6af897a9ec113ef992e8906e1609170458a",
+    "runtime": "v18.15.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "cpu": "Apple M2",
+    "cpuCount": 8,
+    "totalMemoryBytes": 17179869184,
+    "targetNashGap": 0.01,
+    "targetMaxConditionalGain": 0.01,
+    "budgetMs": 1500,
+    "repeats": 3,
+    "measurement": "Node process on the executing machine. NOT Safari, phone, browser Worker or WebAssembly measurements.",
+    "beliefs": "Three equally weighted private deck presets. Midgame examples use explicitly uniform historical legal-play likelihoods, not equilibrium-history posteriors."
+  },
+  "summary": [
+    {
+      "name": "public-final",
+      "convergedRuns": 3,
+      "runs": 3,
+      "medianColdMs": 20.981166124343872,
+      "medianWarmMs": 3.32908296585083,
+      "medianGzipBytes": 1350,
+      "medianStates": 2,
+      "medianHeapMiB": 0.1048431396484375,
+      "algorithm": "Bayesian matrix CFR+",
+      "maxMeasuredGap": 0.009335862185958083,
+      "maxConditionalGain": 0.0072911736702906405
+    },
+    {
+      "name": "hidden-final",
+      "convergedRuns": 3,
+      "runs": 3,
+      "medianColdMs": 22.084749937057495,
+      "medianWarmMs": 3.718874931335449,
+      "medianGzipBytes": 1932,
+      "medianStates": 4,
+      "medianHeapMiB": 0.08688735961914062,
+      "algorithm": "Bayesian matrix CFR+",
+      "maxMeasuredGap": 0.009394240894287476,
+      "maxConditionalGain": 0.0056822827276470644
+    },
+    {
+      "name": "two-turn-check",
+      "convergedRuns": 3,
+      "runs": 3,
+      "medianColdMs": 23.686291933059692,
+      "medianWarmMs": 1.7228338718414307,
+      "medianGzipBytes": 1010,
+      "medianStates": 34,
+      "medianHeapMiB": 0.5880584716796875,
+      "algorithm": "Full-tree CFR",
+      "maxMeasuredGap": 0.00896825396825395,
+      "maxConditionalGain": 0.004484126984126976
+    },
+    {
+      "name": "turn-6",
+      "convergedRuns": 3,
+      "runs": 3,
+      "medianColdMs": 304.382208108902,
+      "medianWarmMs": 40.30395793914795,
+      "medianGzipBytes": 28414,
+      "medianStates": 90,
+      "medianHeapMiB": 2.384659767150879,
+      "algorithm": "Bayesian matrix CFR+",
+      "maxMeasuredGap": 0.0005850428620036707,
+      "maxConditionalGain": 0.003009107862538829
+    },
+    {
+      "name": "turn-5",
+      "convergedRuns": 0,
+      "runs": 3,
+      "medianColdMs": 488.9291248321533,
+      "medianWarmMs": 155.3301661014557,
+      "medianGzipBytes": 1188879,
+      "medianStates": 25000,
+      "medianHeapMiB": 46.176361083984375,
+      "algorithm": "Outcome-sampling MCCFR",
+      "maxMeasuredGap": null,
+      "maxConditionalGain": null
+    },
+    {
+      "name": "turn-3",
+      "convergedRuns": 0,
+      "runs": 3,
+      "medianColdMs": 580.9862079620361,
+      "medianWarmMs": 198.81200003623962,
+      "medianGzipBytes": 1272727,
+      "medianStates": 25000,
+      "medianHeapMiB": 100.17928314208984,
+      "algorithm": "Outcome-sampling MCCFR",
+      "maxMeasuredGap": null,
+      "maxConditionalGain": null
+    },
+    {
+      "name": "turn-1",
+      "convergedRuns": 0,
+      "runs": 3,
+      "medianColdMs": 989.7172911167145,
+      "medianWarmMs": 238.03579211235046,
+      "medianGzipBytes": 1254932,
+      "medianStates": 25000,
+      "medianHeapMiB": 177.2594985961914,
+      "algorithm": "Outcome-sampling MCCFR",
+      "maxMeasuredGap": null,
+      "maxConditionalGain": null
+    }
+  ],
+  "results": [
+    {
+      "name": "public-final",
+      "repeat": 0,
+      "rangeMs": 0.05566596984863281,
+      "coldTotalMs": 50.1796658039093,
+      "warmTotalMs": 3.6731250286102295,
+      "checkpointMs": 0.3208341598510742,
+      "compressionMs": 0.8238339424133301,
+      "checkpointBytes": 6481,
+      "gzipBytes": 1350,
+      "heapDeltaBytes": 169488,
+      "arrayBufferDeltaBytes": 2880,
+      "rssBytes": 54247424,
+      "rootTypes": [
+        1,
+        1
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 125,
+        "passes": 250,
+        "informationStates": 2,
+        "actionEntries": 80,
+        "numericTableBytes": 1280,
+        "treeNodes": 0,
+        "matrixCells": 1600,
+        "equivalentUnsharedCells": 1600,
+        "visitedNodes": 0,
+        "setupMs": 4.067875146865845,
+        "trainingMs": 40.75754189491272,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.19994845291602173,
+          "upper": 0.20199314143168912,
+          "lower": 0.19265727924573103,
+          "nashGap": 0.009335862185958083,
+          "exploitability": 0.004667931092979041,
+          "maxConditionalGain": 0.0072911736702906405,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 40,
+      "analysisMs": 3.238041877746582,
+      "converged": true,
+      "timeToAccuracyMs": 50.1796658039093,
+      "topActions": [
+        {
+          "turn": "4 → Middle · 2 → Right",
+          "frequency": 0.3969562390271066,
+          "ev": 0.20199314143168912,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "6 → Left",
+          "frequency": 0.20152435520714082,
+          "ev": 0.2014310450234853,
+          "loss": 0.000562096408203816,
+          "grade": "correct"
+        },
+        {
+          "turn": "2+4 → Left",
+          "frequency": 0.20152435520714082,
+          "ev": 0.2014310450234853,
+          "loss": 0.000562096408203816,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "public-final",
+      "repeat": 1,
+      "rangeMs": 0.01087498664855957,
+      "coldTotalMs": 20.981166124343872,
+      "warmTotalMs": 3.2429158687591553,
+      "checkpointMs": 0.07341694831848145,
+      "compressionMs": 0.18987512588500977,
+      "checkpointBytes": 6481,
+      "gzipBytes": 1350,
+      "heapDeltaBytes": 17408,
+      "arrayBufferDeltaBytes": 2880,
+      "rssBytes": 58851328,
+      "rootTypes": [
+        1,
+        1
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 125,
+        "passes": 250,
+        "informationStates": 2,
+        "actionEntries": 80,
+        "numericTableBytes": 1280,
+        "treeNodes": 0,
+        "matrixCells": 1600,
+        "equivalentUnsharedCells": 1600,
+        "visitedNodes": 0,
+        "setupMs": 0.9324581623077393,
+        "trainingMs": 16.305500030517578,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.19994845291602173,
+          "upper": 0.20199314143168912,
+          "lower": 0.19265727924573103,
+          "nashGap": 0.009335862185958083,
+          "exploitability": 0.004667931092979041,
+          "maxConditionalGain": 0.0072911736702906405,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 40,
+      "analysisMs": 2.148792028427124,
+      "converged": true,
+      "timeToAccuracyMs": 20.981166124343872,
+      "topActions": [
+        {
+          "turn": "4 → Middle · 2 → Right",
+          "frequency": 0.3969562390271066,
+          "ev": 0.20199314143168912,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "6 → Left",
+          "frequency": 0.20152435520714082,
+          "ev": 0.2014310450234853,
+          "loss": 0.000562096408203816,
+          "grade": "correct"
+        },
+        {
+          "turn": "2+4 → Left",
+          "frequency": 0.20152435520714082,
+          "ev": 0.2014310450234853,
+          "loss": 0.000562096408203816,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "public-final",
+      "repeat": 2,
+      "rangeMs": 0.013124942779541016,
+      "coldTotalMs": 20.753249883651733,
+      "warmTotalMs": 3.32908296585083,
+      "checkpointMs": 0.07049989700317383,
+      "compressionMs": 0.17808294296264648,
+      "checkpointBytes": 6481,
+      "gzipBytes": 1350,
+      "heapDeltaBytes": 107056,
+      "arrayBufferDeltaBytes": 2880,
+      "rssBytes": 59326464,
+      "rootTypes": [
+        1,
+        1
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 125,
+        "passes": 250,
+        "informationStates": 2,
+        "actionEntries": 80,
+        "numericTableBytes": 1280,
+        "treeNodes": 0,
+        "matrixCells": 1600,
+        "equivalentUnsharedCells": 1600,
+        "visitedNodes": 0,
+        "setupMs": 0.9795000553131104,
+        "trainingMs": 15.74150013923645,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.19994845291602173,
+          "upper": 0.20199314143168912,
+          "lower": 0.19265727924573103,
+          "nashGap": 0.009335862185958083,
+          "exploitability": 0.004667931092979041,
+          "maxConditionalGain": 0.0072911736702906405,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 40,
+      "analysisMs": 2.4498329162597656,
+      "converged": true,
+      "timeToAccuracyMs": 20.753249883651733,
+      "topActions": [
+        {
+          "turn": "4 → Middle · 2 → Right",
+          "frequency": 0.3969562390271066,
+          "ev": 0.20199314143168912,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "6 → Left",
+          "frequency": 0.20152435520714082,
+          "ev": 0.2014310450234853,
+          "loss": 0.000562096408203816,
+          "grade": "correct"
+        },
+        {
+          "turn": "2+4 → Left",
+          "frequency": 0.20152435520714082,
+          "ev": 0.2014310450234853,
+          "loss": 0.000562096408203816,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "hidden-final",
+      "repeat": 0,
+      "rangeMs": 0.06733322143554688,
+      "coldTotalMs": 23.826625108718872,
+      "warmTotalMs": 3.718874931335449,
+      "checkpointMs": 0.11404109001159668,
+      "compressionMs": 0.23837494850158691,
+      "checkpointBytes": 10495,
+      "gzipBytes": 1932,
+      "heapDeltaBytes": -48120,
+      "arrayBufferDeltaBytes": 5444,
+      "rssBytes": 60506112,
+      "rootTypes": [
+        2,
+        2
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 75,
+        "passes": 150,
+        "informationStates": 4,
+        "actionEntries": 130,
+        "numericTableBytes": 2080,
+        "treeNodes": 0,
+        "matrixCells": 3364,
+        "equivalentUnsharedCells": 4225,
+        "visitedNodes": 0,
+        "setupMs": 1.5490000247955322,
+        "trainingMs": 16.766458988189697,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.19814702928998806,
+          "upper": 0.2023709651158495,
+          "lower": 0.19297672422156203,
+          "nashGap": 0.009394240894287476,
+          "exploitability": 0.004697120447143738,
+          "maxConditionalGain": 0.0056822827276470644,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 40,
+      "analysisMs": 3.6166250705718994,
+      "converged": true,
+      "timeToAccuracyMs": 23.826625108718872,
+      "topActions": [
+        {
+          "turn": "4 → Middle · 2 → Right",
+          "frequency": 0.7855032438477274,
+          "ev": 0.20985992220339877,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "6 → Left",
+          "frequency": 0.07454305329526911,
+          "ev": 0.1948820080283003,
+          "loss": 0.014977914175098472,
+          "grade": "correct"
+        },
+        {
+          "turn": "2+4 → Left",
+          "frequency": 0.07454305329526911,
+          "ev": 0.1948820080283003,
+          "loss": 0.014977914175098472,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "hidden-final",
+      "repeat": 1,
+      "rangeMs": 0.0160830020904541,
+      "coldTotalMs": 17.214207887649536,
+      "warmTotalMs": 4.100833177566528,
+      "checkpointMs": 0.1940000057220459,
+      "compressionMs": 0.23895788192749023,
+      "checkpointBytes": 10495,
+      "gzipBytes": 1932,
+      "heapDeltaBytes": 321360,
+      "arrayBufferDeltaBytes": 5444,
+      "rssBytes": 61685760,
+      "rootTypes": [
+        2,
+        2
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 75,
+        "passes": 150,
+        "informationStates": 4,
+        "actionEntries": 130,
+        "numericTableBytes": 2080,
+        "treeNodes": 0,
+        "matrixCells": 3364,
+        "equivalentUnsharedCells": 4225,
+        "visitedNodes": 0,
+        "setupMs": 1.3454999923706055,
+        "trainingMs": 11.256458044052124,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.19814702928998806,
+          "upper": 0.2023709651158495,
+          "lower": 0.19297672422156203,
+          "nashGap": 0.009394240894287476,
+          "exploitability": 0.004697120447143738,
+          "maxConditionalGain": 0.0056822827276470644,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 40,
+      "analysisMs": 3.1581249237060547,
+      "converged": true,
+      "timeToAccuracyMs": 17.214207887649536,
+      "topActions": [
+        {
+          "turn": "4 → Middle · 2 → Right",
+          "frequency": 0.7855032438477274,
+          "ev": 0.20985992220339877,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "6 → Left",
+          "frequency": 0.07454305329526911,
+          "ev": 0.1948820080283003,
+          "loss": 0.014977914175098472,
+          "grade": "correct"
+        },
+        {
+          "turn": "2+4 → Left",
+          "frequency": 0.07454305329526911,
+          "ev": 0.1948820080283003,
+          "loss": 0.014977914175098472,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "hidden-final",
+      "repeat": 2,
+      "rangeMs": 0.011459112167358398,
+      "coldTotalMs": 22.084749937057495,
+      "warmTotalMs": 3.2587502002716064,
+      "checkpointMs": 0.10591697692871094,
+      "compressionMs": 0.23800015449523926,
+      "checkpointBytes": 10495,
+      "gzipBytes": 1932,
+      "heapDeltaBytes": 85664,
+      "arrayBufferDeltaBytes": 5444,
+      "rssBytes": 66322432,
+      "rootTypes": [
+        2,
+        2
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 75,
+        "passes": 150,
+        "informationStates": 4,
+        "actionEntries": 130,
+        "numericTableBytes": 2080,
+        "treeNodes": 0,
+        "matrixCells": 3364,
+        "equivalentUnsharedCells": 4225,
+        "visitedNodes": 0,
+        "setupMs": 1.2624590396881104,
+        "trainingMs": 17.65429186820984,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.19814702928998806,
+          "upper": 0.2023709651158495,
+          "lower": 0.19297672422156203,
+          "nashGap": 0.009394240894287476,
+          "exploitability": 0.004697120447143738,
+          "maxConditionalGain": 0.0056822827276470644,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 40,
+      "analysisMs": 1.408249855041504,
+      "converged": true,
+      "timeToAccuracyMs": 22.084749937057495,
+      "topActions": [
+        {
+          "turn": "4 → Middle · 2 → Right",
+          "frequency": 0.7855032438477274,
+          "ev": 0.20985992220339877,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "6 → Left",
+          "frequency": 0.07454305329526911,
+          "ev": 0.1948820080283003,
+          "loss": 0.014977914175098472,
+          "grade": "correct"
+        },
+        {
+          "turn": "2+4 → Left",
+          "frequency": 0.07454305329526911,
+          "ev": 0.1948820080283003,
+          "loss": 0.014977914175098472,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "two-turn-check",
+      "repeat": 0,
+      "rangeMs": 0.03520798683166504,
+      "coldTotalMs": 24.078166007995605,
+      "warmTotalMs": 1.7228338718414307,
+      "checkpointMs": 0.10295796394348145,
+      "compressionMs": 0.17520904541015625,
+      "checkpointBytes": 13494,
+      "gzipBytes": 1010,
+      "heapDeltaBytes": 727664,
+      "arrayBufferDeltaBytes": 0,
+      "rssBytes": 66863104,
+      "rootTypes": [
+        1,
+        1
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Full-tree CFR",
+        "iterations": 175,
+        "passes": 350,
+        "informationStates": 34,
+        "actionEntries": 160,
+        "numericTableBytes": 2560,
+        "treeNodes": 490,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 0,
+        "setupMs": 1.3964171409606934,
+        "trainingMs": 20.324958086013794,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": -3.2526065174565133e-19,
+          "upper": 0.004484126984126975,
+          "lower": -0.004484126984126975,
+          "nashGap": 0.00896825396825395,
+          "exploitability": 0.004484126984126975,
+          "maxConditionalGain": 0.004484126984126976,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 4,
+      "analysisMs": 0.5901250839233398,
+      "converged": true,
+      "timeToAccuracyMs": 24.078166007995605,
+      "topActions": [
+        {
+          "turn": "1 → Right",
+          "frequency": 0.33285714285714285,
+          "ev": 0.001426600683191728,
+          "loss": 4.336808689942018e-19,
+          "grade": "correct"
+        },
+        {
+          "turn": "1 → Middle",
+          "frequency": 0.33285714285714285,
+          "ev": 0.0014266006831917283,
+          "loss": 2.168404344971009e-19,
+          "grade": "correct"
+        },
+        {
+          "turn": "1 → Left",
+          "frequency": 0.33285714285714285,
+          "ev": 0.0014266006831917285,
+          "loss": 0,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "two-turn-check",
+      "repeat": 1,
+      "rangeMs": 0.009332895278930664,
+      "coldTotalMs": 15.49287486076355,
+      "warmTotalMs": 1.4885830879211426,
+      "checkpointMs": 0.09895801544189453,
+      "compressionMs": 0.26712489128112793,
+      "checkpointBytes": 13494,
+      "gzipBytes": 1010,
+      "heapDeltaBytes": 616624,
+      "arrayBufferDeltaBytes": 0,
+      "rssBytes": 67502080,
+      "rootTypes": [
+        1,
+        1
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Full-tree CFR",
+        "iterations": 175,
+        "passes": 350,
+        "informationStates": 34,
+        "actionEntries": 160,
+        "numericTableBytes": 2560,
+        "treeNodes": 490,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 0,
+        "setupMs": 1.039417028427124,
+        "trainingMs": 12.613832950592041,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": -3.2526065174565133e-19,
+          "upper": 0.004484126984126975,
+          "lower": -0.004484126984126975,
+          "nashGap": 0.00896825396825395,
+          "exploitability": 0.004484126984126975,
+          "maxConditionalGain": 0.004484126984126976,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 4,
+      "analysisMs": 0.3191659450531006,
+      "converged": true,
+      "timeToAccuracyMs": 15.49287486076355,
+      "topActions": [
+        {
+          "turn": "1 → Right",
+          "frequency": 0.33285714285714285,
+          "ev": 0.001426600683191728,
+          "loss": 4.336808689942018e-19,
+          "grade": "correct"
+        },
+        {
+          "turn": "1 → Middle",
+          "frequency": 0.33285714285714285,
+          "ev": 0.0014266006831917283,
+          "loss": 2.168404344971009e-19,
+          "grade": "correct"
+        },
+        {
+          "turn": "1 → Left",
+          "frequency": 0.33285714285714285,
+          "ev": 0.0014266006831917285,
+          "loss": 0,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "two-turn-check",
+      "repeat": 2,
+      "rangeMs": 0.013124942779541016,
+      "coldTotalMs": 23.686291933059692,
+      "warmTotalMs": 1.8904998302459717,
+      "checkpointMs": 0.10712504386901855,
+      "compressionMs": 0.2940831184387207,
+      "checkpointBytes": 13494,
+      "gzipBytes": 1011,
+      "heapDeltaBytes": 508344,
+      "arrayBufferDeltaBytes": -15680,
+      "rssBytes": 73089024,
+      "rootTypes": [
+        1,
+        1
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Full-tree CFR",
+        "iterations": 175,
+        "passes": 350,
+        "informationStates": 34,
+        "actionEntries": 160,
+        "numericTableBytes": 2560,
+        "treeNodes": 490,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 0,
+        "setupMs": 0.9894158840179443,
+        "trainingMs": 19.976166009902954,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": -3.2526065174565133e-19,
+          "upper": 0.004484126984126975,
+          "lower": -0.004484126984126975,
+          "nashGap": 0.00896825396825395,
+          "exploitability": 0.004484126984126975,
+          "maxConditionalGain": 0.004484126984126976,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 4,
+      "analysisMs": 0.48258280754089355,
+      "converged": true,
+      "timeToAccuracyMs": 23.686291933059692,
+      "topActions": [
+        {
+          "turn": "1 → Right",
+          "frequency": 0.33285714285714285,
+          "ev": 0.001426600683191728,
+          "loss": 4.336808689942018e-19,
+          "grade": "correct"
+        },
+        {
+          "turn": "1 → Middle",
+          "frequency": 0.33285714285714285,
+          "ev": 0.0014266006831917283,
+          "loss": 2.168404344971009e-19,
+          "grade": "correct"
+        },
+        {
+          "turn": "1 → Left",
+          "frequency": 0.33285714285714285,
+          "ev": 0.0014266006831917285,
+          "loss": 0,
+          "grade": "correct"
+        }
+      ]
+    },
+    {
+      "name": "turn-6",
+      "repeat": 0,
+      "rangeMs": 23.199583053588867,
+      "coldTotalMs": 307.3781659603119,
+      "warmTotalMs": 41.5700409412384,
+      "checkpointMs": 1.8109169006347656,
+      "compressionMs": 3.643749952316284,
+      "checkpointBytes": 314307,
+      "gzipBytes": 28414,
+      "heapDeltaBytes": 2350912,
+      "arrayBufferDeltaBytes": 108329,
+      "rssBytes": 81870848,
+      "rootTypes": [
+        45,
+        45
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 150,
+        "passes": 300,
+        "informationStates": 90,
+        "actionEntries": 3066,
+        "numericTableBytes": 49056,
+        "treeNodes": 0,
+        "matrixCells": 59049,
+        "equivalentUnsharedCells": 2350089,
+        "visitedNodes": 0,
+        "setupMs": 18.6777081489563,
+        "trainingMs": 230.25562500953674,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.41982460569256547,
+          "upper": 0.41999548397998393,
+          "lower": 0.41941044111798026,
+          "nashGap": 0.0005850428620036707,
+          "exploitability": 0.00029252143100183536,
+          "maxConditionalGain": 0.003009107862538829,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 28,
+      "analysisMs": 32.85316610336304,
+      "converged": true,
+      "timeToAccuracyMs": 307.3781659603119,
+      "topActions": [
+        {
+          "turn": "3+3 → Right",
+          "frequency": 0.9996373623303959,
+          "ev": 0.42394066951776344,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "3 → Left · 3 → Middle",
+          "frequency": 0.00024359349577893506,
+          "ev": 0.06708660261648719,
+          "loss": 0.35685406690127625,
+          "grade": "mistake"
+        },
+        {
+          "turn": "2+3 → Right",
+          "frequency": 0.00006389415857321895,
+          "ev": -0.18459490057304706,
+          "loss": 0.6085355700908105,
+          "grade": "mistake"
+        }
+      ]
+    },
+    {
+      "name": "turn-6",
+      "repeat": 1,
+      "rangeMs": 21.37404203414917,
+      "coldTotalMs": 304.382208108902,
+      "warmTotalMs": 40.24662494659424,
+      "checkpointMs": 1.8206658363342285,
+      "compressionMs": 3.6236660480499268,
+      "checkpointBytes": 314307,
+      "gzipBytes": 28414,
+      "heapDeltaBytes": 2392392,
+      "arrayBufferDeltaBytes": 108105,
+      "rssBytes": 103284736,
+      "rootTypes": [
+        45,
+        45
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 150,
+        "passes": 300,
+        "informationStates": 90,
+        "actionEntries": 3066,
+        "numericTableBytes": 49056,
+        "treeNodes": 0,
+        "matrixCells": 59049,
+        "equivalentUnsharedCells": 2350089,
+        "visitedNodes": 0,
+        "setupMs": 19.405041933059692,
+        "trainingMs": 232.54162502288818,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.41982460569256547,
+          "upper": 0.41999548397998393,
+          "lower": 0.41941044111798026,
+          "nashGap": 0.0005850428620036707,
+          "exploitability": 0.00029252143100183536,
+          "maxConditionalGain": 0.003009107862538829,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 28,
+      "analysisMs": 27.889583110809326,
+      "converged": true,
+      "timeToAccuracyMs": 304.382208108902,
+      "topActions": [
+        {
+          "turn": "3+3 → Right",
+          "frequency": 0.9996373623303959,
+          "ev": 0.42394066951776344,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "3 → Left · 3 → Middle",
+          "frequency": 0.00024359349577893506,
+          "ev": 0.06708660261648719,
+          "loss": 0.35685406690127625,
+          "grade": "mistake"
+        },
+        {
+          "turn": "2+3 → Right",
+          "frequency": 0.00006389415857321895,
+          "ev": -0.18459490057304706,
+          "loss": 0.6085355700908105,
+          "grade": "mistake"
+        }
+      ]
+    },
+    {
+      "name": "turn-6",
+      "repeat": 2,
+      "rangeMs": 21.50737500190735,
+      "coldTotalMs": 303.5587909221649,
+      "warmTotalMs": 40.30395793914795,
+      "checkpointMs": 1.7892498970031738,
+      "compressionMs": 3.6312499046325684,
+      "checkpointBytes": 314307,
+      "gzipBytes": 28414,
+      "heapDeltaBytes": 2394328,
+      "arrayBufferDeltaBytes": 108329,
+      "rssBytes": 105562112,
+      "rootTypes": [
+        45,
+        45
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Bayesian matrix CFR+",
+        "iterations": 150,
+        "passes": 300,
+        "informationStates": 90,
+        "actionEntries": 3066,
+        "numericTableBytes": 49056,
+        "treeNodes": 0,
+        "matrixCells": 59049,
+        "equivalentUnsharedCells": 2350089,
+        "visitedNodes": 0,
+        "setupMs": 18.941375017166138,
+        "trainingMs": 233.15437483787537,
+        "stopReason": "accuracy",
+        "diagnostics": {
+          "certified": true,
+          "value": 0.41982460569256547,
+          "upper": 0.41999548397998393,
+          "lower": 0.41941044111798026,
+          "nashGap": 0.0005850428620036707,
+          "exploitability": 0.00029252143100183536,
+          "maxConditionalGain": 0.003009107862538829,
+          "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+          "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving."
+        }
+      },
+      "queryActions": 28,
+      "analysisMs": 27.553125143051147,
+      "converged": true,
+      "timeToAccuracyMs": 303.5587909221649,
+      "topActions": [
+        {
+          "turn": "3+3 → Right",
+          "frequency": 0.9996373623303959,
+          "ev": 0.42394066951776344,
+          "loss": 0,
+          "grade": "correct"
+        },
+        {
+          "turn": "3 → Left · 3 → Middle",
+          "frequency": 0.00024359349577893506,
+          "ev": 0.06708660261648719,
+          "loss": 0.35685406690127625,
+          "grade": "mistake"
+        },
+        {
+          "turn": "2+3 → Right",
+          "frequency": 0.00006389415857321895,
+          "ev": -0.18459490057304706,
+          "loss": 0.6085355700908105,
+          "grade": "mistake"
+        }
+      ]
+    },
+    {
+      "name": "turn-5",
+      "repeat": 0,
+      "rangeMs": 17.197666883468628,
+      "coldTotalMs": 488.9291248321533,
+      "warmTotalMs": 155.3301661014557,
+      "checkpointMs": 127.19770908355713,
+      "compressionMs": 169.92337489128113,
+      "checkpointBytes": 15371251,
+      "gzipBytes": 1188879,
+      "heapDeltaBytes": 41356888,
+      "arrayBufferDeltaBytes": 7526136,
+      "rssBytes": 162824192,
+      "rootTypes": [
+        76,
+        76
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 8355,
+        "passes": 16711,
+        "informationStates": 25000,
+        "actionEntries": 479304,
+        "numericTableBytes": 7668864,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 116983,
+        "setupMs": 0.06800007820129395,
+        "trainingMs": 435.0338749885559,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 22,
+      "analysisMs": 34.43887495994568,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "2 → Middle · 2 → Right",
+          "frequency": 0.40720966007973286,
+          "ev": 0.0390625,
+          "loss": 0.1484375,
+          "grade": "provisional"
+        },
+        {
+          "turn": "2+3 → Right",
+          "frequency": 0.3401209713100152,
+          "ev": 0.1484375,
+          "loss": 0.0390625,
+          "grade": "provisional"
+        },
+        {
+          "turn": "2 → Left · 2 → Middle",
+          "frequency": 0.22272766202340516,
+          "ev": -0.09375,
+          "loss": 0.28125,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-5",
+      "repeat": 1,
+      "rangeMs": 19.41562509536743,
+      "coldTotalMs": 526.0950000286102,
+      "warmTotalMs": 147.3900420665741,
+      "checkpointMs": 139.26466608047485,
+      "compressionMs": 172.3944170475006,
+      "checkpointBytes": 15402113,
+      "gzipBytes": 1195728,
+      "heapDeltaBytes": 40981104,
+      "arrayBufferDeltaBytes": 7438320,
+      "rssBytes": 177733632,
+      "rootTypes": [
+        76,
+        76
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 8599,
+        "passes": 17199,
+        "informationStates": 25000,
+        "actionEntries": 485958,
+        "numericTableBytes": 7775328,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 120399,
+        "setupMs": 0.02245807647705078,
+        "trainingMs": 464.3767499923706,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 22,
+      "analysisMs": 39.18404197692871,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "2 → Left",
+          "frequency": 0.1460738481734649,
+          "ev": -0.3671875,
+          "loss": 0.6015625,
+          "grade": "provisional"
+        },
+        {
+          "turn": "2 → Middle · 3 → Right",
+          "frequency": 0.13414961170016412,
+          "ev": 0.0234375,
+          "loss": 0.2109375,
+          "grade": "provisional"
+        },
+        {
+          "turn": "3 → Middle · 2 → Right",
+          "frequency": 0.11309453143937423,
+          "ev": 0.125,
+          "loss": 0.109375,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-5",
+      "repeat": 2,
+      "rangeMs": 19.21749997138977,
+      "coldTotalMs": 465.84508299827576,
+      "warmTotalMs": 162.78041696548462,
+      "checkpointMs": 126.88270807266235,
+      "compressionMs": 166.9409580230713,
+      "checkpointBytes": 15307645,
+      "gzipBytes": 1184963,
+      "heapDeltaBytes": 40977728,
+      "arrayBufferDeltaBytes": 7426216,
+      "rssBytes": 196231168,
+      "rootTypes": [
+        76,
+        76
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 8383,
+        "passes": 16766,
+        "informationStates": 25000,
+        "actionEntries": 482032,
+        "numericTableBytes": 7712512,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 117368,
+        "setupMs": 0.02337503433227539,
+        "trainingMs": 410.1434590816498,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 22,
+      "analysisMs": 33.71041703224182,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "2+3 → Right",
+          "frequency": 0.175157587853191,
+          "ev": 0.15625,
+          "loss": 0.1796875,
+          "grade": "provisional"
+        },
+        {
+          "turn": "3 → Middle · 2 → Right",
+          "frequency": 0.12090217957899213,
+          "ev": 0.1875,
+          "loss": 0.1484375,
+          "grade": "provisional"
+        },
+        {
+          "turn": "2 → Left · 2 → Right",
+          "frequency": 0.0921507653281012,
+          "ev": 0.1328125,
+          "loss": 0.203125,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-3",
+      "repeat": 0,
+      "rangeMs": 11.063957929611206,
+      "coldTotalMs": 580.9862079620361,
+      "warmTotalMs": 184.40783286094666,
+      "checkpointMs": 133.87637495994568,
+      "compressionMs": 180.70420789718628,
+      "checkpointBytes": 17386668,
+      "gzipBytes": 1262517,
+      "heapDeltaBytes": 97882832,
+      "arrayBufferDeltaBytes": 6103728,
+      "rssBytes": 253739008,
+      "rootTypes": [
+        129,
+        129
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 2170,
+        "passes": 4341,
+        "informationStates": 25000,
+        "actionEntries": 416835,
+        "numericTableBytes": 6669360,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 65124,
+        "setupMs": 0.0026671886444091797,
+        "trainingMs": 518.7746250629425,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 7,
+      "analysisMs": 42.726917028427124,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "3 → Middle",
+          "frequency": 0.2004382882861639,
+          "ev": 0.1796875,
+          "loss": 0,
+          "grade": "provisional"
+        },
+        {
+          "turn": "3 → Left",
+          "frequency": 0.2004382882861639,
+          "ev": 0.0703125,
+          "loss": 0.109375,
+          "grade": "provisional"
+        },
+        {
+          "turn": "2 → Left",
+          "frequency": 0.2004382882861639,
+          "ev": 0.0625,
+          "loss": 0.1171875,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-3",
+      "repeat": 1,
+      "rangeMs": 11.661875009536743,
+      "coldTotalMs": 560.7309999465942,
+      "warmTotalMs": 198.81200003623962,
+      "checkpointMs": 135.49554085731506,
+      "compressionMs": 182.81116700172424,
+      "checkpointBytes": 17695681,
+      "gzipBytes": 1272727,
+      "heapDeltaBytes": 99030720,
+      "arrayBufferDeltaBytes": 6014872,
+      "rssBytes": 270024704,
+      "rootTypes": [
+        129,
+        129
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 2164,
+        "passes": 4328,
+        "informationStates": 25000,
+        "actionEntries": 419748,
+        "numericTableBytes": 6715968,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 64925,
+        "setupMs": 0.0027091503143310547,
+        "trainingMs": 503.55104207992554,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 7,
+      "analysisMs": 40.11591601371765,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "3 → Left",
+          "frequency": 0.9747693026515591,
+          "ev": 0.1015625,
+          "loss": 0.1015625,
+          "grade": "provisional"
+        },
+        {
+          "turn": "Pass",
+          "frequency": 0.004205116224740098,
+          "ev": -0.1953125,
+          "loss": 0.3984375,
+          "grade": "provisional"
+        },
+        {
+          "turn": "3 → Right",
+          "frequency": 0.004205116224740098,
+          "ev": 0.109375,
+          "loss": 0.09375,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-3",
+      "repeat": 2,
+      "rangeMs": 12.452250003814697,
+      "coldTotalMs": 588.0933339595795,
+      "warmTotalMs": 210.39541697502136,
+      "checkpointMs": 164.45899987220764,
+      "compressionMs": 200.19458389282227,
+      "checkpointBytes": 17824599,
+      "gzipBytes": 1279106,
+      "heapDeltaBytes": 99716848,
+      "arrayBufferDeltaBytes": 6313184,
+      "rssBytes": 288227328,
+      "rootTypes": [
+        129,
+        129
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 2169,
+        "passes": 4339,
+        "informationStates": 25000,
+        "actionEntries": 431919,
+        "numericTableBytes": 6910704,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 65094,
+        "setupMs": 0.0027921199798583984,
+        "trainingMs": 527.0841248035431,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 7,
+      "analysisMs": 43.411750078201294,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "3 → Right",
+          "frequency": 0.47515333296852275,
+          "ev": 0.125,
+          "loss": 0.015625,
+          "grade": "provisional"
+        },
+        {
+          "turn": "Pass",
+          "frequency": 0.09555603123117674,
+          "ev": -0.2265625,
+          "loss": 0.3671875,
+          "grade": "provisional"
+        },
+        {
+          "turn": "3 → Middle",
+          "frequency": 0.09555603123117674,
+          "ev": 0.140625,
+          "loss": 0,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-1",
+      "repeat": 0,
+      "rangeMs": 3.660750150680542,
+      "coldTotalMs": 1134.2867920398712,
+      "warmTotalMs": 217.47295904159546,
+      "checkpointMs": 148.4493751525879,
+      "compressionMs": 188.53362488746643,
+      "checkpointBytes": 18873059,
+      "gzipBytes": 1254932,
+      "heapDeltaBytes": 181839824,
+      "arrayBufferDeltaBytes": 5277784,
+      "rssBytes": 364642304,
+      "rootTypes": [
+        189,
+        189
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 1336,
+        "passes": 2672,
+        "informationStates": 25000,
+        "actionEntries": 387759,
+        "numericTableBytes": 6204144,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 61473,
+        "setupMs": 0.0034160614013671875,
+        "trainingMs": 947.6296670436859,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 4,
+      "analysisMs": 166.8249580860138,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "1 → Left",
+          "frequency": 0.52,
+          "ev": 0.265625,
+          "loss": 0,
+          "grade": "provisional"
+        },
+        {
+          "turn": "Pass",
+          "frequency": 0.16,
+          "ev": 0.0234375,
+          "loss": 0.2421875,
+          "grade": "provisional"
+        },
+        {
+          "turn": "1 → Right",
+          "frequency": 0.16,
+          "ev": 0.1640625,
+          "loss": 0.1015625,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-1",
+      "repeat": 1,
+      "rangeMs": 4.192458152770996,
+      "coldTotalMs": 861.6605830192566,
+      "warmTotalMs": 251.0130000114441,
+      "checkpointMs": 146.0619580745697,
+      "compressionMs": 184.86520791053772,
+      "checkpointBytes": 18604275,
+      "gzipBytes": 1241544,
+      "heapDeltaBytes": 175748072,
+      "arrayBufferDeltaBytes": 5138536,
+      "rssBytes": 330186752,
+      "rootTypes": [
+        189,
+        189
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 1329,
+        "passes": 2659,
+        "informationStates": 25000,
+        "actionEntries": 377984,
+        "numericTableBytes": 6047744,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 61175,
+        "setupMs": 0.002958059310913086,
+        "trainingMs": 771.2373340129852,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 4,
+      "analysisMs": 73.2881669998169,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "Pass",
+          "frequency": 0.25,
+          "ev": 0.078125,
+          "loss": 0.046875,
+          "grade": "provisional"
+        },
+        {
+          "turn": "1 → Right",
+          "frequency": 0.25,
+          "ev": 0.0859375,
+          "loss": 0.0390625,
+          "grade": "provisional"
+        },
+        {
+          "turn": "1 → Middle",
+          "frequency": 0.25,
+          "ev": 0.0390625,
+          "loss": 0.0859375,
+          "grade": "provisional"
+        }
+      ]
+    },
+    {
+      "name": "turn-1",
+      "repeat": 2,
+      "rangeMs": 3.0020411014556885,
+      "coldTotalMs": 989.7172911167145,
+      "warmTotalMs": 238.03579211235046,
+      "checkpointMs": 145.62091588974,
+      "compressionMs": 198.21241688728333,
+      "checkpointBytes": 18659451,
+      "gzipBytes": 1255168,
+      "heapDeltaBytes": 180742336,
+      "arrayBufferDeltaBytes": 5127720,
+      "rssBytes": 314343424,
+      "rootTypes": [
+        189,
+        189
+      ],
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 1331,
+        "passes": 2662,
+        "informationStates": 25000,
+        "actionEntries": 380405,
+        "numericTableBytes": 6086480,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 61239,
+        "setupMs": 0.0034589767456054688,
+        "trainingMs": 811.1082911491394,
+        "stopReason": "memory",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "queryActions": 4,
+      "analysisMs": 157.47691702842712,
+      "converged": false,
+      "timeToAccuracyMs": null,
+      "topActions": [
+        {
+          "turn": "Pass",
+          "frequency": 0.25,
+          "ev": 0.0234375,
+          "loss": 0.109375,
+          "grade": "provisional"
+        },
+        {
+          "turn": "1 → Right",
+          "frequency": 0.25,
+          "ev": 0.0703125,
+          "loss": 0.0625,
+          "grade": "provisional"
+        },
+        {
+          "turn": "1 → Middle",
+          "frequency": 0.25,
+          "ev": 0.0390625,
+          "loss": 0.09375,
+          "grade": "provisional"
+        }
+      ]
+    }
+  ]
+}

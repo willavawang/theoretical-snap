@@ -1,0 +1,90 @@
+{
+  "metadata": {
+    "generatedAt": "2026-10-29T23:50:09.026Z",
+    "runtime": "v18.15.0",
+    "cpu": "Apple M2",
+    "memoryBytes": 17179869184,
+    "engineHash": "a71391d4c44895bee28d4f0bce1dd6af897a9ec113ef992e8906e1609170458a",
+    "measurement": "One native Node run per configuration. Retained memory after GC, not peak/browser memory. No time-to-equilibrium claim."
+  },
+  "results": [
+    {
+      "mode": "three-decks-100k",
+      "deckTypes": 3,
+      "rootTypes": [
+        189,
+        189
+      ],
+      "rangeMs": 2.96541690826416,
+      "constructorMs": 9.30887508392334,
+      "trainingWallMs": 3005.594250202179,
+      "retainedRangesBytes": 46000,
+      "retainedSetupBytes": 312160,
+      "retainedAfterTrainingBytes": 601455656,
+      "rssAfterTraining": 727646208,
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 5107,
+        "passes": 10214,
+        "informationStates": 88900,
+        "actionEntries": 1430622,
+        "numericTableBytes": 22889952,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 234922,
+        "setupMs": 0.0032498836517333984,
+        "trainingMs": 3000.3477919101715,
+        "stopReason": "time",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "accuracy": "No exhaustive full-game accuracy bound is available. These are resource probes, not solved games."
+    },
+    {
+      "mode": "all-decks",
+      "deckTypes": 6188,
+      "rootTypes": [
+        162162,
+        162162
+      ],
+      "rangeMs": 1390.135624885559,
+      "constructorMs": 756.0525419712067,
+      "trainingWallMs": 3003.4513750076294,
+      "retainedRangesBytes": 144076272,
+      "retainedSetupBytes": 344597760,
+      "retainedAfterTrainingBytes": 399987408,
+      "rssAfterTraining": 530546688,
+      "stats": {
+        "version": "playing-solver-1",
+        "algorithm": "Outcome-sampling MCCFR",
+        "iterations": 394,
+        "passes": 788,
+        "informationStates": 9436,
+        "actionEntries": 77372,
+        "numericTableBytes": 1237952,
+        "treeNodes": 0,
+        "matrixCells": 0,
+        "equivalentUnsharedCells": 0,
+        "visitedNodes": 18124,
+        "setupMs": 0.005457878112792969,
+        "trainingMs": 3002.3598339557648,
+        "stopReason": "time",
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        }
+      },
+      "accuracy": "No exhaustive full-game accuracy bound is available. These are resource probes, not solved games."
+    }
+  ]
+}

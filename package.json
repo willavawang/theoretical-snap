@@ -1,0 +1,13 @@
+{
+  "name": "theoretical-snap",
+  "version": "0.6.1",
+  "private": true,
+  "description": "A charcoal-print numerical Snap training mockup.",
+  "scripts": {
+    "dev": "python3 scripts/dev-server.py",
+    "check": "node --check dist/app.js && node --check dist/solver/engine.js && node --check dist/solver/ranges.js && node --check dist/solver/worker.js && node --check dist/solver/lab.js",
+    "export": "python3 scripts/export-preview.py",
+    "test": "node --test tests/*.test.cjs tests/solver/*.test.cjs",
+    "benchmark:solver": "node --expose-gc scripts/solver/benchmark.cjs"
+  }
+}

@@ -1,0 +1,2947 @@
+{
+  "run": "https://github.com/willavawang/theoretical-snap/actions/runs/40984107796",
+  "sourceCommit": "f65d7d5df4ff9148244d3408d54a2cbf0e49cf11",
+  "reports": [
+    {
+      "status": "time-budget",
+      "metadata": {
+        "startedAt": "2026-10-30T01:09:32.835Z",
+        "host": "runnervm48cm3",
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "cpuCount": 4,
+        "totalMemory": 16760344576,
+        "runtime": "v22.23.4",
+        "platform": "linux",
+        "architecture": "x64",
+        "buildHash": "b8bea5d885280d73921331c91618558a2297a32ef8f820a3db032068288ef437",
+        "modelFingerprint": "ac525bdae974e94608aaee7284ff8e9e44b6084a329dc093de7df9b6a1c57b74",
+        "spec": {
+          "deckSelection": "fixed",
+          "decks": [
+            [
+              {
+                "cards": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+                ]
+              }
+            ],
+            [
+              {
+                "cards": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+                ]
+              }
+            ]
+          ]
+        },
+        "resourceLimits": {
+          "seconds": 10,
+          "memoryMiB": 2048,
+          "maxInfoStates": 2000000
+        },
+        "pid": 2374
+      },
+      "certificate": {
+        "certified": true,
+        "value": -0.00002833068418065661,
+        "upper": 0.0002308855173179103,
+        "lower": -0.00009405200987330572,
+        "nashGap": 0.000324937527191216,
+        "exploitability": 0.000162468763595608,
+        "maxConditionalGain": 0.0002592162014985669,
+        "method": "Exhaustive information-set-constrained best responses to the averaged strategy",
+        "scope": "This supplied-range continuation game, not a certificate for different beliefs or safe full-game re-solving.",
+        "treeNodes": 389,
+        "informationStates": 42,
+        "targetGap": 0.01,
+        "validated": true
+      },
+      "profile": {
+        "samples": 1000,
+        "ev": 0,
+        "wdl": [
+          0,
+          1,
+          0
+        ],
+        "evError95": 0.08589388166934751,
+        "confidence": 0.95,
+        "scope": "Frozen-profile Monte Carlo value; not an exploitability upper bound."
+      },
+      "latest": {
+        "elapsedMs": 10091.449437,
+        "version": "snap-offline-1",
+        "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+        "iterations": 125900,
+        "passes": 251800,
+        "informationStates": 42,
+        "actionEntries": 144,
+        "numericTableBytes": 2304,
+        "arenaAllocatedBytes": 9699328,
+        "publicHistories": 21,
+        "privateHistories": 7,
+        "legalActionSets": 9,
+        "sharedActions": 400,
+        "visitedNodes": 5413700,
+        "trainingMs": 9649.41363900002,
+        "stopReason": null,
+        "deckSelection": false,
+        "deckTypes": [
+          1,
+          1
+        ],
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        },
+        "memory": {
+          "rss": 136421376,
+          "heapTotal": 49127424,
+          "heapUsed": 5041736,
+          "external": 11502933,
+          "arrayBuffers": 9715947
+        }
+      },
+      "trajectory": [
+        {
+          "elapsedMs": 4948.309206,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 60100,
+          "passes": 120200,
+          "informationStates": 42,
+          "actionEntries": 144,
+          "numericTableBytes": 2304,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 21,
+          "privateHistories": 7,
+          "legalActionSets": 9,
+          "sharedActions": 400,
+          "visitedNodes": 2584300,
+          "trainingMs": 4768.561822000007,
+          "stopReason": null,
+          "deckSelection": false,
+          "deckTypes": [
+            1,
+            1
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 135495680,
+            "heapTotal": 48340992,
+            "heapUsed": 24879680,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        },
+        {
+          "elapsedMs": 9951.064207,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 125200,
+          "passes": 250400,
+          "informationStates": 42,
+          "actionEntries": 144,
+          "numericTableBytes": 2304,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 21,
+          "privateHistories": 7,
+          "legalActionSets": 9,
+          "sharedActions": 400,
+          "visitedNodes": 5383600,
+          "trainingMs": 9599.287117000018,
+          "stopReason": null,
+          "deckSelection": false,
+          "deckTypes": [
+            1,
+            1
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 136544256,
+            "heapTotal": 47030272,
+            "heapUsed": 18606568,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        },
+        {
+          "elapsedMs": 10091.449437,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 125900,
+          "passes": 251800,
+          "informationStates": 42,
+          "actionEntries": 144,
+          "numericTableBytes": 2304,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 21,
+          "privateHistories": 7,
+          "legalActionSets": 9,
+          "sharedActions": 400,
+          "visitedNodes": 5413700,
+          "trainingMs": 9649.41363900002,
+          "stopReason": null,
+          "deckSelection": false,
+          "deckTypes": [
+            1,
+            1
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 136421376,
+            "heapTotal": 49127424,
+            "heapUsed": 5041736,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        }
+      ],
+      "currentExploratoryDeckMixtures": [
+        [
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              12,
+              0
+            ],
+            "probability": 1
+          }
+        ],
+        [
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              12,
+              0
+            ],
+            "probability": 1
+          }
+        ]
+      ],
+      "checkpoint": {
+        "path": "/home/runner/work/theoretical-snap/theoretical-snap/artifacts/offline/six-turn/checkpoint.bin",
+        "bytes": 4453
+      },
+      "decisionExample": "decision-example.json",
+      "interpretation": "Accuracy target met only for the explicitly certified game and scope."
+    },
+    {
+      "status": "time-budget",
+      "metadata": {
+        "startedAt": "2026-10-30T01:09:43.007Z",
+        "host": "runnervm48cm3",
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "cpuCount": 4,
+        "totalMemory": 16760344576,
+        "runtime": "v22.23.4",
+        "platform": "linux",
+        "architecture": "x64",
+        "buildHash": "b8bea5d885280d73921331c91618558a2297a32ef8f820a3db032068288ef437",
+        "modelFingerprint": "1ab9c0e9a1f0e8af2858851592df911dd3f0209f201f38e8746339f5e0768959",
+        "spec": {
+          "deckSelection": "equilibrium",
+          "decks": [
+            [
+              {
+                "name": "twelve-4",
+                "cards": [
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4
+                ]
+              },
+              {
+                "name": "twelve-5",
+                "cards": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+                ]
+              },
+              {
+                "name": "twelve-6",
+                "cards": [
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6
+                ]
+              }
+            ],
+            [
+              {
+                "name": "twelve-4",
+                "cards": [
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4,
+                  4
+                ]
+              },
+              {
+                "name": "twelve-5",
+                "cards": [
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5,
+                  5
+                ]
+              },
+              {
+                "name": "twelve-6",
+                "cards": [
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6,
+                  6
+                ]
+              }
+            ]
+          ]
+        },
+        "resourceLimits": {
+          "seconds": 20,
+          "memoryMiB": 2048,
+          "maxInfoStates": 2000000
+        },
+        "pid": 2386
+      },
+      "certificate": {
+        "certified": true,
+        "validated": false,
+        "conditionalRootCoverageValidated": false,
+        "targetGap": 0.01,
+        "value": -0.0030680653909277507,
+        "upper": 0.010481879057829636,
+        "lower": -0.01583149021171538,
+        "nashGap": 0.026313369269545018,
+        "exploitability": 0.013156684634772509,
+        "maxConditionalGain": 0.5622905765289783,
+        "checkedDecks": [
+          3,
+          3
+        ],
+        "treeNodes": 31536,
+        "method": "Exhaustive information-constrained deviations including private deck choice",
+        "scope": "This configured deck universe and rules; not every rare future information state."
+      },
+      "profile": {
+        "samples": 1000,
+        "ev": 0.003,
+        "wdl": [
+          0.012,
+          0.979,
+          0.009
+        ],
+        "evError95": 0.08589388166934751,
+        "confidence": 0.95,
+        "scope": "Frozen-profile Monte Carlo value; not an exploitability upper bound."
+      },
+      "latest": {
+        "elapsedMs": 20272.657744,
+        "version": "snap-offline-1",
+        "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+        "iterations": 227400,
+        "passes": 454800,
+        "informationStates": 870,
+        "actionEntries": 3390,
+        "numericTableBytes": 54240,
+        "arenaAllocatedBytes": 9699328,
+        "publicHistories": 381,
+        "privateHistories": 23,
+        "legalActionSets": 33,
+        "sharedActions": 400,
+        "visitedNodes": 9778200,
+        "trainingMs": 19458.940598000063,
+        "stopReason": null,
+        "deckSelection": true,
+        "deckTypes": [
+          3,
+          3
+        ],
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        },
+        "memory": {
+          "rss": 140468224,
+          "heapTotal": 40738816,
+          "heapUsed": 5328480,
+          "external": 11502933,
+          "arrayBuffers": 9715947
+        }
+      },
+      "trajectory": [
+        {
+          "elapsedMs": 4955.4658979999995,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 54800,
+          "passes": 109600,
+          "informationStates": 870,
+          "actionEntries": 3390,
+          "numericTableBytes": 54240,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 381,
+          "privateHistories": 23,
+          "legalActionSets": 33,
+          "sharedActions": 400,
+          "visitedNodes": 2356400,
+          "trainingMs": 4825.0183840000045,
+          "stopReason": null,
+          "deckSelection": true,
+          "deckTypes": [
+            3,
+            3
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 138477568,
+            "heapTotal": 51748864,
+            "heapUsed": 22012920,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        },
+        {
+          "elapsedMs": 9963.458564,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 111600,
+          "passes": 223200,
+          "informationStates": 870,
+          "actionEntries": 3390,
+          "numericTableBytes": 54240,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 381,
+          "privateHistories": 23,
+          "legalActionSets": 33,
+          "sharedActions": 400,
+          "visitedNodes": 4798800,
+          "trainingMs": 9684.816549999994,
+          "stopReason": null,
+          "deckSelection": true,
+          "deckTypes": [
+            3,
+            3
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 139001856,
+            "heapTotal": 60399616,
+            "heapUsed": 30239240,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        },
+        {
+          "elapsedMs": 14972.922445,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 169300,
+          "passes": 338600,
+          "informationStates": 870,
+          "actionEntries": 3390,
+          "numericTableBytes": 54240,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 381,
+          "privateHistories": 23,
+          "legalActionSets": 33,
+          "sharedActions": 400,
+          "visitedNodes": 7279900,
+          "trainingMs": 14558.110674000007,
+          "stopReason": null,
+          "deckSelection": true,
+          "deckTypes": [
+            3,
+            3
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 139132928,
+            "heapTotal": 62758912,
+            "heapUsed": 32458840,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        },
+        {
+          "elapsedMs": 19981.579913,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 227200,
+          "passes": 454400,
+          "informationStates": 870,
+          "actionEntries": 3390,
+          "numericTableBytes": 54240,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 381,
+          "privateHistories": 23,
+          "legalActionSets": 33,
+          "sharedActions": 400,
+          "visitedNodes": 9769600,
+          "trainingMs": 19441.671528000064,
+          "stopReason": null,
+          "deckSelection": true,
+          "deckTypes": [
+            3,
+            3
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 139100160,
+            "heapTotal": 54370304,
+            "heapUsed": 20183568,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        },
+        {
+          "elapsedMs": 20272.657744,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 227400,
+          "passes": 454800,
+          "informationStates": 870,
+          "actionEntries": 3390,
+          "numericTableBytes": 54240,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 381,
+          "privateHistories": 23,
+          "legalActionSets": 33,
+          "sharedActions": 400,
+          "visitedNodes": 9778200,
+          "trainingMs": 19458.940598000063,
+          "stopReason": null,
+          "deckSelection": true,
+          "deckTypes": [
+            3,
+            3
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 140468224,
+            "heapTotal": 40738816,
+            "heapUsed": 5328480,
+            "external": 11502933,
+            "arrayBuffers": 9715947
+          }
+        }
+      ],
+      "currentExploratoryDeckMixtures": [
+        [
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              12,
+              0,
+              0
+            ],
+            "probability": 0.9902359788365492
+          },
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              12,
+              0
+            ],
+            "probability": 0.009762555317657783
+          },
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              12
+            ],
+            "probability": 0.0000014658457930225791
+          }
+        ],
+        [
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              12,
+              0,
+              0
+            ],
+            "probability": 0.9957570844758361
+          },
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              12,
+              0
+            ],
+            "probability": 0.004177608554573614
+          },
+          {
+            "counts": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              12
+            ],
+            "probability": 0.00006530696959029134
+          }
+        ]
+      ],
+      "checkpoint": {
+        "path": "/home/runner/work/theoretical-snap/theoretical-snap/artifacts/offline/deck-check/checkpoint.bin",
+        "bytes": 78699
+      },
+      "decisionExample": "decision-example.json",
+      "interpretation": "No full-game equilibrium certificate. Deck weights and action values are exploratory, not GTO recommendations."
+    },
+    {
+      "status": "time-budget",
+      "metadata": {
+        "startedAt": "2026-10-30T01:10:03.380Z",
+        "host": "runnervm48cm3",
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "cpuCount": 4,
+        "totalMemory": 16760344576,
+        "runtime": "v22.23.4",
+        "platform": "linux",
+        "architecture": "x64",
+        "buildHash": "b8bea5d885280d73921331c91618558a2297a32ef8f820a3db032068288ef437",
+        "modelFingerprint": "3dce623ea1b3a477fee79b96ff35e1bf3854623a3c4cacf4841a9a5b4654057c",
+        "spec": {
+          "deckSelection": "equilibrium",
+          "decks": [
+            "all",
+            "all"
+          ],
+          "rules": {
+            "turns": 6,
+            "handLimit": 7,
+            "deckSize": 12
+          }
+        },
+        "resourceLimits": {
+          "seconds": 180,
+          "memoryMiB": 2048,
+          "maxInfoStates": 2000000
+        },
+        "pid": 2428
+      },
+      "certificate": {
+        "certified": false,
+        "validated": false,
+        "reason": "Full-game exhaustive deviation budget exceeded; every deck remains available during training."
+      },
+      "profile": {
+        "samples": 2000,
+        "ev": -0.006,
+        "wdl": [
+          0.482,
+          0.03,
+          0.488
+        ],
+        "evError95": 0.060736146190830516,
+        "confidence": 0.95,
+        "scope": "Frozen-profile Monte Carlo value; not an exploitability upper bound."
+      },
+      "latest": {
+        "elapsedMs": 182055.740202,
+        "version": "snap-offline-1",
+        "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+        "iterations": 38761,
+        "passes": 77522,
+        "informationStates": 850751,
+        "actionEntries": 7777657,
+        "numericTableBytes": 124442512,
+        "arenaAllocatedBytes": 142868480,
+        "publicHistories": 187040,
+        "privateHistories": 748438,
+        "legalActionSets": 33672,
+        "sharedActions": 400,
+        "visitedNodes": 1666723,
+        "trainingMs": 172831.2817160001,
+        "stopReason": "time",
+        "deckSelection": true,
+        "deckTypes": [
+          6188,
+          6188
+        ],
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        },
+        "memory": {
+          "rss": 885964800,
+          "heapTotal": 437862400,
+          "heapUsed": 188367184,
+          "external": 145537869,
+          "arrayBuffers": 143289323
+        }
+      },
+      "trajectory": [
+        {
+          "elapsedMs": 5058.986972000001,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 1147,
+          "passes": 2294,
+          "informationStates": 26582,
+          "actionEntries": 226532,
+          "numericTableBytes": 3624512,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 7046,
+          "privateHistories": 25944,
+          "legalActionSets": 11295,
+          "sharedActions": 400,
+          "visitedNodes": 49321,
+          "trainingMs": 5050.382271999997,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 120774656,
+            "heapTotal": 58908672,
+            "heapUsed": 24490920,
+            "external": 12400109,
+            "arrayBuffers": 10610691
+          }
+        },
+        {
+          "elapsedMs": 10120.882419,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 2328,
+          "passes": 4656,
+          "informationStates": 53874,
+          "actionEntries": 464450,
+          "numericTableBytes": 7431200,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 13680,
+          "privateHistories": 52202,
+          "legalActionSets": 16599,
+          "sharedActions": 400,
+          "visitedNodes": 100104,
+          "trainingMs": 10104.246833000003,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 145215488,
+            "heapTotal": 79364096,
+            "heapUsed": 57984392,
+            "external": 13201877,
+            "arrayBuffers": 11412459
+          }
+        },
+        {
+          "elapsedMs": 15190.446548,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 3515,
+          "passes": 7030,
+          "informationStates": 81153,
+          "actionEntries": 701662,
+          "numericTableBytes": 11226592,
+          "arenaAllocatedBytes": 19398656,
+          "publicHistories": 20091,
+          "privateHistories": 78253,
+          "legalActionSets": 19779,
+          "sharedActions": 400,
+          "visitedNodes": 151145,
+          "trainingMs": 15168.309550000004,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 160813056,
+            "heapTotal": 89100288,
+            "heapUsed": 46344376,
+            "external": 22201509,
+            "arrayBuffers": 20412091
+          }
+        },
+        {
+          "elapsedMs": 20511.424761000002,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 4702,
+          "passes": 9404,
+          "informationStates": 108369,
+          "actionEntries": 939553,
+          "numericTableBytes": 15032848,
+          "arenaAllocatedBytes": 19398656,
+          "publicHistories": 26358,
+          "privateHistories": 104060,
+          "legalActionSets": 22008,
+          "sharedActions": 400,
+          "visitedNodes": 202186,
+          "trainingMs": 20238.198835999996,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 192884736,
+            "heapTotal": 116912128,
+            "heapUsed": 89706680,
+            "external": 22472061,
+            "arrayBuffers": 20682643
+          }
+        },
+        {
+          "elapsedMs": 25563.488775,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 5883,
+          "passes": 11766,
+          "informationStates": 135279,
+          "actionEntries": 1177328,
+          "numericTableBytes": 18837248,
+          "arenaAllocatedBytes": 29097984,
+          "publicHistories": 32458,
+          "privateHistories": 129380,
+          "legalActionSets": 23670,
+          "sharedActions": 400,
+          "visitedNodes": 252969,
+          "trainingMs": 25283.074443999998,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 220381184,
+            "heapTotal": 139812864,
+            "heapUsed": 103897120,
+            "external": 31772245,
+            "arrayBuffers": 29982827
+          }
+        },
+        {
+          "elapsedMs": 30616.64843,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 7062,
+          "passes": 14124,
+          "informationStates": 161994,
+          "actionEntries": 1415131,
+          "numericTableBytes": 22642096,
+          "arenaAllocatedBytes": 29097984,
+          "publicHistories": 38502,
+          "privateHistories": 154208,
+          "legalActionSets": 24851,
+          "sharedActions": 400,
+          "visitedNodes": 303666,
+          "trainingMs": 30329.985861000005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 223334400,
+            "heapTotal": 124538880,
+            "heapUsed": 74603408,
+            "external": 32417533,
+            "arrayBuffers": 30628115
+          }
+        },
+        {
+          "elapsedMs": 35661.662291,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 8241,
+          "passes": 16482,
+          "informationStates": 188647,
+          "actionEntries": 1652285,
+          "numericTableBytes": 26436560,
+          "arenaAllocatedBytes": 37486592,
+          "publicHistories": 44473,
+          "privateHistories": 178774,
+          "legalActionSets": 25846,
+          "sharedActions": 400,
+          "visitedNodes": 354363,
+          "trainingMs": 35367.21618100001,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 229625856,
+            "heapTotal": 126607360,
+            "heapUsed": 85756296,
+            "external": 40602861,
+            "arrayBuffers": 38813443
+          }
+        },
+        {
+          "elapsedMs": 40931.82782,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 9380,
+          "passes": 18760,
+          "informationStates": 214218,
+          "actionEntries": 1884611,
+          "numericTableBytes": 30153776,
+          "arenaAllocatedBytes": 38797312,
+          "publicHistories": 50135,
+          "privateHistories": 202216,
+          "legalActionSets": 26734,
+          "sharedActions": 400,
+          "visitedNodes": 403340,
+          "trainingMs": 40216.337564000016,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 269791232,
+            "heapTotal": 173793280,
+            "heapUsed": 150342880,
+            "external": 42583661,
+            "arrayBuffers": 40794243
+          }
+        },
+        {
+          "elapsedMs": 45982.077245,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 10555,
+          "passes": 21110,
+          "informationStates": 240596,
+          "actionEntries": 2118681,
+          "numericTableBytes": 33898896,
+          "arenaAllocatedBytes": 47185920,
+          "publicHistories": 55935,
+          "privateHistories": 226356,
+          "legalActionSets": 27487,
+          "sharedActions": 400,
+          "visitedNodes": 453865,
+          "trainingMs": 45260.74198000003,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 287617024,
+            "heapTotal": 187539456,
+            "heapUsed": 155892648,
+            "external": 50371949,
+            "arrayBuffers": 48582531
+          }
+        },
+        {
+          "elapsedMs": 51035.787978,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 11727,
+          "passes": 23454,
+          "informationStates": 266786,
+          "actionEntries": 2353215,
+          "numericTableBytes": 37651440,
+          "arenaAllocatedBytes": 48496640,
+          "publicHistories": 61669,
+          "privateHistories": 249986,
+          "legalActionSets": 28158,
+          "sharedActions": 400,
+          "visitedNodes": 504261,
+          "trainingMs": 50307.56503900004,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 319598592,
+            "heapTotal": 215072768,
+            "heapUsed": 192329408,
+            "external": 52285165,
+            "arrayBuffers": 50495747
+          }
+        },
+        {
+          "elapsedMs": 56087.583389,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 12872,
+          "passes": 25744,
+          "informationStates": 292312,
+          "actionEntries": 2583911,
+          "numericTableBytes": 41342576,
+          "arenaAllocatedBytes": 48496640,
+          "publicHistories": 67258,
+          "privateHistories": 272995,
+          "legalActionSets": 28731,
+          "sharedActions": 400,
+          "visitedNodes": 553496,
+          "trainingMs": 55352.13901100006,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 333082624,
+            "heapTotal": 192774144,
+            "heapUsed": 107676488,
+            "external": 52509029,
+            "arrayBuffers": 50719611
+          }
+        },
+        {
+          "elapsedMs": 61562.271112,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 13946,
+          "passes": 27892,
+          "informationStates": 316174,
+          "actionEntries": 2802206,
+          "numericTableBytes": 44835296,
+          "arenaAllocatedBytes": 56885248,
+          "publicHistories": 72434,
+          "privateHistories": 294499,
+          "legalActionSets": 29170,
+          "sharedActions": 400,
+          "visitedNodes": 599678,
+          "trainingMs": 60195.99701200005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 336310272,
+            "heapTotal": 171008000,
+            "heapUsed": 140784936,
+            "external": 59960229,
+            "arrayBuffers": 58173243
+          }
+        },
+        {
+          "elapsedMs": 66631.341351,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 15082,
+          "passes": 30164,
+          "informationStates": 341360,
+          "actionEntries": 3029412,
+          "numericTableBytes": 48470592,
+          "arenaAllocatedBytes": 58195968,
+          "publicHistories": 77917,
+          "privateHistories": 316900,
+          "legalActionSets": 29569,
+          "sharedActions": 400,
+          "visitedNodes": 648526,
+          "trainingMs": 65257.40455700007,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 340111360,
+            "heapTotal": 178348032,
+            "heapUsed": 141340448,
+            "external": 60670549,
+            "arrayBuffers": 58883563
+          }
+        },
+        {
+          "elapsedMs": 71681.938378,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 16212,
+          "passes": 32424,
+          "informationStates": 366244,
+          "actionEntries": 3251171,
+          "numericTableBytes": 52018736,
+          "arenaAllocatedBytes": 66584576,
+          "publicHistories": 83300,
+          "privateHistories": 338912,
+          "legalActionSets": 29954,
+          "sharedActions": 400,
+          "visitedNodes": 697116,
+          "trainingMs": 70303.06269400005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 344961024,
+            "heapTotal": 191885312,
+            "heapUsed": 161088760,
+            "external": 69455645,
+            "arrayBuffers": 67668659
+          }
+        },
+        {
+          "elapsedMs": 76752.922203,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 17342,
+          "passes": 34684,
+          "informationStates": 391036,
+          "actionEntries": 3477263,
+          "numericTableBytes": 55636208,
+          "arenaAllocatedBytes": 66584576,
+          "publicHistories": 88622,
+          "privateHistories": 360567,
+          "legalActionSets": 30292,
+          "sharedActions": 400,
+          "visitedNodes": 745706,
+          "trainingMs": 75368.29464300009,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 349286400,
+            "heapTotal": 203943936,
+            "heapUsed": 167629592,
+            "external": 69061269,
+            "arrayBuffers": 67274283
+          }
+        },
+        {
+          "elapsedMs": 82407.975673,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 18435,
+          "passes": 36870,
+          "informationStates": 415045,
+          "actionEntries": 3698101,
+          "numericTableBytes": 59169616,
+          "arenaAllocatedBytes": 76283904,
+          "publicHistories": 93813,
+          "privateHistories": 381677,
+          "legalActionSets": 30570,
+          "sharedActions": 400,
+          "visitedNodes": 792705,
+          "trainingMs": 80225.32340500006,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 427421696,
+            "heapTotal": 297529344,
+            "heapUsed": 258452160,
+            "external": 78829429,
+            "arrayBuffers": 77042443
+          }
+        },
+        {
+          "elapsedMs": 87475.963011,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 19557,
+          "passes": 39114,
+          "informationStates": 439658,
+          "actionEntries": 3921333,
+          "numericTableBytes": 62741328,
+          "arenaAllocatedBytes": 76283904,
+          "publicHistories": 99120,
+          "privateHistories": 403200,
+          "legalActionSets": 30830,
+          "sharedActions": 400,
+          "visitedNodes": 840951,
+          "trainingMs": 85287.72841200007,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 448000000,
+            "heapTotal": 314232832,
+            "heapUsed": 281757176,
+            "external": 79229525,
+            "arrayBuffers": 77442539
+          }
+        },
+        {
+          "elapsedMs": 92541.763441,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 20645,
+          "passes": 41290,
+          "informationStates": 463338,
+          "actionEntries": 4139385,
+          "numericTableBytes": 66230160,
+          "arenaAllocatedBytes": 77594624,
+          "publicHistories": 104219,
+          "privateHistories": 423536,
+          "legalActionSets": 31070,
+          "sharedActions": 400,
+          "visitedNodes": 887735,
+          "trainingMs": 90344.03375000005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 463597568,
+            "heapTotal": 325767168,
+            "heapUsed": 290766472,
+            "external": 80341077,
+            "arrayBuffers": 78554091
+          }
+        },
+        {
+          "elapsedMs": 97626.809416,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 21745,
+          "passes": 43490,
+          "informationStates": 487302,
+          "actionEntries": 4360203,
+          "numericTableBytes": 69763248,
+          "arenaAllocatedBytes": 85983232,
+          "publicHistories": 109378,
+          "privateHistories": 444349,
+          "legalActionSets": 31300,
+          "sharedActions": 400,
+          "visitedNodes": 935035,
+          "trainingMs": 95420.52652200003,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 479064064,
+            "heapTotal": 338087936,
+            "heapUsed": 308405280,
+            "external": 89129293,
+            "arrayBuffers": 87342307
+          }
+        },
+        {
+          "elapsedMs": 103515.959505,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 22792,
+          "passes": 45584,
+          "informationStates": 510022,
+          "actionEntries": 4568055,
+          "numericTableBytes": 73088880,
+          "arenaAllocatedBytes": 85983232,
+          "publicHistories": 114245,
+          "privateHistories": 463976,
+          "legalActionSets": 31497,
+          "sharedActions": 400,
+          "visitedNodes": 980056,
+          "trainingMs": 100279.533037,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 569171968,
+            "heapTotal": 307613696,
+            "heapUsed": 150075520,
+            "external": 88657621,
+            "arrayBuffers": 86870635
+          }
+        },
+        {
+          "elapsedMs": 108580.140651,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 23883,
+          "passes": 47766,
+          "informationStates": 533596,
+          "actionEntries": 4787334,
+          "numericTableBytes": 76597344,
+          "arenaAllocatedBytes": 95682560,
+          "publicHistories": 119335,
+          "privateHistories": 484040,
+          "legalActionSets": 31685,
+          "sharedActions": 400,
+          "visitedNodes": 1026969,
+          "trainingMs": 105333.67464300005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 603774976,
+            "heapTotal": 338407424,
+            "heapUsed": 195737856,
+            "external": 98556117,
+            "arrayBuffers": 96769131
+          }
+        },
+        {
+          "elapsedMs": 113648.470315,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 24990,
+          "passes": 49980,
+          "informationStates": 557500,
+          "actionEntries": 5009637,
+          "numericTableBytes": 80154192,
+          "arenaAllocatedBytes": 95682560,
+          "publicHistories": 124482,
+          "privateHistories": 504306,
+          "legalActionSets": 31877,
+          "sharedActions": 400,
+          "visitedNodes": 1074570,
+          "trainingMs": 110394.08022800006,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 607182848,
+            "heapTotal": 338407424,
+            "heapUsed": 204077552,
+            "external": 98355861,
+            "arrayBuffers": 96568875
+          }
+        },
+        {
+          "elapsedMs": 118709.280529,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 26082,
+          "passes": 52164,
+          "informationStates": 581070,
+          "actionEntries": 5230351,
+          "numericTableBytes": 83685616,
+          "arenaAllocatedBytes": 95682560,
+          "publicHistories": 129527,
+          "privateHistories": 524284,
+          "legalActionSets": 32061,
+          "sharedActions": 400,
+          "visitedNodes": 1121526,
+          "trainingMs": 115446.05206100002,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 610983936,
+            "heapTotal": 338407424,
+            "heapUsed": 215851192,
+            "external": 98359701,
+            "arrayBuffers": 96572715
+          }
+        },
+        {
+          "elapsedMs": 124664.646825,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 27126,
+          "passes": 54252,
+          "informationStates": 603580,
+          "actionEntries": 5442449,
+          "numericTableBytes": 87079184,
+          "arenaAllocatedBytes": 105381888,
+          "publicHistories": 134370,
+          "privateHistories": 543269,
+          "legalActionSets": 32223,
+          "sharedActions": 400,
+          "visitedNodes": 1166418,
+          "trainingMs": 120291.73240700005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 652046336,
+            "heapTotal": 414445568,
+            "heapUsed": 374361680,
+            "external": 107929333,
+            "arrayBuffers": 106142347
+          }
+        },
+        {
+          "elapsedMs": 129715.932857,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 28261,
+          "passes": 56522,
+          "informationStates": 627965,
+          "actionEntries": 5670015,
+          "numericTableBytes": 90720240,
+          "arenaAllocatedBytes": 105381888,
+          "publicHistories": 139557,
+          "privateHistories": 563929,
+          "legalActionSets": 32402,
+          "sharedActions": 400,
+          "visitedNodes": 1215223,
+          "trainingMs": 125336.93169300005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 655978496,
+            "heapTotal": 426766336,
+            "heapUsed": 386230512,
+            "external": 107927925,
+            "arrayBuffers": 106140939
+          }
+        },
+        {
+          "elapsedMs": 134762.943592,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 29403,
+          "passes": 58806,
+          "informationStates": 652295,
+          "actionEntries": 5897932,
+          "numericTableBytes": 94366912,
+          "arenaAllocatedBytes": 113770496,
+          "publicHistories": 144697,
+          "privateHistories": 584300,
+          "legalActionSets": 32579,
+          "sharedActions": 400,
+          "visitedNodes": 1264329,
+          "trainingMs": 130376.67777800007,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 666988544,
+            "heapTotal": 446050304,
+            "heapUsed": 411840016,
+            "external": 116718421,
+            "arrayBuffers": 114931435
+          }
+        },
+        {
+          "elapsedMs": 139812.208092,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 30540,
+          "passes": 61080,
+          "informationStates": 676640,
+          "actionEntries": 6123978,
+          "numericTableBytes": 97983648,
+          "arenaAllocatedBytes": 115081216,
+          "publicHistories": 149842,
+          "privateHistories": 604707,
+          "legalActionSets": 32715,
+          "sharedActions": 400,
+          "visitedNodes": 1313220,
+          "trainingMs": 135418.68354300005,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 671182848,
+            "heapTotal": 457846784,
+            "heapUsed": 423737160,
+            "external": 118025725,
+            "arrayBuffers": 116238739
+          }
+        },
+        {
+          "elapsedMs": 146229.624035,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 31652,
+          "passes": 63304,
+          "informationStates": 700433,
+          "actionEntries": 6348372,
+          "numericTableBytes": 101573952,
+          "arenaAllocatedBytes": 123469824,
+          "publicHistories": 154916,
+          "privateHistories": 624495,
+          "legalActionSets": 32836,
+          "sharedActions": 400,
+          "visitedNodes": 1361036,
+          "trainingMs": 140468.35478799994,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 682110976,
+            "heapTotal": 408313856,
+            "heapUsed": 246879112,
+            "external": 125941717,
+            "arrayBuffers": 124154731
+          }
+        },
+        {
+          "elapsedMs": 151281.23497,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 32788,
+          "passes": 65576,
+          "informationStates": 724598,
+          "actionEntries": 6576171,
+          "numericTableBytes": 105218736,
+          "arenaAllocatedBytes": 124780544,
+          "publicHistories": 160090,
+          "privateHistories": 644697,
+          "legalActionSets": 32981,
+          "sharedActions": 400,
+          "visitedNodes": 1409884,
+          "trainingMs": 145513.56690499993,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 686174208,
+            "heapTotal": 408313856,
+            "heapUsed": 265274520,
+            "external": 127657397,
+            "arrayBuffers": 125870411
+          }
+        },
+        {
+          "elapsedMs": 156348.143426,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 33912,
+          "passes": 67824,
+          "informationStates": 748361,
+          "actionEntries": 6801377,
+          "numericTableBytes": 108822032,
+          "arenaAllocatedBytes": 124780544,
+          "publicHistories": 165179,
+          "privateHistories": 664338,
+          "legalActionSets": 33110,
+          "sharedActions": 400,
+          "visitedNodes": 1458216,
+          "trainingMs": 150573.79949699997,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 689844224,
+            "heapTotal": 408313856,
+            "heapUsed": 283667056,
+            "external": 128053805,
+            "arrayBuffers": 126266819
+          }
+        },
+        {
+          "elapsedMs": 161415.809006,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 35035,
+          "passes": 70070,
+          "informationStates": 772205,
+          "actionEntries": 7027115,
+          "numericTableBytes": 112433840,
+          "arenaAllocatedBytes": 133169152,
+          "publicHistories": 170241,
+          "privateHistories": 684148,
+          "legalActionSets": 33228,
+          "sharedActions": 400,
+          "visitedNodes": 1506505,
+          "trainingMs": 155633.26417499996,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 693383168,
+            "heapTotal": 408313856,
+            "heapUsed": 288661648,
+            "external": 136039525,
+            "arrayBuffers": 134252539
+          }
+        },
+        {
+          "elapsedMs": 167767.694885,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 36118,
+          "passes": 72236,
+          "informationStates": 795099,
+          "actionEntries": 7245559,
+          "numericTableBytes": 115928944,
+          "arenaAllocatedBytes": 134479872,
+          "publicHistories": 175126,
+          "privateHistories": 703101,
+          "legalActionSets": 33326,
+          "sharedActions": 400,
+          "visitedNodes": 1553074,
+          "trainingMs": 160493.52305400014,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 697647104,
+            "heapTotal": 484859904,
+            "heapUsed": 452132128,
+            "external": 137625941,
+            "arrayBuffers": 135838955
+          }
+        },
+        {
+          "elapsedMs": 172831.185646,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 37202,
+          "passes": 74404,
+          "informationStates": 817898,
+          "actionEntries": 7465262,
+          "numericTableBytes": 119444192,
+          "arenaAllocatedBytes": 142868480,
+          "publicHistories": 180033,
+          "privateHistories": 721772,
+          "legalActionSets": 33437,
+          "sharedActions": 400,
+          "visitedNodes": 1599686,
+          "trainingMs": 165550.0867430001,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 703283200,
+            "heapTotal": 498532352,
+            "heapUsed": 469594016,
+            "external": 146216269,
+            "arrayBuffers": 144429283
+          }
+        },
+        {
+          "elapsedMs": 177891.179037,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 38286,
+          "passes": 76572,
+          "informationStates": 840716,
+          "actionEntries": 7681249,
+          "numericTableBytes": 122899984,
+          "arenaAllocatedBytes": 142868480,
+          "publicHistories": 184918,
+          "privateHistories": 740333,
+          "legalActionSets": 33531,
+          "sharedActions": 400,
+          "visitedNodes": 1646298,
+          "trainingMs": 170600.67642200014,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 715341824,
+            "heapTotal": 509804544,
+            "heapUsed": 474110520,
+            "external": 145818685,
+            "arrayBuffers": 144031699
+          }
+        },
+        {
+          "elapsedMs": 182055.740202,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 38761,
+          "passes": 77522,
+          "informationStates": 850751,
+          "actionEntries": 7777657,
+          "numericTableBytes": 124442512,
+          "arenaAllocatedBytes": 142868480,
+          "publicHistories": 187040,
+          "privateHistories": 748438,
+          "legalActionSets": 33672,
+          "sharedActions": 400,
+          "visitedNodes": 1666723,
+          "trainingMs": 172831.2817160001,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 885964800,
+            "heapTotal": 437862400,
+            "heapUsed": 188367184,
+            "external": 145537869,
+            "arrayBuffers": 143289323
+          }
+        }
+      ],
+      "currentExploratoryDeckMixtures": [
+        [
+          {
+            "counts": [
+              0,
+              4,
+              3,
+              1,
+              4,
+              0
+            ],
+            "probability": 0.0029126902447545724
+          },
+          {
+            "counts": [
+              2,
+              7,
+              3,
+              0,
+              0,
+              0
+            ],
+            "probability": 0.0028051243456207356
+          },
+          {
+            "counts": [
+              10,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "probability": 0.002780476591858197
+          },
+          {
+            "counts": [
+              2,
+              2,
+              7,
+              1,
+              0,
+              0
+            ],
+            "probability": 0.0027390363988947027
+          },
+          {
+            "counts": [
+              6,
+              1,
+              0,
+              1,
+              1,
+              3
+            ],
+            "probability": 0.0026996627857477965
+          },
+          {
+            "counts": [
+              5,
+              1,
+              3,
+              0,
+              2,
+              1
+            ],
+            "probability": 0.0026117839820071227
+          },
+          {
+            "counts": [
+              0,
+              2,
+              2,
+              0,
+              2,
+              6
+            ],
+            "probability": 0.0023816503991248936
+          },
+          {
+            "counts": [
+              2,
+              4,
+              4,
+              2,
+              0,
+              0
+            ],
+            "probability": 0.002355222607836262
+          },
+          {
+            "counts": [
+              0,
+              3,
+              1,
+              5,
+              1,
+              2
+            ],
+            "probability": 0.002335770870307463
+          },
+          {
+            "counts": [
+              5,
+              4,
+              0,
+              2,
+              1,
+              0
+            ],
+            "probability": 0.0023254095022602075
+          },
+          {
+            "counts": [
+              0,
+              2,
+              5,
+              2,
+              1,
+              2
+            ],
+            "probability": 0.0023060136408813324
+          },
+          {
+            "counts": [
+              0,
+              9,
+              0,
+              1,
+              0,
+              2
+            ],
+            "probability": 0.0022888663690396167
+          }
+        ],
+        [
+          {
+            "counts": [
+              1,
+              3,
+              3,
+              2,
+              3,
+              0
+            ],
+            "probability": 0.0036055365511060635
+          },
+          {
+            "counts": [
+              3,
+              0,
+              3,
+              3,
+              1,
+              2
+            ],
+            "probability": 0.003059271528416757
+          },
+          {
+            "counts": [
+              3,
+              2,
+              4,
+              1,
+              2,
+              0
+            ],
+            "probability": 0.0029068018692963733
+          },
+          {
+            "counts": [
+              4,
+              1,
+              3,
+              2,
+              1,
+              1
+            ],
+            "probability": 0.0026454953403192085
+          },
+          {
+            "counts": [
+              0,
+              3,
+              0,
+              3,
+              4,
+              2
+            ],
+            "probability": 0.0025121729781067714
+          },
+          {
+            "counts": [
+              1,
+              2,
+              2,
+              2,
+              4,
+              1
+            ],
+            "probability": 0.0024623772817992545
+          },
+          {
+            "counts": [
+              5,
+              5,
+              1,
+              1,
+              0,
+              0
+            ],
+            "probability": 0.002350802039423566
+          },
+          {
+            "counts": [
+              2,
+              5,
+              2,
+              0,
+              0,
+              3
+            ],
+            "probability": 0.0023306252754944703
+          },
+          {
+            "counts": [
+              0,
+              5,
+              0,
+              5,
+              2,
+              0
+            ],
+            "probability": 0.0023143853373361715
+          },
+          {
+            "counts": [
+              0,
+              8,
+              1,
+              2,
+              1,
+              0
+            ],
+            "probability": 0.002297776135684349
+          },
+          {
+            "counts": [
+              0,
+              3,
+              5,
+              1,
+              0,
+              3
+            ],
+            "probability": 0.002297001411963216
+          },
+          {
+            "counts": [
+              4,
+              1,
+              0,
+              1,
+              6,
+              0
+            ],
+            "probability": 0.0022640989566225507
+          }
+        ]
+      ],
+      "checkpoint": {
+        "path": "/home/runner/work/theoretical-snap/theoretical-snap/artifacts/offline/open-game/checkpoint.bin",
+        "bytes": 171537554
+      },
+      "decisionExample": "decision-example.json",
+      "interpretation": "No full-game equilibrium certificate. Deck weights and action values are exploratory, not GTO recommendations."
+    },
+    {
+      "status": "time-budget",
+      "metadata": {
+        "startedAt": "2026-10-30T01:13:10.542Z",
+        "host": "runnervm48cm3",
+        "cpu": "AMD EPYC 7763 64-Core Processor",
+        "cpuCount": 4,
+        "totalMemory": 16760344576,
+        "runtime": "v22.23.4",
+        "platform": "linux",
+        "architecture": "x64",
+        "buildHash": "b8bea5d885280d73921331c91618558a2297a32ef8f820a3db032068288ef437",
+        "modelFingerprint": "3dce623ea1b3a477fee79b96ff35e1bf3854623a3c4cacf4841a9a5b4654057c",
+        "spec": {
+          "deckSelection": "equilibrium",
+          "decks": [
+            "all",
+            "all"
+          ],
+          "rules": {
+            "turns": 6,
+            "handLimit": 7,
+            "deckSize": 12
+          }
+        },
+        "resourceLimits": {
+          "seconds": 5,
+          "memoryMiB": 2048,
+          "maxInfoStates": 2000000
+        },
+        "pid": 2473
+      },
+      "certificate": {
+        "certified": false,
+        "validated": false,
+        "reason": "Full-game exhaustive deviation budget exceeded; every deck remains available during training."
+      },
+      "profile": {
+        "samples": 1000,
+        "ev": 0.065,
+        "wdl": [
+          0.523,
+          0.019,
+          0.458
+        ],
+        "evError95": 0.08589388166934751,
+        "confidence": 0.95,
+        "scope": "Frozen-profile Monte Carlo value; not an exploitability upper bound."
+      },
+      "latest": {
+        "elapsedMs": 6828.477012,
+        "version": "snap-offline-1",
+        "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+        "iterations": 39879,
+        "passes": 79758,
+        "informationStates": 874214,
+        "actionEntries": 8002873,
+        "numericTableBytes": 128045968,
+        "arenaAllocatedBytes": 152567808,
+        "publicHistories": 192007,
+        "privateHistories": 767429,
+        "legalActionSets": 33725,
+        "sharedActions": 400,
+        "visitedNodes": 1714797,
+        "trainingMs": 177894.6788320001,
+        "stopReason": "time",
+        "deckSelection": true,
+        "deckTypes": [
+          6188,
+          6188
+        ],
+        "diagnostics": {
+          "certified": false,
+          "nashGap": null,
+          "exploitability": null,
+          "maxConditionalGain": null,
+          "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+        },
+        "memory": {
+          "rss": 612560896,
+          "heapTotal": 255148032,
+          "heapUsed": 165784496,
+          "external": 155595829,
+          "arrayBuffers": 153364371
+        }
+      },
+      "trajectory": [
+        {
+          "elapsedMs": 201.62573599999996,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 38787,
+          "passes": 77574,
+          "informationStates": 851294,
+          "actionEntries": 7782778,
+          "numericTableBytes": 124524448,
+          "arenaAllocatedBytes": 142868480,
+          "publicHistories": 187153,
+          "privateHistories": 748879,
+          "legalActionSets": 33577,
+          "sharedActions": 400,
+          "visitedNodes": 1667841,
+          "trainingMs": 173031.73544200012,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 479256576,
+            "heapTotal": 252264448,
+            "heapUsed": 188009104,
+            "external": 145398637,
+            "arrayBuffers": 143609259
+          }
+        },
+        {
+          "elapsedMs": 6828.477012,
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 39879,
+          "passes": 79758,
+          "informationStates": 874214,
+          "actionEntries": 8002873,
+          "numericTableBytes": 128045968,
+          "arenaAllocatedBytes": 152567808,
+          "publicHistories": 192007,
+          "privateHistories": 767429,
+          "legalActionSets": 33725,
+          "sharedActions": 400,
+          "visitedNodes": 1714797,
+          "trainingMs": 177894.6788320001,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          },
+          "memory": {
+            "rss": 612560896,
+            "heapTotal": 255148032,
+            "heapUsed": 165784496,
+            "external": 155595829,
+            "arrayBuffers": 153364371
+          }
+        }
+      ],
+      "currentExploratoryDeckMixtures": [
+        [
+          {
+            "counts": [
+              0,
+              4,
+              3,
+              1,
+              4,
+              0
+            ],
+            "probability": 0.0028853127817431708
+          },
+          {
+            "counts": [
+              2,
+              7,
+              3,
+              0,
+              0,
+              0
+            ],
+            "probability": 0.002780500674655644
+          },
+          {
+            "counts": [
+              10,
+              0,
+              0,
+              1,
+              1,
+              0
+            ],
+            "probability": 0.002737770308000603
+          },
+          {
+            "counts": [
+              6,
+              1,
+              0,
+              1,
+              1,
+              3
+            ],
+            "probability": 0.0027249210529547725
+          },
+          {
+            "counts": [
+              2,
+              2,
+              7,
+              1,
+              0,
+              0
+            ],
+            "probability": 0.0026928926807587707
+          },
+          {
+            "counts": [
+              5,
+              1,
+              3,
+              0,
+              2,
+              1
+            ],
+            "probability": 0.002659484688594768
+          },
+          {
+            "counts": [
+              0,
+              2,
+              2,
+              0,
+              2,
+              6
+            ],
+            "probability": 0.0023291812290753317
+          },
+          {
+            "counts": [
+              2,
+              4,
+              4,
+              2,
+              0,
+              0
+            ],
+            "probability": 0.002322832475455241
+          },
+          {
+            "counts": [
+              0,
+              3,
+              1,
+              5,
+              1,
+              2
+            ],
+            "probability": 0.002285450596050193
+          },
+          {
+            "counts": [
+              5,
+              4,
+              0,
+              2,
+              1,
+              0
+            ],
+            "probability": 0.002282514729231921
+          },
+          {
+            "counts": [
+              0,
+              2,
+              5,
+              2,
+              1,
+              2
+            ],
+            "probability": 0.0022715639089643494
+          },
+          {
+            "counts": [
+              0,
+              4,
+              2,
+              2,
+              2,
+              2
+            ],
+            "probability": 0.002267694911278852
+          }
+        ],
+        [
+          {
+            "counts": [
+              1,
+              3,
+              3,
+              2,
+              3,
+              0
+            ],
+            "probability": 0.0035457410884837167
+          },
+          {
+            "counts": [
+              3,
+              0,
+              3,
+              3,
+              1,
+              2
+            ],
+            "probability": 0.003032083112568668
+          },
+          {
+            "counts": [
+              3,
+              2,
+              4,
+              1,
+              2,
+              0
+            ],
+            "probability": 0.0028896228757322646
+          },
+          {
+            "counts": [
+              4,
+              1,
+              3,
+              2,
+              1,
+              1
+            ],
+            "probability": 0.002610131079012172
+          },
+          {
+            "counts": [
+              0,
+              3,
+              0,
+              3,
+              4,
+              2
+            ],
+            "probability": 0.002462405405958504
+          },
+          {
+            "counts": [
+              1,
+              2,
+              2,
+              2,
+              4,
+              1
+            ],
+            "probability": 0.002418434618435673
+          },
+          {
+            "counts": [
+              5,
+              5,
+              1,
+              1,
+              0,
+              0
+            ],
+            "probability": 0.002312218612817246
+          },
+          {
+            "counts": [
+              2,
+              5,
+              2,
+              0,
+              0,
+              3
+            ],
+            "probability": 0.002278508733292742
+          },
+          {
+            "counts": [
+              0,
+              5,
+              0,
+              5,
+              2,
+              0
+            ],
+            "probability": 0.0022642231473971176
+          },
+          {
+            "counts": [
+              0,
+              8,
+              1,
+              2,
+              1,
+              0
+            ],
+            "probability": 0.0022468443474464813
+          },
+          {
+            "counts": [
+              0,
+              3,
+              5,
+              1,
+              0,
+              3
+            ],
+            "probability": 0.00224218365917631
+          },
+          {
+            "counts": [
+              4,
+              1,
+              0,
+              1,
+              6,
+              0
+            ],
+            "probability": 0.0022187055416473343
+          }
+        ]
+      ],
+      "checkpoint": {
+        "path": "/home/runner/work/theoretical-snap/theoretical-snap/artifacts/offline/open-game/checkpoint.bin",
+        "bytes": 176316322
+      },
+      "decisionExample": "decision-example.json",
+      "interpretation": "No full-game equilibrium certificate. Deck weights and action values are exploratory, not GTO recommendations."
+    }
+  ],
+  "deviations": {
+    "referenceIterations": 39879,
+    "modelFingerprint": "3dce623ea1b3a477fee79b96ff35e1bf3854623a3c4cacf4841a9a5b4654057c",
+    "baseline": {
+      "samples": 3000,
+      "ev": -0.0013333333333333333,
+      "wdl": [
+        0.488,
+        0.02266666666666667,
+        0.48933333333333334
+      ],
+      "evError95": 0.056494788802638224,
+      "confidence": 0.9833333333333333,
+      "scope": "Frozen-profile Monte Carlo value; not an exploitability upper bound."
+    },
+    "deviations": [
+      {
+        "player": 0,
+        "trainingMs": 3212.228596,
+        "training": {
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 1744,
+          "passes": 1744,
+          "informationStates": 10207,
+          "actionEntries": 88818,
+          "numericTableBytes": 1421088,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 5499,
+          "privateHistories": 10093,
+          "legalActionSets": 16760,
+          "sharedActions": 400,
+          "visitedNodes": 36624,
+          "trainingMs": 3030.4484589999984,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          }
+        },
+        "valueForPlayer0": -0.027666666666666666,
+        "error": 0.056494788802638224,
+        "ownEV": -0.027666666666666666,
+        "estimatedGain": -0.026333333333333334,
+        "gainInterval95": [
+          -0.13932291093860977,
+          0.08665624427194311
+        ]
+      },
+      {
+        "player": 1,
+        "trainingMs": 3195.1439009999995,
+        "training": {
+          "version": "snap-offline-1",
+          "algorithm": "Offline outcome-sampling MCCFR + terminal action enumeration",
+          "iterations": 1796,
+          "passes": 1796,
+          "informationStates": 10591,
+          "actionEntries": 93352,
+          "numericTableBytes": 1493632,
+          "arenaAllocatedBytes": 9699328,
+          "publicHistories": 5681,
+          "privateHistories": 10498,
+          "legalActionSets": 17022,
+          "sharedActions": 400,
+          "visitedNodes": 39512,
+          "trainingMs": 3028.062806,
+          "stopReason": "time",
+          "deckSelection": true,
+          "deckTypes": [
+            6188,
+            6188
+          ],
+          "diagnostics": {
+            "certified": false,
+            "nashGap": null,
+            "exploitability": null,
+            "maxConditionalGain": null,
+            "reason": "Exhaustive best responses exceed the configured budget. Iteration count and strategy stability are not convergence certificates."
+          }
+        },
+        "valueForPlayer0": 0.015666666666666666,
+        "error": 0.056494788802638224,
+        "ownEV": -0.015666666666666666,
+        "estimatedGain": -0.016999999999999998,
+        "gainInterval95": [
+          -0.12998957760527644,
+          0.09598957760527645
+        ]
+      }
+    ],
+    "foundNashGap": -0.043333333333333335,
+    "exploitabilityLowerBound95": 0,
+    "certifiedUpperBound": false,
+    "interpretation": "Learned information-constrained deviations give a lower bound on exploitability. Failure to find a profitable deviation does not certify equilibrium. Confidence is simultaneous 95% for the frozen-policy Monte Carlo evaluations, not a bound on optimizer quality."
+  }
+}
