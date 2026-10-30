@@ -147,3 +147,6 @@ The first corrected unrestricted run and raw measurements are recorded in benchm
 ## Completion boundary
 
 The current deliverable is a resumable offline mathematical research engine and an inspectable state/analysis contract. It is not a claim that the full game, deck-selection equilibrium, every rare history, or a production GTO policy has been solved. No front-end integration or publication is part of these changes.
+
+
+See [the mathematical target](mathematics.md) for the exact opening-value result, the meaning of a Nash-gap bound, and the distinction between full-game equilibrium and every-position coverage.
