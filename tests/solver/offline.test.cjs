@@ -16,13 +16,13 @@ test('Compact histories preserve simultaneous privacy and remembered private dra
  const x={...root,private:[root.private[0]+'.1.2',root.private[1]]},y={...root,private:[root.private[0]+'.2.1',root.private[1]]};assert.notEqual(s.node(x,0).key,s.node(y,0).key);
 });
 test('Pure outcome mode reproduces original regret updates exactly',()=>{
- const model=R.publicFixture(),a=new OfflineSolver({model},{seed:17,terminalEnumeration:false}),b=new S.Solver(model,{algorithm:'sampled',seed:17});a.run({iterations:5000});b.run({iterations:5000});const state=S.initialState(b.model,{players:b.model.ranges.map(r=>r[0])});for(let p=0;p<2;p++)assert.deepEqual(a.policy(state,p),b.policy(state,p));assert.equal(a.random.state,b.random.state);
+ const model=R.publicFixture(),a=new OfflineSolver({model},{seed:17,terminalEnumeration:false,opponentExploration:0}),b=new S.Solver(model,{algorithm:'sampled',seed:17});a.run({iterations:5000});b.run({iterations:5000});const state=S.initialState(b.model,{players:b.model.ranges.map(r=>r[0])});for(let p=0;p<2;p++)assert.deepEqual(a.policy(state,p),b.policy(state,p));assert.equal(a.random.state,b.random.state);
 });
 test('Terminal enumeration approaches the independent +1/5 certificate',()=>{
  const s=new OfflineSolver({model:R.publicFixture()},{seed:71});s.run({iterations:100000});const d=E.evaluateExact(s,{targetGap:.03});assert.equal(d.certified,true);assert.ok(Math.abs(d.value-.2)<.015);assert.ok(d.nashGap<.03,d.nashGap);assert.equal(s.nodes.size,2);
 });
 test('A real six-turn twelve-card game meets exhaustive deviation bounds',()=>{
- const s=new OfflineSolver({deckSelection:'fixed',decks:[[{cards:Array(12).fill(5)}],[{cards:Array(12).fill(5)}]]},{seed:71});s.run({iterations:20000});const d=E.evaluateExact(s);assert.equal(d.validated,true,JSON.stringify(d));assert.ok(Math.abs(d.value)<.01);assert.ok(d.treeNodes>100);assert.equal(s.model.rules.turns,6);
+ for(const seed of [17,71]){const s=new OfflineSolver({deckSelection:'fixed',decks:[[{cards:Array(12).fill(5)}],[{cards:Array(12).fill(5)}]]},{seed});s.run({iterations:20000});const d=E.evaluateExact(s);assert.equal(d.validated,true,JSON.stringify({seed,...d}));assert.ok(Math.abs(d.value)<.01);assert.ok(d.treeNodes>100);assert.equal(s.model.rules.turns,6);}
 });
 test('Private deck selection is included in independent deviation checks',()=>{
  const ds=[5,6].map(c=>({cards:Array(12).fill(c)})),s=new OfflineSolver({deckSelection:'equilibrium',decks:[ds,ds]},{seed:19});s.run({iterations:20000});const d=E.evaluateExact(s,{targetGap:.04});assert.equal(d.certified,true);assert.deepEqual(d.checkedDecks,[2,2]);assert.ok(d.nashGap<.04,JSON.stringify(d));for(const p of s.deckPolicies())assert.ok(Math.abs(p.reduce((a,b)=>a+b)-1)<1e-10);

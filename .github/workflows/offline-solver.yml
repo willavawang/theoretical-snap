@@ -12,7 +12,7 @@ on:
     inputs:
       seconds:
         description: 'Wall-time training budget for the unrestricted game'
-        default: '60'
+        default: '180'
         required: true
 permissions:
   contents: read
@@ -33,9 +33,11 @@ jobs:
       - name: Include private deck choice in a bounded validation game
         run: node --expose-gc scripts/solver/offline.cjs train --case deck-check --seconds 20 --out artifacts/offline/deck-check --samples 1000
       - name: Attempt the unrestricted 6188-deck game from the deal
-        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs train --config configs/solver/open-game.json --seconds ${{ inputs.seconds || '60' }} --memory-mib 2048 --max-states 2000000 --checkpoint-seconds 20 --out artifacts/offline/open-game
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs train --config configs/solver/open-game.json --seconds ${{ inputs.seconds || '180' }} --memory-mib 2048 --max-states 2000000 --checkpoint-seconds 20 --out artifacts/offline/open-game
       - name: Test resuming the unrestricted checkpoint
         run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs resume --seconds 5 --memory-mib 2048 --max-states 2000000 --out artifacts/offline/open-game --samples 1000
+      - name: Search for profitable information-constrained deviations
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline-deviations.cjs --checkpoint artifacts/offline/open-game/checkpoint.bin --seconds 3 --samples 3000
       - uses: actions/upload-artifact@v4
         if: always()
         with:

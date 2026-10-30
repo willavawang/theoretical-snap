@@ -22,7 +22,7 @@ class OfflineSolver extends S.Solver{
   super(spec.model||{turn:1,rules,ranges:pools.map(ds=>[dummy(ds[0])])},{algorithm:'sampled',maxInfoStates:2000000,...options});
   this.spec=JSON.parse(JSON.stringify(spec));this.pools=pools;this.deckSelection=!!pools&&(spec.deckSelection||'equilibrium')==='equilibrium';
   if(pools&&!['fixed','equilibrium'].includes(spec.deckSelection||'equilibrium'))throw new Error('Unknown deck-selection mode');
-  this.terminalEnumeration=options.terminalEnumeration!==false;this.model.fingerprint=VERSION+'|'+JSON.stringify(spec)+'|terminal='+this.terminalEnumeration;
+  this.terminalEnumeration=options.terminalEnumeration!==false;this.opponentExploration=options.opponentExploration===undefined?.6:options.opponentExploration;if(!Number.isFinite(this.opponentExploration)||this.opponentExploration<0||this.opponentExploration>1)throw new Error('Invalid opponent exploration');this.model.fingerprint=VERSION+'|'+JSON.stringify(spec)+'|terminal='+this.terminalEnumeration+'|opponentExploration='+this.opponentExploration;
   this.fingerprint=crypto.createHash('sha256').update(this.model.fingerprint).digest('hex');
   this.algorithm='Offline outcome-sampling MCCFR'+(this.terminalEnumeration?' + terminal action enumeration':'');
   this.publicNodes=[null];this.publicMap=new Map();this.privateHistories=[];this.privateMap=new Map();
@@ -47,7 +47,7 @@ class OfflineSolver extends S.Solver{
  sampleWorld(){if(!this.pools)return this.world();const ids=this.rootCDF.map(c=>pickCDF(c,this.random)),players=ids.map((id,p)=>deal(this.pools[p][id],this.random));return {players,weight:players[0].weight*players[1].weight*this.fixed[0][ids[0]]*this.fixed[1][ids[1]],deckIDs:ids};}
  actorPolicy(s,p,n){return this.reference&&p!==this.updaterOnly?this.reference.policy(s,p,this):S.regretPolicy(n.regret);}
  terminalEpisode(s,updater,mine,other,sampling){
-  if(s.phase===0&&updater===1){const opp=this.node(s,0),p=this.actorPolicy(s,0,opp),i=pick(p,this.random);return this.sampledEpisode(this.transition(s,opp.actions[i]),updater,mine,other*p[i],sampling*p[i]);}
+  if(s.phase===0&&updater===1){const opp=this.node(s,0),p=this.actorPolicy(s,0,opp),b=Float64Array.from(p,x=>(1-this.opponentExploration)*x+this.opponentExploration/p.length),i=pick(b,this.random);return p[i]/b[i]*this.sampledEpisode(this.transition(s,opp.actions[i]),updater,mine,other*p[i],sampling*b[i]);}
   const own=this.node(s,updater),p=this.actorPolicy(s,updater,own);let opposite;if(updater===0){const opp=this.node(s,1),q=this.actorPolicy(s,1,opp);opposite=opp.actions[pick(q,this.random)];}else opposite=s.pending;
   const values=new Float64Array(own.actions.length),sign=updater===0?1:-1;
   for(let i=0;i<values.length;i++){const pair=updater===0?[own.actions[i],opposite]:[opposite,own.actions[i]],board={power:s.board.power.map((xs,j)=>xs.map((v,l)=>v+pair[j].power[l]))};values[i]=sign*S.terminal(board);}
@@ -58,15 +58,15 @@ class OfflineSolver extends S.Solver{
   this.visits++;if(s.phase===3)return S.terminal(s.board)*(updater===0?1:-1);
   if(s.phase===2){const xs=S.chance(s,this.model),x=xs[pick(xs.map(x=>x.probability),this.random)];return this.sampledEpisode(S.applyDraw(s,x.cost),updater,mine,other*x.probability,sampling*x.probability);}
   if(this.terminalEnumeration&&s.turn===this.model.rules.turns)return this.terminalEpisode(s,updater,mine,other,sampling);
-  const actor=s.phase,n=this.node(s,actor),p=this.actorPolicy(s,actor,n),b=actor===updater?Float64Array.from(p,x=>(1-this.options.exploration)*x+this.options.exploration/p.length):p,a=pick(b,this.random);
+  const actor=s.phase,n=this.node(s,actor),p=this.actorPolicy(s,actor,n),explore=actor===updater?this.options.exploration:this.opponentExploration,b=Float64Array.from(p,x=>(1-explore)*x+explore/p.length),a=pick(b,this.random);
   const child=this.sampledEpisode(this.transition(s,n.actions[a]),updater,mine*(actor===updater?p[a]:1),other*(actor!==updater?p[a]:1),sampling*b[a]),actionValue=child/b[a],value=p[a]*actionValue;
   if(actor===updater){for(let i=0;i<p.length;i++){n.regret[i]+=other/sampling*((i===a?actionValue:0)-value);n.average[i]+=mine*p[i]/sampling;}n.updates++;}return value;
  }
  sampledIteration(){
   for(const updater of this.updaterOnly===undefined?[0,1]:[this.updaterOnly]){
    if(!this.deckSelection){const w=this.sampleWorld();this.sampledEpisode(this.root(S.initialState(this.model,w)),updater,1,w.weight,w.weight);}
-   else{const ps=this.deckNodes.map((n,p)=>this.reference&&p!==updater?this.referenceDeckPolicies[p]:S.regretPolicy(n.regret)),bs=ps.map((p,i)=>i===updater?Float64Array.from(p,x=>(1-this.options.exploration)*x+this.options.exploration/p.length):p),ids=bs.map(p=>pick(p,this.random)),players=ids.map((id,p)=>deal(this.pools[p][id],this.random)),chance=players[0].weight*players[1].weight;
-    const value=this.sampledEpisode(this.root(S.initialState(this.model,{players})),updater,ps[updater][ids[updater]],ps[1-updater][ids[1-updater]]*chance,bs[0][ids[0]]*bs[1][ids[1]]*chance),n=this.deckNodes[updater],a=ids[updater],q=value/bs[updater][a],v=ps[updater][a]*q;
+   else{const ps=this.deckNodes.map((n,p)=>this.reference&&p!==updater?this.referenceDeckPolicies[p]:S.regretPolicy(n.regret)),bs=ps.map((p,i)=>{const e=i===updater?this.options.exploration:this.opponentExploration;return Float64Array.from(p,x=>(1-e)*x+e/p.length);}),ids=bs.map(p=>pick(p,this.random)),players=ids.map((id,p)=>deal(this.pools[p][id],this.random)),chance=players[0].weight*players[1].weight;
+    const value=this.sampledEpisode(this.root(S.initialState(this.model,{players})),updater,ps[updater][ids[updater]],ps[1-updater][ids[1-updater]]*chance,bs[0][ids[0]]*bs[1][ids[1]]*chance),n=this.deckNodes[updater],a=ids[updater],q=value*ps[1-updater][ids[1-updater]]/bs[1-updater][ids[1-updater]]/bs[updater][a],v=ps[updater][a]*q;
     for(let i=0;i<n.regret.length;i++){n.regret[i]+=(i===a?q:0)-v;n.average[i]+=ps[updater][i];}
    }this.passes++;
   }this.iterations++;
