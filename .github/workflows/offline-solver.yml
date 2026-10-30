@@ -1,0 +1,44 @@
+name: Offline mathematical solver
+on:
+  push:
+    branches: [codex/milestone-one-mockup]
+    paths:
+      - 'solver/offline/**'
+      - 'scripts/solver/offline*.cjs'
+      - 'tests/solver/offline.test.cjs'
+      - 'configs/solver/**'
+      - '.github/workflows/offline-solver.yml'
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: 'Wall-time training budget for the unrestricted game'
+        default: '60'
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  train-and-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test rules, privacy, mathematical bounds, checkpoints and decision contract
+        run: node --test tests/*.test.cjs tests/solver/*.test.cjs
+      - name: Solve a complete six-turn validation game
+        run: node --expose-gc scripts/solver/offline.cjs train --case six-turn-check --seconds 10 --out artifacts/offline/six-turn --samples 1000
+      - name: Include private deck choice in a bounded validation game
+        run: node --expose-gc scripts/solver/offline.cjs train --case deck-check --seconds 20 --out artifacts/offline/deck-check --samples 1000
+      - name: Attempt the unrestricted 6188-deck game from the deal
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs train --config configs/solver/open-game.json --seconds ${{ inputs.seconds || '60' }} --memory-mib 2048 --max-states 2000000 --checkpoint-seconds 20 --out artifacts/offline/open-game
+      - name: Test resuming the unrestricted checkpoint
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs resume --seconds 5 --memory-mib 2048 --max-states 2000000 --out artifacts/offline/open-game --samples 1000
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-mathematical-solver
+          path: artifacts/offline/
+          retention-days: 90
