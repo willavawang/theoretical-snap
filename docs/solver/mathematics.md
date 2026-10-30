@@ -60,3 +60,5 @@ An opening equilibrium bound weights future histories by their reach. It does no
 The complete product objective therefore includes a separate arbitrary-position coverage requirement. An imported state must have a defined observation history/information model; generated Game State Objects already preserve it. Decision reports identify the model, strategy version, sampling uncertainty and availability.
 
 Full-game certification and strong arbitrary-position coverage remain unresolved for the unrestricted run. The current checkpoint size and visited-state count are measurements of a training attempt, not estimates of the smallest fully solved artifact.
+
+An independent public-history census now supplies a lower bound for the current unmerged table: at least 76.7 trillion turn-six information states and 2.45 PB of double-precision regret/average entries alone. This is a representation-specific bound, not an impossibility result for compressed or structured strategies. See [measured scaling and the count's proof](scaling-findings.md).

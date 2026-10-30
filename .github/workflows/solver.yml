@@ -4,6 +4,7 @@ on:
     branches: [codex/milestone-one-mockup]
     paths:
       - 'dist/solver/**'
+      - 'solver/offline/**'
       - 'dist/solver.html'
       - 'package.json'
       - 'tests/solver/**'

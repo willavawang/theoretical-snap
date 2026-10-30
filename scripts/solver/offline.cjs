@@ -12,9 +12,15 @@ async function main(){
  if(o.command==='status'){console.log(fs.readFileSync(path.join(out,'status.json'),'utf8'));return;}
  if(o.command==='stop'){fs.writeFileSync(path.join(out,'STOP'),'Stop requested\n');console.log('Stop requested; the runner will checkpoint at its next batch boundary.');return;}
  if(o.background){const log=fs.openSync(path.join(out,'runner.log'),'a'),a=process.argv.slice(2).filter(x=>x!=='--background'),heap=Math.max(128,Math.floor(number(o,'memory-mib',2048)*.75)),child=spawn(process.execPath,['--expose-gc','--max-old-space-size='+heap,__filename,...a],{cwd:process.cwd(),detached:true,stdio:['ignore',log,log]});child.unref();fs.closeSync(log);writeJSON(path.join(out,'launch.json'),{pid:child.pid,host:os.hostname(),startedAt:new Date().toISOString(),out});console.log(JSON.stringify({background:true,pid:child.pid,out}));return;}
- if(!['train','resume','inspect'].includes(o.command))throw new Error('Use train, resume, inspect, status or stop');
+ if(!['train','resume','inspect','migrate'].includes(o.command))throw new Error('Use train, resume, inspect, migrate, status or stop');
  const lock=path.join(out,'runner.lock');let fd;try{fd=fs.openSync(lock,'wx');fs.writeFileSync(fd,JSON.stringify({pid:process.pid,host:os.hostname(),startedAt:new Date().toISOString()}));fs.closeSync(fd);}catch(e){if(e.code==='EEXIST')throw new Error('A runner lock already exists in '+out+'. Use status/stop; recover a stale lock only after confirming its runner has exited.');throw e;}process.once('exit',()=>{try{fs.unlinkSync(lock);}catch{}});
  const stateCap=number(o,'max-states',2000000),checkpoint=path.resolve(typeof o.resume==='string'?o.resume:path.join(out,'checkpoint.bin')),spec=o.config?makeSpec(o):undefined;
+ if(o.command==='migrate'){
+  if(typeof o.resume!=='string')throw new Error('Migration requires --resume INPUT and a separate --out directory');
+  const destination=path.join(out,'checkpoint.bin');if(destination===checkpoint)throw new Error('Migration output must differ from its input checkpoint');
+  const s=C.load(checkpoint,{migrateLegacy:true,maxInfoStates:stateCap,...(spec?{spec}:{})}),saved=C.save(s,destination),report={input:checkpoint,output:destination,iterations:s.iterations,states:s.nodes.size,packedPrivateHistories:s.packedPrivateHistories,bytes:saved.bytes,buildHash:C.buildHash,trainingDigest:require('../../solver/offline/profile.cjs').trainingDigest(s),interpretation:'Exact storage migration; learned parameters, information-state IDs and RNG state are preserved.'};
+  writeJSON(path.join(out,'migration.json'),report);console.log(JSON.stringify(report));return;
+ }
  const s=o.command==='resume'||o.resume||o.command==='inspect'?C.load(checkpoint,{maxInfoStates:stateCap,...(spec?{spec}:{})}):new OfflineSolver(makeSpec(o),{seed:number(o,'seed',17),maxInfoStates:stateCap,terminalEnumeration:!o['pure-outcome']});
  const started=performance.now(),seconds=number(o,'seconds',300),iterationBudget=number(o,'iterations',1e12),memoryLimit=number(o,'memory-mib',2048)*1048576,target=number(o,'target',.01),checkpointEvery=number(o,'checkpoint-seconds',30)*1000,initialIterations=s.iterations;
  let stopRequested=false,lastCheckpoint=started,lastProgress=0,status='running',certificate={certified:false,validated:false};const trajectory=[];

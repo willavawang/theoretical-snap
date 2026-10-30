@@ -1,5 +1,5 @@
 {
-  "seconds": 1800,
-  "resumeRunId": 40984107796,
-  "note": "Continue the compatible unrestricted checkpoint; resource caps pause training without pruning legal actions."
+  "seconds": 180,
+  "resumeRunId": 40985483413,
+  "note": "Measure exact private-history packing against the prior checkpoint, then continue within the existing memory/state caps; this does not resolve the full-game table explosion."
 }

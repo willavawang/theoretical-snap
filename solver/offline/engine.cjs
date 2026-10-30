@@ -1,6 +1,7 @@
 'use strict';
 // Offline backend: same rules and all legal moves, independent of the site.
 const S=require('../../dist/solver/engine.js'),crypto=require('node:crypto'),{NodeArena}=require('./arena.cjs');
+const privateHistory=require('./private-history.cjs');
 const VERSION='snap-offline-1',sum=a=>a.reduce((s,x)=>s+x,0);
 const catalog=S.legalActions([6,6,6,6,6,6],6,[0,0,0]);catalog.forEach((a,id)=>a.id=id);
 const actionByKey=new Map(catalog.map(a=>[a.key,a]));
@@ -25,7 +26,7 @@ class OfflineSolver extends S.Solver{
   this.terminalEnumeration=options.terminalEnumeration!==false;this.opponentExploration=options.opponentExploration===undefined?.6:options.opponentExploration;if(!Number.isFinite(this.opponentExploration)||this.opponentExploration<0||this.opponentExploration>1)throw new Error('Invalid opponent exploration');this.model.fingerprint=VERSION+'|'+JSON.stringify(spec)+'|terminal='+this.terminalEnumeration+'|opponentExploration='+this.opponentExploration;
   this.fingerprint=crypto.createHash('sha256').update(this.model.fingerprint).digest('hex');
   this.algorithm='Offline outcome-sampling MCCFR'+(this.terminalEnumeration?' + terminal action enumeration':'');
-  this.publicNodes=[null];this.publicMap=new Map();this.privateHistories=[];this.privateMap=new Map();
+  this.publicNodes=[null];this.publicMap=new Map();this.privateHistories=[];this.privateMap=new Map();this.packedPrivateHistories=0;
   this.actionSets=[];this.actionSetMap=new Map();this.actionEntries=0;this.nodes=new NodeArena(this);
   this.fixed=pools?pools.map(ds=>normalize(ds.map(d=>d.weight))):null;
   this.rootCDF=pools?this.fixed.map(cumulative):this.model.cases?[cumulative(this.model.cases.map(c=>c.weight))]:this.model.ranges.map(r=>cumulative(r.map(t=>t.weight)));
@@ -35,7 +36,9 @@ class OfflineSolver extends S.Solver{
  publicChild(parent,a,b,create=true){const k=parent+'/'+a+'/'+b;let id=this.publicMap.get(k);if(id===undefined&&create){id=this.publicNodes.length;if(id>=2097152)throw new S.BudgetError('Public-history key budget reached');this.publicNodes.push([parent,a,b]);this.publicMap.set(k,id);}return id;}
  publicFromOriginal(s){let id=0;for(const pair of s.public.split(';').filter(Boolean)){const ks=pair.split('/'),a=actionByKey.get(ks[0]),b=actionByKey.get(ks[1]);if(!a||!b)return undefined;id=this.publicChild(id,a.id,b.id,false);if(id===undefined)return undefined;}return id;}
  foreignPublic(other,id){if(id<0)return undefined;let map=this.foreignMaps.get(other);if(!map){map=new Map([[0,0]]);this.foreignMaps.set(other,map);}if(map.has(id))return map.get(id);const n=other.publicNodes[id],parent=this.foreignPublic(other,n[0]),answer=parent===undefined?undefined:this.publicChild(parent,n[1],n[2],false);map.set(id,answer);return answer;}
- key(s,p,create=false,owner=this){const pub=s.publicId===undefined?this.publicFromOriginal(s):owner===this?s.publicId:this.foreignPublic(owner,s.publicId);if(pub===undefined||pub<0)return undefined;let priv=this.privateMap.get(s.private[p]);if(priv===undefined&&create){priv=this.privateHistories.length;if(priv>=2147483648)throw new S.BudgetError('Private-history key budget reached');this.privateHistories.push(s.private[p]);this.privateMap.set(s.private[p],priv);}return priv===undefined?undefined:pub*4294967296+priv*2+p;}
+ privateToken(history){return this.options.compactPrivateHistories===false?privateHistory.decode(history):privateHistory.encode(history);}
+ internPrivate(history){const token=this.privateToken(history);let id=this.privateMap.get(token);if(id===undefined){id=this.privateHistories.length;if(id>=2147483648)throw new S.BudgetError('Private-history key budget reached');this.privateHistories.push(token);this.privateMap.set(token,id);if(typeof token==='number')this.packedPrivateHistories++;}return id;}
+ key(s,p,create=false,owner=this){const pub=s.publicId===undefined?this.publicFromOriginal(s):owner===this?s.publicId:this.foreignPublic(owner,s.publicId);if(pub===undefined||pub<0)return undefined;const token=this.privateToken(s.private[p]);let priv=this.privateMap.get(token);if(priv===undefined&&create)priv=this.internPrivate(token);return priv===undefined?undefined:pub*4294967296+priv*2+p;}
  actionSet(s,p){const key=legalClass(s,p);let set=this.actionSetMap.get(key);if(set)return set;const actions=catalog.filter(a=>a.spent<=s.turn&&a.slots.every((n,l)=>n+s.board.slots[p][l]<=4)&&a.removed.every((n,c)=>n<=s.players[p].hand[c]));set={id:this.actionSets.length,key,actions};this.actionSets.push(set);this.actionSetMap.set(key,set);return set;}
  actions(s,p){return this.actionSet(s,p).actions;}
  node(s,p){if(this.reference&&p!==this.updaterOnly)return {actions:this.actions(s,p)};const key=this.key(s,p,true);let n=this.nodes.get(key);if(!n){if(this.nodes.size>=this.options.maxInfoStates)throw new S.BudgetError('Information-state budget reached');const set=this.actionSet(s,p);this.nodes.set(key,{key,player:p,actionSetID:set.id,actions:set.actions,regret:new Float64Array(set.actions.length),average:new Float64Array(set.actions.length),updates:0});this.actionEntries+=set.actions.length;n=this.nodes.get(key);}return n;}
@@ -72,7 +75,7 @@ class OfflineSolver extends S.Solver{
   }this.iterations++;
  }
  rollout(s,r=this.random,otherSolver,otherPlayer){while(s.phase!==3){if(s.phase===2){const xs=S.chance(s,this.model),x=xs[pick(xs.map(x=>x.probability),r)];s=S.applyDraw(s,x.cost);}else{const p=s.phase,as=this.actions(s,p),q=otherSolver&&p===otherPlayer?otherSolver.policy(s,p,this):this.policy(s,p);s=this.transition(s,as[pick(q,r)],false);}}return S.terminal(s.board);}
- stats(){return {version:VERSION,algorithm:this.algorithm,iterations:this.iterations,passes:this.passes,informationStates:this.nodes.size,actionEntries:this.actionEntries,numericTableBytes:this.actionEntries*16,arenaAllocatedBytes:this.nodes.allocatedBytes(),publicHistories:this.publicNodes.length,privateHistories:this.privateHistories.length,legalActionSets:this.actionSets.length,sharedActions:catalog.length,visitedNodes:this.visits,trainingMs:this.trainingMs,stopReason:this.stopReason,deckSelection:this.deckSelection,deckTypes:this.pools?this.pools.map(x=>x.length):null,diagnostics:this.diagnostics()};}
+ stats(){return {version:VERSION,algorithm:this.algorithm,iterations:this.iterations,passes:this.passes,informationStates:this.nodes.size,actionEntries:this.actionEntries,numericTableBytes:this.actionEntries*16,arenaAllocatedBytes:this.nodes.allocatedBytes(),publicHistories:this.publicNodes.length,privateHistories:this.privateHistories.length,packedPrivateHistories:this.packedPrivateHistories,legalActionSets:this.actionSets.length,sharedActions:catalog.length,visitedNodes:this.visits,trainingMs:this.trainingMs,stopReason:this.stopReason,deckSelection:this.deckSelection,deckTypes:this.pools?this.pools.map(x=>x.length):null,diagnostics:this.diagnostics()};}
  analyze(){throw new Error('Use offline/decision.cjs for complete game-state reports');}
 }
 module.exports={VERSION,OfflineSolver,S,catalog,actionByKey,choose,deal,allDecks,pick,pickCDF,cumulative,sum};

@@ -24,6 +24,8 @@ The offline backend optimizes private deck selection and play from turn one over
 
 Read [offline engine instructions](docs/solver/offline.md) and [the first unrestricted measurements](benchmarks/offline-first-run.json). The unrestricted game is still an uncertified research run; current deck mixtures are not established equilibrium decks. Site integration remains deferred.
 
+The [scaling findings](docs/solver/scaling-findings.md) add actual M2 benchmarks, an exact public-history census, lossless storage packing and submitted-move analysis/coverage measurements. The census rules out fully materializing the current history table on a laptop; structured strategy and conditional-analysis work remain necessary.
+
 ## Playing solver
 
 Open `/solver.html` when serving `dist/`. The separate workbench supports configurable private deck/hand ranges, simultaneous commitments, future hidden draws, mixed strategies, action EV/WDL/loss, and accuracy diagnostics. Solving runs in a cancellable Web Worker; identical public-position policies can resume from IndexedDB checkpoints. This does not alter the trainer's current fixture-only grading.

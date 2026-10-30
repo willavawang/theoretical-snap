@@ -68,6 +68,12 @@ Time, state, RSS and key-space limits pause training and save the current state.
 
 Checkpoint writes use a temporary file and atomic rename, with a trailing SHA-256 integrity digest. Restore verifies the engine build, game/estimator fingerprint, numeric data and memory budget. Exact continuation is tested. Engine-code changes require an explicitly compatible build; old checkpoints are not silently reinterpreted.
 
+The current `SNAPOFF2` format stores eligible private histories as exact 32-bit codes. A known older build can be explicitly migrated into a separate output directory, retaining regrets, averages, information-state IDs and the RNG state:
+
+    node scripts/solver/offline.cjs migrate --resume artifacts/prior/open-game/checkpoint.bin --max-states 4000000 --out artifacts/offline/migrated
+
+Only the specifically tested prior build is accepted for legacy migration. Arbitrary older builds remain rejected. Each training lineage also has a persistent run identity; result policy fingerprints distinguish independent runs and change as training advances.
+
 A checkpoint is training storage, not a minimal deployment policy. Its current size does not estimate the final size or time of a fully solved game. Reported visited-state count is not the total number of necessary states.
 
 ## Compact implementation
@@ -120,7 +126,9 @@ The value of each root action includes all remaining turns and draws under the f
 
 For decision inspection, exact rejection conditioning samples opponent private histories under the frozen averaged strategy. It replays observed public actions, weights their strategy likelihoods and preserves private draw observations. It never substitutes the simulator's true opponent hand.
 
-This is mathematically clean but inefficient for rare histories. If the posterior-sampling budget is insufficient, analysis returns unavailable. It does not present a handful of samples or the actual hidden hand as a solved posterior. Improving arbitrary-position analysis remains a distinct research task.
+Public-history rejection envelopes now improve acceptance without changing the target posterior. For unvisited policies, the cards in an observed play imply a minimum legal-action count and hence an upper bound on that action's uniform probability. Stored averaged policies at that public prefix are checked for larger probabilities. Dividing the replay likelihood by the resulting constant bound preserves exact conditioning. The bound never depends on the simulator's true hidden opponent hand.
+
+Rare histories can still be expensive. If the posterior-sampling budget is insufficient, analysis returns unavailable. It does not present a handful of samples or the actual hidden hand as a solved posterior. Improving arbitrary-position analysis remains a distinct research task.
 
 The simultaneous Hoeffding sampling interval on action EVs excludes error in the reference strategy. A small sampling interval alone therefore does not establish GTO.
 
@@ -140,9 +148,17 @@ This trains separate information-constrained deviations against the frozen refer
 
 The offline-solver GitHub Actions workflow runs the mathematical tests, small six-turn controls, unrestricted training, checkpoint resumption and a deviation probe. Artifacts contain checkpoints and complete example records. They are retained for 90 days.
 
-configs/solver/research-run.json selects the compute budget and a compatible prior run to continue. An empty resumeRunId starts fresh. Manual workflow inputs can override the budget/run ID. The workflow downloads only the prior checkpoint into the new run; it does not reuse another host's process lock.
+configs/solver/research-run.json selects the compute budget and a compatible prior run to continue. An empty resumeRunId starts fresh. Manual workflow inputs can override the budget/run ID. A research job starts when the run plan or research workflow changes; ordinary engine changes run correctness CI. The workflow downloads only the prior checkpoint into the new run; it does not reuse another host's process lock. Known legacy checkpoints undergo an isolated storage comparison with matching learned-table digests before continuation.
 
-The first corrected unrestricted run and raw measurements are recorded in benchmarks/offline-first-run.json. Its hardware was a repository Linux runner, not the user's M2. Laptop latency and full-game time-to-accuracy remain unmeasured.
+The first corrected unrestricted run is recorded in benchmarks/offline-first-run.json. The second pass and actual M2 measurements are recorded in benchmarks/offline-second-run.json and docs/solver/scaling-findings.md. Full-game time-to-accuracy remains unknown; the census establishes that fully materializing the current history table is infeasible on a laptop.
+
+Reproduce the census, isolated storage comparison and frozen-policy coverage/latency measurements:
+
+    node scripts/solver/offline-census.cjs artifacts/offline/census.json
+    node --expose-gc scripts/solver/offline-storage-benchmark.cjs --iterations 10000
+    node --expose-gc scripts/solver/offline-profile.cjs --checkpoint artifacts/offline/migrated/checkpoint.bin --samples 2000 --decision-samples 256 --posterior-attempts 100000
+
+Coverage reports distinguish forced choices from trained nontrivial decisions, under both the reference deck mixture and a uniform distribution over all configured decks. They are visitation measurements, not equilibrium bounds. Latencies evaluate the frozen reference, not a fresh equilibrium solve.
 
 ## Completion boundary
 

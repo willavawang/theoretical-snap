@@ -3,16 +3,13 @@ on:
   push:
     branches: [codex/milestone-one-mockup]
     paths:
-      - 'solver/offline/**'
-      - 'scripts/solver/offline*.cjs'
-      - 'tests/solver/offline.test.cjs'
-      - 'configs/solver/**'
+      - 'configs/solver/research-run.json'
       - '.github/workflows/offline-solver.yml'
   workflow_dispatch:
     inputs:
       seconds:
         description: 'Training budget in seconds, maximum 3600'
-        default: '1800'
+        default: '180'
       resume_run_id:
         description: 'Compatible earlier run ID; blank uses research-run.json'
         required: false
@@ -44,11 +41,13 @@ jobs:
           path: artifacts/prior
           run-id: ${{ steps.plan.outputs.resume_run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Prepare checkpoint continuation
+      - name: Measure storage migration without changing learned parameters
         if: steps.plan.outputs.resume_run_id != ''
         run: |
+          node --expose-gc scripts/solver/offline-storage-benchmark.cjs --checkpoint artifacts/prior/open-game/checkpoint.bin --iterations 0 --out artifacts/offline/storage-comparison
           mkdir -p artifacts/offline/open-game
-          cp artifacts/prior/open-game/checkpoint.bin artifacts/offline/open-game/checkpoint.bin
+          cp artifacts/offline/storage-comparison/packed.bin artifacts/offline/open-game/checkpoint.bin
+          rm artifacts/offline/storage-comparison/strings.bin artifacts/offline/storage-comparison/packed.bin
       - name: Solve a complete six-turn validation game
         run: node --expose-gc scripts/solver/offline.cjs train --case six-turn-check --seconds 10 --out artifacts/offline/six-turn --samples 1000
       - name: Include private deck choice in a bounded validation game
@@ -64,6 +63,8 @@ jobs:
         run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs resume --seconds 5 --memory-mib 2048 --max-states 4000000 --out artifacts/offline/open-game --samples 1000
       - name: Search for profitable information-constrained deviations
         run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline-deviations.cjs --checkpoint artifacts/offline/open-game/checkpoint.bin --seconds 10 --samples 5000
+      - name: Measure history counts, policy coverage and submitted-turn analysis latency
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline-profile.cjs --checkpoint artifacts/offline/open-game/checkpoint.bin --samples 2000 --decision-samples 256 --posterior-attempts 100000
       - uses: actions/upload-artifact@v4
         if: always()
         with:
