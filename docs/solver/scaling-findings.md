@@ -44,6 +44,21 @@ Packing saved **12.4% retained memory and 13.0% checkpoint bytes** in that workl
 
 The code preserves all 162,162 opening private types and all 19,608 ordered draw histories of length zero through five, including skipped draws. Their product fits in 32 bits. Unsupported custom observation histories remain literal strings. Exhaustive component round-trip tests and training/migration parity tests check that this is a storage change rather than a game abstraction.
 
+## Completed large-checkpoint storage study
+
+[Research run 41097813562](https://github.com/willavawang/theoretical-snap/actions/runs/41097813562) repeated the storage comparison on the entire 3,598,103-state checkpoint in separate Linux/Node processes. The digest of every learned node/deck parameter, update count and random state was identical across representations.
+
+| Representation at the same 3,598,103 states | Retained heap + array buffers | Current-format checkpoint |
+| --- | ---: | ---: |
+| Private-history strings | 1,180.1 MiB | 718.4 MiB |
+| Exact integer private histories | 1,066.5 MiB | 642.5 MiB |
+
+Packing saved **9.6% retained memory and 10.6% checkpoint bytes** in this larger workload. Both files used the current format; its string type tags explain the small size difference from the older 715.8 MiB legacy file.
+
+The migrated strategy continued to **198,852 iterations and 3,986,460 information states**, retaining every legal deck/action. It again reached the existing 2 GiB soft RSS guard; recovery succeeded and the final checkpoint was 715.8 MiB. The research workflow completed successfully, including all 48 tests, small exhaustive controls, migration, continuation, recovery, learned deviations and coverage/latency profiling. No training job from this pass remains running.
+
+In 2,000 games from that enlarged frozen strategy, trained nontrivial decision coverage was about 87% on turn one, 30% on turn two, 2.6–3.1% on turn three, below 0.2% on turn four, and zero observed on turns five/six. The selected 31-action turn-six query still returned unavailable: public-envelope conditioning accepted only four samples within 100,000 attempts. Thus the conditioning improvement helps some histories but has not delivered dependable arbitrary-position analysis. The unrestricted equilibrium upper bound remains unavailable.
+
 ## Coverage and submitted-move analysis
 
 The 60-second M2 policy was then evaluated in 2,000 independently sampled games from its frozen deck mixture. About 52–53% of nontrivial opening decisions had a stored training update. That fell to about 10% on turn two, below 1% on turn three, and zero observed trained nontrivial decisions on turns five and six. A separate uniform-deck sample had lower opening coverage. Zero observed coverage is a sample result; it is not proof that no late state was trained.
@@ -58,7 +73,7 @@ All results retain complete turn placements, the submitted physical card IDs, mi
 
 ## Consequences for the engine roadmap
 
-1. **Keep the tabular engine as a mathematical control and benchmark.** The next bounded run migrates and continues the existing checkpoint to measure the storage gain at millions of states; it does not expand the current 2 GiB/4-million-state limits or claim a path to full enumeration.
+1. **Keep the tabular engine as a mathematical control and benchmark.** The bounded validation run verified the storage gain at millions of states and is now paused. It did not expand the existing 2 GiB/4-million-state limits or establish a path to full enumeration.
 2. **Develop a structured strategy representation.** Prove and test exact symmetries/equivalences first. Any further function approximation must be labeled and evaluated as an approximation; all legal decks and actions must remain available to deviation tests.
 3. **Strengthen arbitrary-position analysis separately.** Reuse posterior calculations, improve rare-history proposals and apply independently validated conditional endgame solvers. A fresh solve from an imported state needs a declared belief model and suitable safety/accuracy guarantees.
 4. **Measure strategic error, not only self-play and coverage.** Stronger information-constrained deviation searches can reveal errors. A genuine unrestricted upper bound still needs a scalable exhaustive oracle or another mathematically valid certificate. Conditional/off-path accuracy needs separate checks.
