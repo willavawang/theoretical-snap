@@ -18,7 +18,7 @@ async function main(){
  const s=o.command==='resume'||o.resume||o.command==='inspect'?C.load(checkpoint,{maxInfoStates:stateCap,...(spec?{spec}:{})}):new OfflineSolver(makeSpec(o),{seed:number(o,'seed',17),maxInfoStates:stateCap,terminalEnumeration:!o['pure-outcome']});
  const started=performance.now(),seconds=number(o,'seconds',300),iterationBudget=number(o,'iterations',1e12),memoryLimit=number(o,'memory-mib',2048)*1048576,target=number(o,'target',.01),checkpointEvery=number(o,'checkpoint-seconds',30)*1000,initialIterations=s.iterations;
  let stopRequested=false,lastCheckpoint=started,lastProgress=0,status='running',certificate={certified:false,validated:false};const trajectory=[];
- const metadata={startedAt:new Date().toISOString(),host:os.hostname(),cpu:os.cpus()[0].model,cpuCount:os.cpus().length,totalMemory:os.totalmem(),runtime:process.version,platform:process.platform,architecture:process.arch,buildHash:C.buildHash,modelFingerprint:s.fingerprint,spec:s.spec,resourceLimits:{seconds,memoryMiB:memoryLimit/1048576,maxInfoStates:stateCap},pid:process.pid};
+ const metadata={startedAt:new Date().toISOString(),host:os.hostname(),cpu:os.cpus()[0].model,cpuCount:os.cpus().length,totalMemory:os.totalmem(),runtime:process.version,platform:process.platform,architecture:process.arch,buildHash:C.buildHash,modelFingerprint:s.fingerprint,gameFingerprint:G.gameFingerprint(s),spec:s.spec,resourceLimits:{seconds,memoryMiB:memoryLimit/1048576,maxInfoStates:stateCap},pid:process.pid};
  process.on('SIGINT',()=>{stopRequested=true;});process.on('SIGTERM',()=>{stopRequested=true;});try{fs.unlinkSync(path.join(out,'STOP'));}catch(e){if(e.code!=='ENOENT')throw e;}
  function record(){const memory=process.memoryUsage(),row={elapsedMs:performance.now()-started,...s.stats(),memory};trajectory.push(row);writeJSON(path.join(out,'status.json'),{status,metadata,latest:row,checkpoint,certificate});return row;}
  function save(){const begin=performance.now(),saved=C.save(s,checkpoint);writeJSON(path.join(out,'checkpoint.json'),{...saved,saveMs:performance.now()-begin});lastCheckpoint=performance.now();}
@@ -35,9 +35,10 @@ async function main(){
  }
  certificate=E.evaluateExact(s,{targetGap:target});
  const profile=E.evaluateRollouts(s,{samples:number(o,'samples',2000),seed:1901});
+ const replay=require('../../solver/offline/replay.cjs').sampleGame(s,{seed:701});writeJSON(path.join(out,'game-replay.json'),replay);
  const gameState=G.makeGameState(s,{seed:701}),state=G.toSolverState(s,gameState),action=s.actions(state,0).find(a=>a.spent===Math.min(1,state.turn))||s.actions(state,0)[0],placements=G.placementsForAction(gameState,0,action),decision=D.analyzeDecision(s,gameState,0,placements,{samples:number(o,'decision-samples',256),maxAttempts:number(o,'posterior-attempts',50000)});
  writeJSON(path.join(out,'decision-example.json'),{gameState,analysis:decision});
- if(global.gc)global.gc();const latest=record(),report={status,metadata,certificate,profile,latest,trajectory,currentExploratoryDeckMixtures:deckSummary(s),checkpoint:{path:checkpoint,bytes:fs.statSync(checkpoint).size},decisionExample:'decision-example.json',interpretation:certificate.validated?'Accuracy target met only for the explicitly certified game and scope.':'No full-game equilibrium certificate. Deck weights and action values are exploratory, not GTO recommendations.'};
+ if(global.gc)global.gc();const latest=record(),report={status,metadata,certificate,profile,latest,trajectory,currentExploratoryDeckMixtures:deckSummary(s),checkpoint:{path:checkpoint,bytes:fs.statSync(checkpoint).size},decisionExample:'decision-example.json',gameReplay:'game-replay.json',interpretation:certificate.validated?'Accuracy target met only for the explicitly certified game and scope.':'No full-game equilibrium certificate. Deck weights and action values are exploratory, not GTO recommendations.'};
  writeJSON(path.join(out,'report.json'),report);console.log('OFFLINE_REPORT_BEGIN');console.log(JSON.stringify(report));console.log('OFFLINE_REPORT_END');
 }
 main().catch(e=>{console.error(e.stack);process.exitCode=1;});
