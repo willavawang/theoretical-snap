@@ -131,6 +131,10 @@ This is an exact-position cache, not a global blueprint, symmetry cache or gener
 
 Node time is not a browser latency promise. Fixed examples do not establish a worst-case runtime for every position.
 
-## References
+## Audited terminal backend
+
+`solver/endgame/` is the independently checked conditional turn-six backend. It adds exact terminal payoff/type reductions, a separate Python/HiGHS LP reference, comparison against the existing matrix CFR path, and original-action EV export for the complete Game State Object. Read [findings](turn6-findings.md), [representation audit](turn6-audit.md), [usage](../../solver/endgame/README.md) and [two-turn design](turn56-design.md). These results do not expand this browser workbench's coverage or validate the unrestricted full-game policy.
+
+## Method references
 
 This is an original implementation of published CFR/CFR+ and outcome-sampling MCCFR methods. [OpenSpiel's outcome-sampling source](https://github.com/google-deepmind/open_spiel/blob/master/open_spiel/python/algorithms/outcome_sampling_mccfr.py) was used as a primary reference for importance-corrected updates. It does not claim to reproduce GTO Wizard's proprietary implementation.

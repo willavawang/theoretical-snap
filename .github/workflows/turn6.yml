@@ -1,0 +1,41 @@
+name: Audited turn-six solver
+on:
+  push:
+    branches: [codex/milestone-one-mockup]
+    paths:
+      - 'solver/endgame/**'
+      - 'scripts/solver/turn6*'
+      - 'tests/endgame/**'
+      - 'requirements-turn6.txt'
+      - '.github/workflows/turn6.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  independently-check-endgame:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-turn6.txt
+      - name: Install pinned independent LP reference
+        run: python -m pip install -r requirements-turn6.txt
+      - name: Test existing engine and independent endgame controls
+        run: node --test tests/*.test.cjs tests/solver/*.test.cjs tests/endgame/*.test.cjs
+      - name: Reproduce small controls and algorithm comparison
+        run: python scripts/solver/turn6-benchmark.py --quick --out benchmarks/turn6/ci-quick.json
+      - name: Verify the full seven-card-hand universe within the declared final-turn model
+        run: python scripts/solver/turn6-benchmark.py --cases all-seven-card-hands --budgets .2,1 --warm-repeats 1 --out benchmarks/turn6/ci-broad.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: audited-turn6-benchmarks
+          path: benchmarks/turn6/
+          retention-days: 90
