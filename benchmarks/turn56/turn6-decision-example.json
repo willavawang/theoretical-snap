@@ -1,0 +1,923 @@
+{
+  "schema": "snap-coupled-solve-1",
+  "case": "benchmarks/turn56/reference-profile.json",
+  "inputModel": {
+    "turn": 5,
+    "board": [
+      [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ],
+      [
+        [
+          1
+        ],
+        [
+          2
+        ],
+        [
+          3,
+          4
+        ]
+      ]
+    ],
+    "ranges": [
+      [
+        {
+          "hand": [
+            5,
+            6,
+            6,
+            6
+          ],
+          "remaining": [
+            1,
+            6,
+            6,
+            6
+          ],
+          "weight": 3
+        },
+        {
+          "hand": [
+            4,
+            6,
+            6,
+            6
+          ],
+          "remaining": [
+            2,
+            6,
+            6,
+            6
+          ],
+          "weight": 1
+        }
+      ],
+      [
+        {
+          "hand": [
+            5,
+            6,
+            6,
+            6
+          ],
+          "remaining": [
+            1,
+            6,
+            6,
+            6
+          ],
+          "weight": 1
+        },
+        {
+          "hand": [
+            4,
+            6,
+            6,
+            6
+          ],
+          "remaining": [
+            2,
+            6,
+            6,
+            6
+          ],
+          "weight": 2
+        }
+      ]
+    ],
+    "beliefScope": "Declared conditional turn-five ranges; not equilibrium-history posteriors"
+  },
+  "gameState": {
+    "schema": "numerical-snap-game-state-1",
+    "modelFingerprint": "954d6cc56a9e9b2139211f000ab3946061354c3930e41f056a1eed077288ddae",
+    "rules": {
+      "turns": 6,
+      "handLimit": 7,
+      "deckSize": 12
+    },
+    "root": {
+      "turn": 5,
+      "board": [
+        [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ]
+      ],
+      "players": [
+        {
+          "hand": [
+            5,
+            6,
+            6,
+            6
+          ],
+          "remaining": [
+            1,
+            6,
+            6,
+            6
+          ]
+        },
+        {
+          "hand": [
+            5,
+            6,
+            6,
+            6
+          ],
+          "remaining": [
+            1,
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    "turn": 6,
+    "phase": "planning",
+    "players": [
+      {
+        "cards": [
+          {
+            "id": "p0-00",
+            "cost": 1
+          },
+          {
+            "id": "p0-01",
+            "cost": 2
+          },
+          {
+            "id": "p0-02",
+            "cost": 3
+          },
+          {
+            "id": "p0-03",
+            "cost": 4
+          },
+          {
+            "id": "p0-04",
+            "cost": 5
+          },
+          {
+            "id": "p0-05",
+            "cost": 6
+          },
+          {
+            "id": "p0-06",
+            "cost": 6
+          },
+          {
+            "id": "p0-07",
+            "cost": 6
+          },
+          {
+            "id": "p0-08",
+            "cost": 1
+          },
+          {
+            "id": "p0-09",
+            "cost": 6
+          },
+          {
+            "id": "p0-10",
+            "cost": 6
+          },
+          {
+            "id": "p0-11",
+            "cost": 6
+          }
+        ],
+        "board": [
+          [
+            "p0-00",
+            "p0-04"
+          ],
+          [
+            "p0-01"
+          ],
+          [
+            "p0-02",
+            "p0-03"
+          ]
+        ],
+        "hand": [
+          "p0-05",
+          "p0-06",
+          "p0-07",
+          "p0-10"
+        ],
+        "drawPile": [
+          "p0-08",
+          "p0-09",
+          "p0-11"
+        ]
+      },
+      {
+        "cards": [
+          {
+            "id": "p1-00",
+            "cost": 1
+          },
+          {
+            "id": "p1-01",
+            "cost": 2
+          },
+          {
+            "id": "p1-02",
+            "cost": 3
+          },
+          {
+            "id": "p1-03",
+            "cost": 4
+          },
+          {
+            "id": "p1-04",
+            "cost": 5
+          },
+          {
+            "id": "p1-05",
+            "cost": 6
+          },
+          {
+            "id": "p1-06",
+            "cost": 6
+          },
+          {
+            "id": "p1-07",
+            "cost": 6
+          },
+          {
+            "id": "p1-08",
+            "cost": 1
+          },
+          {
+            "id": "p1-09",
+            "cost": 6
+          },
+          {
+            "id": "p1-10",
+            "cost": 6
+          },
+          {
+            "id": "p1-11",
+            "cost": 6
+          }
+        ],
+        "board": [
+          [
+            "p1-00"
+          ],
+          [
+            "p1-01",
+            "p1-04"
+          ],
+          [
+            "p1-02",
+            "p1-03"
+          ]
+        ],
+        "hand": [
+          "p1-05",
+          "p1-06",
+          "p1-07",
+          "p1-09"
+        ],
+        "drawPile": [
+          "p1-10",
+          "p1-08",
+          "p1-11"
+        ]
+      }
+    ],
+    "history": [
+      {
+        "turn": 5,
+        "plans": [
+          [
+            {
+              "cardId": "p0-04",
+              "lane": 0
+            }
+          ],
+          [
+            {
+              "cardId": "p1-04",
+              "lane": 1
+            }
+          ]
+        ],
+        "plays": [
+          [
+            [
+              5
+            ],
+            [],
+            []
+          ],
+          [
+            [],
+            [
+              5
+            ],
+            []
+          ]
+        ],
+        "draws": [
+          6,
+          6
+        ],
+        "drawIds": [
+          "p0-10",
+          "p1-09"
+        ]
+      }
+    ],
+    "seed": 711
+  },
+  "analysis": {
+    "schema": "snap-coupled-decision-1",
+    "status": "conditional-validated",
+    "stateId": "9ebc5efd1e7beb936b043cd9fd230ea7257577ceb20aa263b019d51aca5f28e3",
+    "modelFingerprint": "51fe41bea02cacc6e5006d1d67265892e39855f7e8c35b47d34f089d10c6fe41",
+    "policyFingerprint": "fa445a4587a007ada7e2dae72fa180f283ab5be1416fb5f78cc8a4653d160a0f",
+    "player": 0,
+    "turn": 6,
+    "rootTypeKey": "0,0,0,0,1,3/1,0,0,0,0,3@",
+    "infoKey": "[0,6,\"0,0,0,0,1,3/1,0,0,0,0,3@\",\"000000000000100000\",\"000000000000010000\",6]",
+    "units": "P(win) - P(loss)",
+    "certificate": {
+      "value": 0.4166666666666667,
+      "upper": 0.4166666666666667,
+      "lower": 0.4166666666666667,
+      "nashGap": 0,
+      "exploitability": 0,
+      "maxConditionalGain": 0,
+      "maxReachedContinuationGain": 0,
+      "validated": true,
+      "tolerance": 0.000001,
+      "rows": [
+        [
+          {
+            "typeKey": "0,0,0,0,1,3/1,0,0,0,0,3@",
+            "weight": 0.75,
+            "value": 0.6666666666666666,
+            "maximumEV": 0.6666666666666666,
+            "bestValue": 0.6666666666666666,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -0.8060776942355888,
+                "bestResponseEV": -0.375,
+                "frequency": 0,
+                "evLoss": 1.4727443609022555
+              },
+              {
+                "actionKey": "000000000000001000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    5
+                  ]
+                ],
+                "ev": -0.12648809523809523,
+                "bestResponseEV": 0.6666666666666666,
+                "frequency": 0,
+                "evLoss": 0.7931547619047619
+              },
+              {
+                "actionKey": "000000000000010000",
+                "lanes": [
+                  [],
+                  [
+                    5
+                  ],
+                  []
+                ],
+                "ev": -0.09523809523809523,
+                "bestResponseEV": 0.6666666666666666,
+                "frequency": 0,
+                "evLoss": 0.7619047619047619
+              },
+              {
+                "actionKey": "000000000000100000",
+                "lanes": [
+                  [
+                    5
+                  ],
+                  [],
+                  []
+                ],
+                "ev": 0.6666666666666666,
+                "bestResponseEV": 0.6666666666666666,
+                "frequency": 1,
+                "evLoss": 0
+              }
+            ]
+          },
+          {
+            "typeKey": "0,0,0,1,0,3/0,1,0,0,0,3@",
+            "weight": 0.25,
+            "value": -0.3333333333333333,
+            "maximumEV": -0.3333333333333333,
+            "bestValue": -0.3333333333333333,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -0.8361528822055136,
+                "bestResponseEV": -0.375,
+                "frequency": 0,
+                "evLoss": 0.5028195488721803
+              },
+              {
+                "actionKey": "000000000001000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    4
+                  ]
+                ],
+                "ev": -0.5297619047619048,
+                "bestResponseEV": -0.3333333333333333,
+                "frequency": 0,
+                "evLoss": 0.19642857142857145
+              },
+              {
+                "actionKey": "000000000010000000",
+                "lanes": [
+                  [],
+                  [
+                    4
+                  ],
+                  []
+                ],
+                "ev": -0.3333333333333333,
+                "bestResponseEV": -0.3333333333333333,
+                "frequency": 1,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000000000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -0.5535714285714286,
+                "bestResponseEV": -0.3333333333333333,
+                "frequency": 0,
+                "evLoss": 0.2202380952380953
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "typeKey": "0,0,0,0,1,3/1,0,0,0,0,3@",
+            "weight": 0.3333333333333333,
+            "value": 0.25,
+            "maximumEV": 0.25,
+            "bestValue": 0.25,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -0.9671052631578948,
+                "bestResponseEV": -0.65625,
+                "frequency": 0,
+                "evLoss": 1.2171052631578947
+              },
+              {
+                "actionKey": "000000000000001000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    5
+                  ]
+                ],
+                "ev": -0.2154017857142857,
+                "bestResponseEV": 0.25,
+                "frequency": 0,
+                "evLoss": 0.4654017857142857
+              },
+              {
+                "actionKey": "000000000000010000",
+                "lanes": [
+                  [],
+                  [
+                    5
+                  ],
+                  []
+                ],
+                "ev": 0.25,
+                "bestResponseEV": 0.25,
+                "frequency": 1,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000000000000100000",
+                "lanes": [
+                  [
+                    5
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -0.20535714285714285,
+                "bestResponseEV": 0.25,
+                "frequency": 0,
+                "evLoss": 0.45535714285714285
+              }
+            ]
+          },
+          {
+            "typeKey": "0,0,0,1,0,3/0,1,0,0,0,3@",
+            "weight": 0.6666666666666666,
+            "value": -0.75,
+            "maximumEV": -0.75,
+            "bestValue": -0.75,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -0.9736842105263158,
+                "bestResponseEV": -0.75,
+                "frequency": 0,
+                "evLoss": 0.22368421052631582
+              },
+              {
+                "actionKey": "000000000001000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    4
+                  ]
+                ],
+                "ev": -0.8236607142857143,
+                "bestResponseEV": -0.75,
+                "frequency": 0,
+                "evLoss": 0.0736607142857143
+              },
+              {
+                "actionKey": "000000000010000000",
+                "lanes": [
+                  [],
+                  [
+                    4
+                  ],
+                  []
+                ],
+                "ev": -0.8325892857142857,
+                "bestResponseEV": -0.75,
+                "frequency": 0,
+                "evLoss": 0.0825892857142857
+              },
+              {
+                "actionKey": "000000000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -0.75,
+                "bestResponseEV": -0.75,
+                "frequency": 1,
+                "evLoss": 0
+              }
+            ]
+          }
+        ]
+      ],
+      "method": "Exhaustive information-constrained two-turn best responses; independent Python sequence-form check required separately",
+      "scope": "Supplied conditional two-turn game (turns five and six); no equilibrium-history, safe re-solving or unrestricted deck-selection certificate"
+    },
+    "continuationCertificate": {
+      "value": 0,
+      "upper": 0,
+      "lower": 0,
+      "nashGap": 0,
+      "exploitability": 0,
+      "maxConditionalGain": 0,
+      "validated": true,
+      "tolerance": 0.000001,
+      "rows": [
+        [
+          {
+            "typeKey": "1,0,0,0,0,3/0,0,0,0,0,3@[\"0,0,0,0,1,3/1,0,0,0,0,3@\",\"draw\",1]",
+            "weight": 0.25,
+            "value": 0,
+            "bestValue": 0,
+            "gain": 0
+          },
+          {
+            "typeKey": "0,0,0,0,0,4/1,0,0,0,0,2@[\"0,0,0,0,1,3/1,0,0,0,0,3@\",\"draw\",6]",
+            "weight": 0.75,
+            "value": 0,
+            "bestValue": 0,
+            "gain": 0
+          }
+        ],
+        [
+          {
+            "typeKey": "1,0,0,0,0,3/0,0,0,0,0,3@[\"0,0,0,0,1,3/1,0,0,0,0,3@\",\"draw\",1]",
+            "weight": 0.25,
+            "value": 0,
+            "bestValue": 0,
+            "gain": 0
+          },
+          {
+            "typeKey": "0,0,0,0,0,4/1,0,0,0,0,2@[\"0,0,0,0,1,3/1,0,0,0,0,3@\",\"draw\",6]",
+            "weight": 0.75,
+            "value": 0,
+            "bestValue": 0,
+            "gain": 0
+          }
+        ]
+      ],
+      "method": "Exhaustive private-information-constrained best responses using legacy action generation and independent terminal payoffs",
+      "scope": "Supplied conditional final-turn game only"
+    },
+    "observationReachProbability": 0.1875,
+    "submitted": {
+      "actionKey": "000000000000000000",
+      "lanes": [
+        [],
+        [],
+        []
+      ],
+      "ev": -1,
+      "frequency": 0,
+      "evLoss": 1,
+      "placements": []
+    },
+    "yourEV": -1,
+    "handEV": 0,
+    "maximumEV": 0,
+    "evLoss": 1,
+    "best": {
+      "actionKey": "000000000000000010",
+      "lanes": [
+        [],
+        [
+          6
+        ],
+        []
+      ],
+      "ev": 0,
+      "frequency": 1,
+      "evLoss": 0,
+      "placements": [
+        {
+          "cardId": "p0-05",
+          "lane": 1
+        }
+      ]
+    },
+    "alternatives": [
+      {
+        "actionKey": "000000000000000010",
+        "lanes": [
+          [],
+          [
+            6
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 1,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ]
+      },
+      {
+        "actionKey": "000000000000000100",
+        "lanes": [
+          [
+            6
+          ],
+          [],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          }
+        ]
+      },
+      {
+        "actionKey": "000000000000000001",
+        "lanes": [
+          [],
+          [],
+          [
+            6
+          ]
+        ],
+        "ev": -8.326672684688674e-17,
+        "frequency": 0,
+        "evLoss": 8.326672684688674e-17,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ]
+      }
+    ],
+    "actions": [
+      {
+        "actionKey": "000000000000000000",
+        "lanes": [
+          [],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": []
+      },
+      {
+        "actionKey": "000000000000000001",
+        "lanes": [
+          [],
+          [],
+          [
+            6
+          ]
+        ],
+        "ev": -8.326672684688674e-17,
+        "frequency": 0,
+        "evLoss": 8.326672684688674e-17,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ]
+      },
+      {
+        "actionKey": "000000000000000010",
+        "lanes": [
+          [],
+          [
+            6
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 1,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ]
+      },
+      {
+        "actionKey": "000000000000000100",
+        "lanes": [
+          [
+            6
+          ],
+          [],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          }
+        ]
+      }
+    ],
+    "continuationConvention": "Turn-five action EV uses the same frozen returned continuation policy. Best-response EV additionally optimizes future own play. Turn-six validation also requires a local conditional-game check.",
+    "scope": "Supplied conditional two-turn game (turns five and six); no equilibrium-history, safe re-solving or unrestricted deck-selection certificate"
+  },
+  "profilePath": "benchmarks/turn56/reference-profile.json",
+  "solve": {
+    "algorithm": "Restored coupled strategy profile; no new optimization",
+    "certificate": {
+      "value": 0.4166666666666667,
+      "upper": 0.4166666666666667,
+      "lower": 0.4166666666666667,
+      "nashGap": 0,
+      "exploitability": 0,
+      "maxConditionalGain": 0,
+      "maxReachedContinuationGain": 0,
+      "validated": true,
+      "tolerance": 0.000001,
+      "method": "Exhaustive information-constrained two-turn best responses; independent Python sequence-form check required separately",
+      "scope": "Supplied conditional two-turn game (turns five and six); no equilibrium-history, safe re-solving or unrestricted deck-selection certificate"
+    },
+    "independentCertificate": {
+      "value": 0.4166666666666667,
+      "upper": 0.4166666666666667,
+      "lower": 0.4166666666666667,
+      "nashGap": 0,
+      "exploitability": 0,
+      "maxConditionalGain": 0,
+      "maxReachedContinuationGain": 0,
+      "validated": true,
+      "tolerance": 0.000001,
+      "method": "Independent individual-card sequence-form tree; exhaustive information-constrained two-turn best responses",
+      "scope": "Supplied conditional turns-five/six game, not full-game equilibrium or safe re-solving"
+    }
+  },
+  "compilerStats": {
+    "rootTypes": [
+      2,
+      2
+    ],
+    "rootActions": [
+      7,
+      7
+    ],
+    "publicBranches": 49,
+    "informationSets": [
+      114,
+      114
+    ],
+    "terminalInformationSets": 224,
+    "skippedDrawInformationSets": 0,
+    "originalActionEntries": 1668,
+    "strategyActionEntries": 1584,
+    "numericCFRBytes": 25344,
+    "payoffCells": 4704,
+    "payoffBytes": 4704,
+    "sharedPayoffTables": 45
+  },
+  "scope": "Coupled conditional turns-five/six solve. Actual hidden truth is stored for replay, not substituted for the public prior."
+}

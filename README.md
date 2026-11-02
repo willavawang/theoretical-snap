@@ -28,6 +28,8 @@ The [scaling findings](docs/solver/scaling-findings.md) add actual M2 benchmarks
 
 The [audited turn-six milestone](docs/solver/turn6-findings.md) now provides independent LP solutions, exhaustive best-response checks, exact terminal reductions and reproducible comparisons with CFR. Its largest hand-universe control covers all 792 seven-card hands per player on one legal board, with declared priors. The full Game State Object and all original legal turns, including passing and underspending, remain available for results. This is conditional endgame coverage, not a full-game equilibrium or a change to the trainer. See the [state audit](docs/solver/turn6-audit.md) and [recommended turn-five/six design](docs/solver/turn56-design.md).
 
+The [coupled turn-five/six backend](docs/solver/turn56-findings.md) implements that next design: both remaining turns are optimized together with private draws and strategy-dependent continuation ranges. It includes an independent sequence-form LP, public-tree CFR, reusable saved profiles and Game State Object queries for either turn. Turn-six queries receive their own local conditional-game check. See [usage and limits](solver/two-turn/README.md); the trainer remains unchanged.
+
 ## Playing solver
 
 Open `/solver.html` when serving `dist/`. The separate workbench supports configurable private deck/hand ranges, simultaneous commitments, future hidden draws, mixed strategies, action EV/WDL/loss, and accuracy diagnostics. Solving runs in a cancellable Web Worker; identical public-position policies can resume from IndexedDB checkpoints. This does not alter the trainer's current fixture-only grading.

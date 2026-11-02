@@ -94,3 +94,13 @@ The submitted placements preserve the exact physical copies dragged by the user,
 `solver/endgame/` now solves a declared final-turn Bayesian game and exports original legal card-turn EVs through the existing Game State Object. It preserves passing, underspending, composition and dragged-copy IDs even when the optimizer shares equivalent terminal payoff rows. Actual stored opponent truth is not used for policy or EV selection. Independent best responses check both the global Nash gap and maximum supported private-type deviation gain; the benchmark target is `1e-6` outcome EV. Outputs state their conditional-model scope and remain provisional when those bounds miss the target.
 
 The standalone adapter is a research interface, not a new trainer provider. It does not infer equilibrium-history beliefs, prove safe online re-solving, or certify unrestricted deck construction. See [the milestone findings](solver/turn6-findings.md), [representation audit](solver/turn6-audit.md) and [complete example output](../benchmarks/turn6/decision-example.json).
+
+## Coupled final-two-turn backend
+
+`solver/two-turn/` now optimizes turns five and six together under declared private ranges, including all legal passes, underspends, private draws and full-hand skips. Independent sequence-form LPs and public-tree CFR share an external original-action policy format. Saved profiles identify both the complete model and actual policy; imported bounds are recalculated, and CLI solves/restores cross-check against the independent Python evaluator.
+
+The Game State Object remains complete and immutable during queries. Results preserve submitted physical card copies, original actions, hand EV, maximum EV and loss. Turn-five action EV uses the returned continuation policy; `bestResponseEV` separately permits future own-policy deviations. An action's frequency remains separate from its quality.
+
+The global Nash gap and maximum root-private-type full-continuation gain are required for whole two-turn validation. These do not alone validate a rare later decision. Turn-six queries also condition on public turn-five strategy likelihoods and require a local terminal-game certificate. Zero-reach histories return provisional counterfactual values or unavailable analysis as appropriate; actual stored opponent truth never supplies missing beliefs. See [mathematics and exact scope](solver/turn56-mathematics.md).
+
+This remains an offline research backend. No trainer integration, earlier-turn equilibrium, safe full-game re-solving or equilibrium deck list is implied. All 6,188 legal private deck compositions remain candidates for the overall opening-game objective.

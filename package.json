@@ -11,6 +11,9 @@
     "benchmark:solver": "node --expose-gc scripts/solver/benchmark.cjs",
     "test:endgame": "node --test tests/endgame/*.test.cjs",
     "benchmark:turn6": "python3 scripts/solver/turn6-benchmark.py",
-    "solve:turn6": "node scripts/solver/turn6-solve.cjs"
+    "solve:turn6": "node scripts/solver/turn6-solve.cjs",
+    "test:two-turn": "node --test tests/two-turn/*.test.cjs",
+    "benchmark:turn56": "python3 scripts/solver/turn56-benchmark.py",
+    "solve:turn56": "node scripts/solver/turn56-solve.cjs"
   }
 }

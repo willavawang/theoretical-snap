@@ -1,5 +1,7 @@
 # Recommended turn-five/six extension
 
+Implementation status: the coupled conditional engine, independent reference, control suite, saved profiles and two-turn state queries are now implemented. Read [measured findings](turn56-findings.md), [mathematics](turn56-mathematics.md) and [API/limits](../../solver/two-turn/README.md). The design below records the requirements that guided this stage; broad earlier-turn and deck-selection claims remain outside its coverage.
+
 The completed milestone supports a range-aware public-tree continuation solver, with an independent small-game sequence-form LP as its reference. It does not support another expansion of the unmerged full-game training table.
 
 ## Retain three layers
