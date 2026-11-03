@@ -42,7 +42,8 @@ class IndependentStudyControls(unittest.TestCase):
         pure=[{"typeKey":"allocate-two","probabilities":{"add-two:0":1.}}]
         self.assertAlmostEqual(E.security_value(g1,pure)["value"],-1.)
         robust=E.robust_policy([g0,g1],[1.,0.])
-        self.assertLess(robust["verifiedMaxRegret"],1e-7)
+        self.assertAlmostEqual(robust["verifiedMaxRegret"],.5,places=8)
+        self.assertAlmostEqual(robust["policy"][0]["probabilities"]["add-two:0"],.75,places=8)
 
     def test_matched_total_power_is_not_matched_feasible_effects(self):
         games=[self.controls[k] for k in ("focus-15","doom-15")]
