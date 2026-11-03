@@ -1,0 +1,5 @@
+{
+  "seconds": 180,
+  "resumeRunId": 40985483413,
+  "note": "Measure exact private-history packing against the prior checkpoint, then continue within the existing memory/state caps; this does not resolve the full-game table explosion."
+}

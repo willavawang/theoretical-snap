@@ -1,0 +1,43 @@
+name: Coupled final-two-turn solver
+on:
+  push:
+    branches: [codex/milestone-one-mockup]
+    paths:
+      - 'solver/two-turn/**'
+      - 'solver/endgame/**'
+      - 'solver/offline/game-state.cjs'
+      - 'dist/solver/engine.js'
+      - 'scripts/solver/turn56*'
+      - 'tests/two-turn/**'
+      - 'requirements-turn6.txt'
+      - '.github/workflows/turn56.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  independent-two-turn-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-turn6.txt
+      - run: python -m pip install -r requirements-turn6.txt
+      - name: Test existing engines and coupled information/flow controls
+        run: node --test tests/*.test.cjs tests/solver/*.test.cjs tests/endgame/*.test.cjs tests/two-turn/*.test.cjs
+      - name: Reproduce coupled small controls
+        run: python scripts/solver/turn56-benchmark.py --quick --out benchmarks/turn56/ci-quick.json
+      - name: Check four private types per player against an independent sequence-form LP
+        run: python scripts/solver/turn56-benchmark.py --cases four-types --budgets .2,1 --warm-repeats 1 --out benchmarks/turn56/ci-four-types.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coupled-turn56-benchmarks
+          path: benchmarks/turn56/
+          retention-days: 90

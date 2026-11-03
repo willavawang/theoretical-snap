@@ -1,0 +1,4356 @@
+{
+  "comparisons": {
+    "destruction-absent/destruction-after-us/destruction-before-us": {
+      "robust": {
+        "inequalities": 9,
+        "losses": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "lpBoundCheck": {
+          "dualLowerBound": 0.0,
+          "gap": 0.0,
+          "maxPrimalViolation": 0.0,
+          "primalObjective": 0.0,
+          "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+          "validated": true
+        },
+        "policy": [
+          {
+            "probabilities": {
+              "one-ten": -0.0,
+              "two-fives": 1.0
+            },
+            "typeKey": "matched-ten-power"
+          }
+        ],
+        "regret": 0.0,
+        "securityValues": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "totalMs": 1.9678600000005986,
+        "validated": true,
+        "variables": 6,
+        "verifiedMaxRegret": 0.0
+      },
+      "transfer": {
+        "destruction-absent": {
+          "destruction-absent": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          },
+          "destruction-after-us": {
+            "securityLoss": 1.0,
+            "securityValue": 0.0
+          },
+          "destruction-before-us": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          }
+        },
+        "destruction-after-us": {
+          "destruction-absent": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          },
+          "destruction-after-us": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          },
+          "destruction-before-us": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          }
+        },
+        "destruction-before-us": {
+          "destruction-absent": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          },
+          "destruction-after-us": {
+            "securityLoss": 1.0,
+            "securityValue": 0.0
+          },
+          "destruction-before-us": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          }
+        }
+      }
+    },
+    "focus-15/doom-15": {
+      "robust": {
+        "inequalities": 10,
+        "losses": [
+          1.0,
+          1.0
+        ],
+        "lpBoundCheck": {
+          "dualLowerBound": 1.0,
+          "gap": 0.0,
+          "maxPrimalViolation": 0.0,
+          "primalObjective": 1.0,
+          "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+          "validated": true
+        },
+        "policy": [
+          {
+            "probabilities": {
+              "000000000000000000": 0.0,
+              "000000000000000001": 0.0,
+              "000000000000000010": 0.0,
+              "000000000000000100": 0.0,
+              "000000000001000000": 0.0,
+              "000000000010000000": 0.0,
+              "000000000100000000": 0.0,
+              "000001000000000000": 0.0,
+              "000001000001000000": 0.0,
+              "000001000010000000": 0.0,
+              "000001000100000000": 0.0,
+              "000010000000000000": 0.0,
+              "000010000001000000": 0.0,
+              "000010000010000000": 0.0,
+              "000010000100000000": 0.0,
+              "000100000000000000": 0.0,
+              "000100000001000000": 0.0,
+              "000100000010000000": 0.5,
+              "000100000100000000": 0.0,
+              "001000000000000000": 0.0,
+              "001000000001000000": 0.0,
+              "001000000010000000": 0.0,
+              "001000000100000000": 0.0,
+              "001001000000000000": 0.0,
+              "001010000000000000": 0.0,
+              "001100000000000000": 0.0,
+              "010000000000000000": 0.0,
+              "010000000001000000": 0.0,
+              "010000000010000000": 0.0,
+              "010000000100000000": 0.0,
+              "010001000000000000": 0.0,
+              "010010000000000000": 0.0,
+              "010100000000000000": 0.0,
+              "100000000000000000": 0.0,
+              "100000000001000000": 0.0,
+              "100000000010000000": 0.0,
+              "100000000100000000": 0.0,
+              "100001000000000000": 0.5,
+              "100010000000000000": 0.0,
+              "100100000000000000": 0.0
+            },
+            "typeKey": "our-plan"
+          }
+        ],
+        "regret": 1.0,
+        "securityValues": [
+          0.0,
+          0.0
+        ],
+        "totalMs": 4.139465000001508,
+        "validated": true,
+        "variables": 43,
+        "verifiedMaxRegret": 1.0
+      },
+      "transfer": {
+        "doom-15": {
+          "doom-15": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          },
+          "focus-15": {
+            "securityLoss": 2.0,
+            "securityValue": -1.0
+          }
+        },
+        "focus-15": {
+          "doom-15": {
+            "securityLoss": 2.0,
+            "securityValue": -1.0
+          },
+          "focus-15": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          }
+        }
+      }
+    },
+    "movement-absent/movement-available": {
+      "robust": {
+        "inequalities": 6,
+        "losses": [
+          0.5,
+          0.5
+        ],
+        "lpBoundCheck": {
+          "dualLowerBound": 0.5,
+          "gap": 0.0,
+          "maxPrimalViolation": 0.0,
+          "primalObjective": 0.5,
+          "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+          "validated": true
+        },
+        "policy": [
+          {
+            "probabilities": {
+              "add-two:0": 0.75,
+              "add-two:1": 0.25,
+              "add-two:2": 0.0,
+              "pass": 0.0
+            },
+            "typeKey": "allocate-two"
+          }
+        ],
+        "regret": 0.5,
+        "securityValues": [
+          0.5,
+          -0.5
+        ],
+        "totalMs": 2.043487999998206,
+        "validated": true,
+        "variables": 7,
+        "verifiedMaxRegret": 0.5
+      },
+      "transfer": {
+        "movement-absent": {
+          "movement-absent": {
+            "securityLoss": 0.0,
+            "securityValue": 1.0
+          },
+          "movement-available": {
+            "securityLoss": 1.0,
+            "securityValue": -1.0
+          }
+        },
+        "movement-available": {
+          "movement-absent": {
+            "securityLoss": 1.0,
+            "securityValue": 0.0
+          },
+          "movement-available": {
+            "securityLoss": 0.0,
+            "securityValue": 0.0
+          }
+        }
+      }
+    }
+  },
+  "fixtures": [
+    {
+      "game": {
+        "board": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              4
+            ],
+            []
+          ],
+          [
+            [],
+            [],
+            []
+          ]
+        ],
+        "priority": 0,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "000000000000000000",
+                  "plays": [],
+                  "sourcePlayedCards": 0
+                },
+                {
+                  "id": "000000000000000001",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000000000010",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000000000100",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000001000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000001000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000001000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000001000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000010000001000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000100000001000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000010000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "001000000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001001000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "010000000001000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010001000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "100000000001000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000010000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100001000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100010000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                }
+              ],
+              "id": "our-plan",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "focus:0",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 15
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "focus:1",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 15
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "focus:2",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 15
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                }
+              ],
+              "id": "focus-15",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "focus-15"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              4
+            ],
+            []
+          ],
+          [
+            [],
+            [],
+            []
+          ]
+        ],
+        "priority": 0,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "000000000000000000",
+                  "plays": [],
+                  "sourcePlayedCards": 0
+                },
+                {
+                  "id": "000000000000000001",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000000000010",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000000000100",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000001000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000001000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000001000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000001000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000010000001000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000100000001000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000010000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "001000000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001001000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "010000000001000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010001000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "100000000001000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000010000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100001000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100010000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                }
+              ],
+              "id": "our-plan",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "doom:0",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 5,
+                      "spawnOthers": 5
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "doom:1",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 5,
+                      "spawnOthers": 5
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "doom:2",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 5,
+                      "spawnOthers": 5
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                }
+              ],
+              "id": "one-card-three-lanes",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "doom-15"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [
+              1,
+              3
+            ],
+            [
+              4
+            ],
+            []
+          ],
+          [
+            [],
+            [],
+            []
+          ]
+        ],
+        "priority": 0,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "000000000000000000",
+                  "plays": [],
+                  "sourcePlayedCards": 0
+                },
+                {
+                  "id": "000000000000000001",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000000000010",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000000000100",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 6
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000001000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000001000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000001000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000001000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000010000001000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000010000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "000100000001000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000010000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "000100000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "001000000001000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001001000000000000",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "001100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 2,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "010000000001000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000010000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 4
+                    },
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010001000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010010000000000000",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "010100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    },
+                    {
+                      "lane": 1,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "100000000001000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000010000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100000000100000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 0,
+                      "power": 4
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100001000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100010000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                },
+                {
+                  "id": "100100000000000000",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 1
+                    },
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ],
+                  "sourcePlayedCards": 2
+                }
+              ],
+              "id": "our-plan",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "focus:0",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 15
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "focus:1",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 15
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "focus:2",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 15
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                }
+              ],
+              "id": "focus-15",
+              "weight": 0.5
+            },
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "doom:0",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 5,
+                      "spawnOthers": 5
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "doom:1",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 5,
+                      "spawnOthers": 5
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                },
+                {
+                  "id": "doom:2",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 5,
+                      "spawnOthers": 5
+                    }
+                  ],
+                  "sourcePlayedCards": 1
+                }
+              ],
+              "id": "one-card-three-lanes",
+              "weight": 0.5
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "focus-or-doom"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [
+              3
+            ],
+            [
+              2
+            ],
+            []
+          ],
+          [
+            [
+              3
+            ],
+            [],
+            [
+              5
+            ]
+          ]
+        ],
+        "priority": 1,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "add-two:0",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ]
+                },
+                {
+                  "id": "add-two:1",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ]
+                },
+                {
+                  "id": "add-two:2",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ]
+                }
+              ],
+              "id": "allocate-two",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "stay",
+                  "plays": []
+                }
+              ],
+              "id": "three-power-stays",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "movement-absent"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [
+              3
+            ],
+            [
+              2
+            ],
+            []
+          ],
+          [
+            [
+              3
+            ],
+            [],
+            [
+              5
+            ]
+          ]
+        ],
+        "priority": 1,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "add-two:0",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 2
+                    }
+                  ]
+                },
+                {
+                  "id": "add-two:1",
+                  "plays": [
+                    {
+                      "lane": 1,
+                      "power": 2
+                    }
+                  ]
+                },
+                {
+                  "id": "add-two:2",
+                  "plays": [
+                    {
+                      "lane": 2,
+                      "power": 2
+                    }
+                  ]
+                }
+              ],
+              "id": "allocate-two",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "stay",
+                  "plays": []
+                },
+                {
+                  "id": "move-to:1",
+                  "move": {
+                    "from": 0,
+                    "power": 3,
+                    "to": 1
+                  },
+                  "plays": [],
+                  "sourcePlayedCards": 0
+                },
+                {
+                  "id": "move-to:2",
+                  "move": {
+                    "from": 0,
+                    "power": 3,
+                    "to": 2
+                  },
+                  "plays": [],
+                  "sourcePlayedCards": 0
+                }
+              ],
+              "id": "movable-three",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "movement-available"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [],
+            [
+              5
+            ],
+            []
+          ],
+          [
+            [],
+            [],
+            [
+              5
+            ]
+          ]
+        ],
+        "priority": 0,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "one-ten",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 10
+                    }
+                  ]
+                },
+                {
+                  "id": "two-fives",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 5
+                    },
+                    {
+                      "lane": 0,
+                      "power": 5
+                    }
+                  ]
+                }
+              ],
+              "id": "matched-ten-power",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "three-left",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 3
+                    }
+                  ]
+                }
+              ],
+              "id": "plain-three",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "destruction-absent"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [],
+            [
+              5
+            ],
+            []
+          ],
+          [
+            [],
+            [],
+            [
+              5
+            ]
+          ]
+        ],
+        "priority": 0,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "one-ten",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 10
+                    }
+                  ]
+                },
+                {
+                  "id": "two-fives",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 5
+                    },
+                    {
+                      "lane": 0,
+                      "power": 5
+                    }
+                  ]
+                }
+              ],
+              "id": "matched-ten-power",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "shang-left",
+                  "plays": [
+                    {
+                      "destroyAtLeast": 10,
+                      "lane": 0,
+                      "power": 3
+                    }
+                  ]
+                }
+              ],
+              "id": "destroy-ten",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "destruction-after-us"
+    },
+    {
+      "game": {
+        "board": [
+          [
+            [],
+            [
+              5
+            ],
+            []
+          ],
+          [
+            [],
+            [],
+            [
+              5
+            ]
+          ]
+        ],
+        "priority": 1,
+        "ranges": [
+          [
+            {
+              "actions": [
+                {
+                  "id": "one-ten",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 10
+                    }
+                  ]
+                },
+                {
+                  "id": "two-fives",
+                  "plays": [
+                    {
+                      "lane": 0,
+                      "power": 5
+                    },
+                    {
+                      "lane": 0,
+                      "power": 5
+                    }
+                  ]
+                }
+              ],
+              "id": "matched-ten-power",
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "actions": [
+                {
+                  "id": "pass",
+                  "plays": []
+                },
+                {
+                  "id": "shang-left",
+                  "plays": [
+                    {
+                      "destroyAtLeast": 10,
+                      "lane": 0,
+                      "power": 3
+                    }
+                  ]
+                }
+              ],
+              "id": "destroy-ten",
+              "weight": 1
+            }
+          ]
+        ],
+        "schema": "snap-capability-study-1",
+        "scope": "Bounded documented-effect control; not a complete real-Snap position/deck model"
+      },
+      "id": "destruction-before-us"
+    }
+  ],
+  "results": [
+    {
+      "buildMs": 0.6906349999979966,
+      "certificate": {
+        "lower": 0.9999999999999996,
+        "maxConditionalGain": 4.440892098500626e-16,
+        "nashGap": 4.440892098500626e-16,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "000000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000001",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000000000000000010",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000100",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000001000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000001000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000001000010000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000001000100000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000010000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000100000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001000000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001000000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001000000010000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001000000100000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001001000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001010000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001100000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "010000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "010000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010001000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "010010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000001000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "100000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100001000000000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "100010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                }
+              ],
+              "bestValue": 1,
+              "gain": 4.440892098500626e-16,
+              "typeKey": "our-plan",
+              "value": 0.9999999999999996,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -0.9999999999999996,
+              "gain": 0,
+              "typeKey": "focus-15",
+              "value": -0.9999999999999996,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 1,
+        "validated": true,
+        "value": 0.9999999999999996
+      },
+      "compileMs": 1.3641720000023838,
+      "id": "focus-15",
+      "optimizationMs": 4.648453999998026,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "000000000000000000": -0.0,
+              "000000000000000001": 0.05263157894736842,
+              "000000000000000010": -0.0,
+              "000000000000000100": -0.0,
+              "000000000001000000": 0.05263157894736842,
+              "000000000010000000": -0.0,
+              "000000000100000000": -0.0,
+              "000001000000000000": 0.05263157894736842,
+              "000001000001000000": 0.05263157894736842,
+              "000001000010000000": 0.05263157894736842,
+              "000001000100000000": 0.05263157894736842,
+              "000010000000000000": -0.0,
+              "000010000001000000": 0.05263157894736842,
+              "000010000010000000": -0.0,
+              "000010000100000000": -0.0,
+              "000100000000000000": -0.0,
+              "000100000001000000": 0.05263157894736842,
+              "000100000010000000": -0.0,
+              "000100000100000000": -0.0,
+              "001000000000000000": 0.05263157894736842,
+              "001000000001000000": 0.05263157894736842,
+              "001000000010000000": 0.05263157894736842,
+              "001000000100000000": 0.05263157894736842,
+              "001001000000000000": 0.05263157894736842,
+              "001010000000000000": 0.05263157894736842,
+              "001100000000000000": 0.05263157894736842,
+              "010000000000000000": -0.0,
+              "010000000001000000": 0.05263157894736842,
+              "010000000010000000": -0.0,
+              "010000000100000000": -0.0,
+              "010001000000000000": 0.05263157894736842,
+              "010010000000000000": -0.0,
+              "010100000000000000": -0.0,
+              "100000000000000000": -0.0,
+              "100000000001000000": 0.05263157894736842,
+              "100000000010000000": -0.0,
+              "100000000100000000": -0.0,
+              "100001000000000000": 0.05263157894736842,
+              "100010000000000000": -0.0,
+              "100100000000000000": -0.0
+            },
+            "typeKey": "our-plan"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "focus:0": 0.5,
+              "focus:1": 0.5,
+              "focus:2": -0.0,
+              "pass": -0.0
+            },
+            "typeKey": "focus-15"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          40,
+          4
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 4,
+        "strategyEntries": [
+          2,
+          2
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          2,
+          2
+        ],
+        "unionBeforeSharing": [
+          40,
+          4
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 3,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": -1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": -1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 12,
+          "success": true,
+          "variables": 5
+        },
+        {
+          "equalities": 3,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 12,
+          "success": true,
+          "variables": 5
+        }
+      ],
+      "totalMs": 7.597289999999646,
+      "verificationMs": 0.8940290000012396
+    },
+    {
+      "buildMs": 0.41612199999008226,
+      "certificate": {
+        "lower": 1,
+        "maxConditionalGain": 0,
+        "nashGap": 0,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "000000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000001",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000010",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000100",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000001000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000001000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000001000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000001000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000100000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                },
+                {
+                  "actionId": "000100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000010000000",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                },
+                {
+                  "actionId": "000100000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001000000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001001000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010001000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000001000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000010000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000100000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100001000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100010000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100100000000000000",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                }
+              ],
+              "bestValue": 1,
+              "gain": 0,
+              "typeKey": "our-plan",
+              "value": 1,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -1,
+              "gain": 0,
+              "typeKey": "one-card-three-lanes",
+              "value": -1,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 1,
+        "validated": true,
+        "value": 1
+      },
+      "compileMs": 0.8537010000040368,
+      "id": "doom-15",
+      "optimizationMs": 3.3756660000037186,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "000000000000000000": -0.0,
+              "000000000000000001": -0.0,
+              "000000000000000010": -0.0,
+              "000000000000000100": -0.0,
+              "000000000001000000": -0.0,
+              "000000000010000000": -0.0,
+              "000000000100000000": -0.0,
+              "000001000000000000": -0.0,
+              "000001000001000000": -0.0,
+              "000001000010000000": -0.0,
+              "000001000100000000": -0.0,
+              "000010000000000000": -0.0,
+              "000010000001000000": -0.0,
+              "000010000010000000": -0.0,
+              "000010000100000000": 0.5,
+              "000100000000000000": -0.0,
+              "000100000001000000": -0.0,
+              "000100000010000000": 0.5,
+              "000100000100000000": -0.0,
+              "001000000000000000": -0.0,
+              "001000000001000000": -0.0,
+              "001000000010000000": -0.0,
+              "001000000100000000": -0.0,
+              "001001000000000000": -0.0,
+              "001010000000000000": -0.0,
+              "001100000000000000": -0.0,
+              "010000000000000000": -0.0,
+              "010000000001000000": -0.0,
+              "010000000010000000": -0.0,
+              "010000000100000000": -0.0,
+              "010001000000000000": -0.0,
+              "010010000000000000": -0.0,
+              "010100000000000000": -0.0,
+              "100000000000000000": -0.0,
+              "100000000001000000": -0.0,
+              "100000000010000000": -0.0,
+              "100000000100000000": -0.0,
+              "100001000000000000": -0.0,
+              "100010000000000000": -0.0,
+              "100100000000000000": -0.0
+            },
+            "typeKey": "our-plan"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "doom:0": 0.3333333333333333,
+              "doom:1": 0.3333333333333333,
+              "doom:2": 0.3333333333333333,
+              "pass": -0.0
+            },
+            "typeKey": "one-card-three-lanes"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          40,
+          4
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 4,
+        "strategyEntries": [
+          2,
+          2
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          2,
+          2
+        ],
+        "unionBeforeSharing": [
+          40,
+          4
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 3,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": -1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": -1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 12,
+          "success": true,
+          "variables": 5
+        },
+        {
+          "equalities": 3,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 12,
+          "success": true,
+          "variables": 5
+        }
+      ],
+      "totalMs": 5.483513999998024,
+      "verificationMs": 0.8380250000001865
+    },
+    {
+      "buildMs": 0.4692720000036843,
+      "certificate": {
+        "lower": 0,
+        "maxConditionalGain": 1.1102230246251565e-16,
+        "nashGap": 5.551115123125783e-17,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "000000000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000001",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000000000000000010",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000000000100",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000000000010000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000000000100000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000001000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000001000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000001000010000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000001000100000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000010000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000010000010000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000010000100000000",
+                  "ev": -5.551115123125783e-17,
+                  "evLoss": 1.1102230246251565e-16,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "000100000010000000",
+                  "ev": -5.551115123125783e-17,
+                  "evLoss": 1.1102230246251565e-16,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "000100000100000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "001000000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001000000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001000000010000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001000000100000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001001000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001010000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "001100000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "010000000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "010000000010000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010000000100000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010001000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "010010000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "010100000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000001000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "100000000010000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100000000100000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100001000000000000",
+                  "ev": 5.551115123125783e-17,
+                  "evLoss": 0,
+                  "frequency": 0.05263157894736842
+                },
+                {
+                  "actionId": "100010000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "100100000000000000",
+                  "ev": -0.9999999999999999,
+                  "evLoss": 1,
+                  "frequency": 0
+                }
+              ],
+              "bestValue": 5.551115123125783e-17,
+              "gain": 2.465190328815662e-32,
+              "typeKey": "our-plan",
+              "value": 5.55111512312578e-17,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -0.9999999999999996,
+              "gain": 0,
+              "typeKey": "focus-15",
+              "value": -0.9999999999999996,
+              "weight": 0.5
+            },
+            {
+              "bestValue": 0.9999999999999996,
+              "gain": 1.1102230246251565e-16,
+              "typeKey": "one-card-three-lanes",
+              "value": 0.9999999999999994,
+              "weight": 0.5
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 5.551115123125783e-17,
+        "validated": true,
+        "value": 5.55111512312578e-17
+      },
+      "compileMs": 1.1575830000012388,
+      "id": "focus-or-doom",
+      "optimizationMs": 3.441537999997024,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "000000000000000000": -0.0,
+              "000000000000000001": 0.05263157894736842,
+              "000000000000000010": -0.0,
+              "000000000000000100": -0.0,
+              "000000000001000000": 0.05263157894736842,
+              "000000000010000000": -0.0,
+              "000000000100000000": -0.0,
+              "000001000000000000": 0.05263157894736842,
+              "000001000001000000": 0.05263157894736842,
+              "000001000010000000": 0.05263157894736842,
+              "000001000100000000": 0.05263157894736842,
+              "000010000000000000": -0.0,
+              "000010000001000000": 0.05263157894736842,
+              "000010000010000000": -0.0,
+              "000010000100000000": -0.0,
+              "000100000000000000": -0.0,
+              "000100000001000000": 0.05263157894736842,
+              "000100000010000000": -0.0,
+              "000100000100000000": -0.0,
+              "001000000000000000": 0.05263157894736842,
+              "001000000001000000": 0.05263157894736842,
+              "001000000010000000": 0.05263157894736842,
+              "001000000100000000": 0.05263157894736842,
+              "001001000000000000": 0.05263157894736842,
+              "001010000000000000": 0.05263157894736842,
+              "001100000000000000": 0.05263157894736842,
+              "010000000000000000": -0.0,
+              "010000000001000000": 0.05263157894736842,
+              "010000000010000000": -0.0,
+              "010000000100000000": -0.0,
+              "010001000000000000": 0.05263157894736842,
+              "010010000000000000": -0.0,
+              "010100000000000000": -0.0,
+              "100000000000000000": -0.0,
+              "100000000001000000": 0.05263157894736842,
+              "100000000010000000": -0.0,
+              "100000000100000000": -0.0,
+              "100001000000000000": 0.05263157894736842,
+              "100010000000000000": -0.0,
+              "100100000000000000": -0.0
+            },
+            "typeKey": "our-plan"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "focus:0": 0.5,
+              "focus:1": 0.5,
+              "focus:2": -0.0,
+              "pass": -0.0
+            },
+            "typeKey": "focus-15"
+          },
+          {
+            "probabilities": {
+              "doom:0": 0.3333333333333333,
+              "doom:1": 0.3333333333333333,
+              "doom:2": 0.3333333333333333,
+              "pass": -0.0
+            },
+            "typeKey": "one-card-three-lanes"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          40,
+          8
+        ],
+        "originalTypes": [
+          1,
+          2
+        ],
+        "payoffCells": 9,
+        "strategyEntries": [
+          3,
+          4
+        ],
+        "strategyTypes": [
+          1,
+          2
+        ],
+        "unionAfterSharing": [
+          3,
+          3
+        ],
+        "unionBeforeSharing": [
+          40,
+          7
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 4,
+          "inequalities": 4,
+          "iterations": 3,
+          "lpBoundCheck": {
+            "dualLowerBound": 0.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 0.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 25,
+          "success": true,
+          "variables": 8
+        },
+        {
+          "equalities": 5,
+          "inequalities": 3,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 0.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 0.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 23,
+          "success": true,
+          "variables": 8
+        }
+      ],
+      "totalMs": 6.512089000004551,
+      "verificationMs": 1.4436960000026033
+    },
+    {
+      "buildMs": 0.376635999998598,
+      "certificate": {
+        "lower": 1,
+        "maxConditionalGain": 0,
+        "nashGap": 0,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "pass",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "add-two:0",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 1
+                },
+                {
+                  "actionId": "add-two:1",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "add-two:2",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                }
+              ],
+              "bestValue": 1,
+              "gain": 0,
+              "typeKey": "allocate-two",
+              "value": 1,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -1,
+              "gain": 0,
+              "typeKey": "three-power-stays",
+              "value": -1,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 1,
+        "validated": true,
+        "value": 1
+      },
+      "compileMs": 0.11795900000066695,
+      "id": "movement-absent",
+      "optimizationMs": 3.24355300000434,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "add-two:0": 1.0,
+              "add-two:1": -0.0,
+              "add-two:2": -0.0,
+              "pass": -0.0
+            },
+            "typeKey": "allocate-two"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "stay": 1.0
+            },
+            "typeKey": "three-power-stays"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          4,
+          1
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 2,
+        "strategyEntries": [
+          2,
+          1
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          2,
+          1
+        ],
+        "unionBeforeSharing": [
+          4,
+          1
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 3,
+          "inequalities": 1,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": -1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": -1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 9,
+          "success": true,
+          "variables": 5
+        },
+        {
+          "equalities": 2,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 7,
+          "success": true,
+          "variables": 3
+        }
+      ],
+      "totalMs": 3.8351419999997916,
+      "verificationMs": 0.09699399999618663
+    },
+    {
+      "buildMs": 0.39383400000758684,
+      "certificate": {
+        "lower": 0,
+        "maxConditionalGain": 0,
+        "nashGap": 0,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "pass",
+                  "ev": -1,
+                  "evLoss": 1,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "add-two:0",
+                  "ev": 0,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                },
+                {
+                  "actionId": "add-two:1",
+                  "ev": 0,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                },
+                {
+                  "actionId": "add-two:2",
+                  "ev": -1,
+                  "evLoss": 1,
+                  "frequency": 0
+                }
+              ],
+              "bestValue": 0,
+              "gain": 0,
+              "typeKey": "allocate-two",
+              "value": 0,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": 0,
+              "gain": 0,
+              "typeKey": "movable-three",
+              "value": 0,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 0,
+        "validated": true,
+        "value": 0
+      },
+      "compileMs": 0.13752199999572667,
+      "id": "movement-available",
+      "optimizationMs": 3.3113880000001927,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "add-two:0": 0.5,
+              "add-two:1": 0.5,
+              "add-two:2": -0.0,
+              "pass": -0.0
+            },
+            "typeKey": "allocate-two"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "move-to:1": 0.5,
+              "move-to:2": -0.0,
+              "stay": 0.5
+            },
+            "typeKey": "movable-three"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          4,
+          3
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 9,
+        "strategyEntries": [
+          3,
+          3
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          3,
+          3
+        ],
+        "unionBeforeSharing": [
+          4,
+          3
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 4,
+          "inequalities": 3,
+          "iterations": 3,
+          "lpBoundCheck": {
+            "dualLowerBound": 0.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 0.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 21,
+          "success": true,
+          "variables": 7
+        },
+        {
+          "equalities": 4,
+          "inequalities": 3,
+          "iterations": 3,
+          "lpBoundCheck": {
+            "dualLowerBound": 0.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 0.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 21,
+          "success": true,
+          "variables": 7
+        }
+      ],
+      "totalMs": 3.980015999999864,
+      "verificationMs": 0.13727199999635786
+    },
+    {
+      "buildMs": 0.35598099999134547,
+      "certificate": {
+        "lower": 1,
+        "maxConditionalGain": 0,
+        "nashGap": 0,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "one-ten",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                },
+                {
+                  "actionId": "two-fives",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                }
+              ],
+              "bestValue": 1,
+              "gain": 0,
+              "typeKey": "matched-ten-power",
+              "value": 1,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -1,
+              "gain": 0,
+              "typeKey": "plain-three",
+              "value": -1,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 1,
+        "validated": true,
+        "value": 1
+      },
+      "compileMs": 0.11459300000637995,
+      "id": "destruction-absent",
+      "optimizationMs": 3.091557000004741,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "one-ten": 0.5,
+              "two-fives": 0.5
+            },
+            "typeKey": "matched-ten-power"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "pass": 0.5,
+              "three-left": 0.5
+            },
+            "typeKey": "plain-three"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          2,
+          2
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 1,
+        "strategyEntries": [
+          1,
+          1
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          1,
+          1
+        ],
+        "unionBeforeSharing": [
+          2,
+          2
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 2,
+          "inequalities": 1,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": -1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": -1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 5,
+          "success": true,
+          "variables": 3
+        },
+        {
+          "equalities": 2,
+          "inequalities": 1,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 5,
+          "success": true,
+          "variables": 3
+        }
+      ],
+      "totalMs": 3.6687910000026136,
+      "verificationMs": 0.10666000000014719
+    },
+    {
+      "buildMs": 0.3686120000025994,
+      "certificate": {
+        "lower": 1,
+        "maxConditionalGain": 0,
+        "nashGap": 0,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "one-ten",
+                  "ev": -1,
+                  "evLoss": 2,
+                  "frequency": 0
+                },
+                {
+                  "actionId": "two-fives",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 1
+                }
+              ],
+              "bestValue": 1,
+              "gain": 0,
+              "typeKey": "matched-ten-power",
+              "value": 1,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -1,
+              "gain": 0,
+              "typeKey": "destroy-ten",
+              "value": -1,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 1,
+        "validated": true,
+        "value": 1
+      },
+      "compileMs": 0.11108799999703933,
+      "id": "destruction-after-us",
+      "optimizationMs": 3.2255029999959106,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "one-ten": -0.0,
+              "two-fives": 1.0
+            },
+            "typeKey": "matched-ten-power"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "pass": -0.0,
+              "shang-left": 1.0
+            },
+            "typeKey": "destroy-ten"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          2,
+          2
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 4,
+        "strategyEntries": [
+          2,
+          2
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          2,
+          2
+        ],
+        "unionBeforeSharing": [
+          2,
+          2
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 3,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": -1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": -1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 12,
+          "success": true,
+          "variables": 5
+        },
+        {
+          "equalities": 3,
+          "inequalities": 2,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 12,
+          "success": true,
+          "variables": 5
+        }
+      ],
+      "totalMs": 3.798379999999213,
+      "verificationMs": 0.09317700000366358
+    },
+    {
+      "buildMs": 0.3452209999963429,
+      "certificate": {
+        "lower": 1,
+        "maxConditionalGain": 0,
+        "nashGap": 0,
+        "rows": [
+          [
+            {
+              "actions": [
+                {
+                  "actionId": "one-ten",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                },
+                {
+                  "actionId": "two-fives",
+                  "ev": 1,
+                  "evLoss": 0,
+                  "frequency": 0.5
+                }
+              ],
+              "bestValue": 1,
+              "gain": 0,
+              "typeKey": "matched-ten-power",
+              "value": 1,
+              "weight": 1
+            }
+          ],
+          [
+            {
+              "bestValue": -1,
+              "gain": 0,
+              "typeKey": "destroy-ten",
+              "value": -1,
+              "weight": 1
+            }
+          ]
+        ],
+        "tolerance": 1e-06,
+        "upper": 1,
+        "validated": true,
+        "value": 1
+      },
+      "compileMs": 0.09368900000339409,
+      "id": "destruction-before-us",
+      "optimizationMs": 3.04316600000476,
+      "peakRssBytes": 126312448,
+      "policies": [
+        [
+          {
+            "probabilities": {
+              "one-ten": 0.5,
+              "two-fives": 0.5
+            },
+            "typeKey": "matched-ten-power"
+          }
+        ],
+        [
+          {
+            "probabilities": {
+              "pass": 0.5,
+              "shang-left": 0.5
+            },
+            "typeKey": "destroy-ten"
+          }
+        ]
+      ],
+      "stats": {
+        "originalActionEntries": [
+          2,
+          2
+        ],
+        "originalTypes": [
+          1,
+          1
+        ],
+        "payoffCells": 1,
+        "strategyEntries": [
+          1,
+          1
+        ],
+        "strategyTypes": [
+          1,
+          1
+        ],
+        "unionAfterSharing": [
+          1,
+          1
+        ],
+        "unionBeforeSharing": [
+          2,
+          2
+        ]
+      },
+      "statuses": [
+        {
+          "equalities": 2,
+          "inequalities": 1,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": -1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": -1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 5,
+          "success": true,
+          "variables": 3
+        },
+        {
+          "equalities": 2,
+          "inequalities": 1,
+          "iterations": 0,
+          "lpBoundCheck": {
+            "dualLowerBound": 1.0,
+            "gap": 0.0,
+            "maxPrimalViolation": 0.0,
+            "primalObjective": 1.0,
+            "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+            "validated": true
+          },
+          "nonzeros": 5,
+          "success": true,
+          "variables": 3
+        }
+      ],
+      "totalMs": 3.5868020000009437,
+      "verificationMs": 0.10472599999644672
+    }
+  ]
+}

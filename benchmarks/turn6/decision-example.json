@@ -1,0 +1,3661 @@
+{
+  "schema": "snap-final-turn-solve-1",
+  "case": "hidden-trap",
+  "inputModel": {
+    "turn": 6,
+    "board": [
+      [
+        [
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      [
+        [
+          1,
+          5
+        ],
+        [
+          4
+        ],
+        [
+          2,
+          3
+        ]
+      ]
+    ],
+    "ranges": [
+      [
+        {
+          "hand": [
+            1,
+            2,
+            4,
+            6
+          ],
+          "remaining": [
+            3,
+            5,
+            6
+          ],
+          "weight": 1
+        }
+      ],
+      [
+        {
+          "hand": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "remaining": [
+            6,
+            6,
+            6
+          ]
+        },
+        {
+          "hand": [
+            1,
+            1,
+            1,
+            6
+          ],
+          "remaining": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    ],
+    "beliefScope": "Declared hidden-hand control: averaging revealed-hand solutions incorrectly gives +1 instead of +1/2"
+  },
+  "gameState": {
+    "schema": "numerical-snap-game-state-1",
+    "modelFingerprint": "a92ead64607e5e686de1d854980bf5f0af894c58cc9ad912b7bf6554f3f6c315",
+    "rules": {
+      "turns": 6,
+      "handLimit": 7,
+      "deckSize": 12
+    },
+    "root": {
+      "turn": 6,
+      "board": [
+        [
+          [
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        [
+          [
+            1,
+            5
+          ],
+          [
+            4
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      ],
+      "players": [
+        {
+          "hand": [
+            1,
+            2,
+            4,
+            6
+          ],
+          "remaining": [
+            3,
+            5,
+            6
+          ]
+        },
+        {
+          "hand": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "remaining": [
+            6,
+            6,
+            6
+          ]
+        }
+      ]
+    },
+    "turn": 6,
+    "phase": "planning",
+    "players": [
+      {
+        "cards": [
+          {
+            "id": "p0-00",
+            "cost": 1
+          },
+          {
+            "id": "p0-01",
+            "cost": 2
+          },
+          {
+            "id": "p0-02",
+            "cost": 3
+          },
+          {
+            "id": "p0-03",
+            "cost": 4
+          },
+          {
+            "id": "p0-04",
+            "cost": 5
+          },
+          {
+            "id": "p0-05",
+            "cost": 1
+          },
+          {
+            "id": "p0-06",
+            "cost": 2
+          },
+          {
+            "id": "p0-07",
+            "cost": 4
+          },
+          {
+            "id": "p0-08",
+            "cost": 6
+          },
+          {
+            "id": "p0-09",
+            "cost": 3
+          },
+          {
+            "id": "p0-10",
+            "cost": 5
+          },
+          {
+            "id": "p0-11",
+            "cost": 6
+          }
+        ],
+        "board": [
+          [
+            "p0-00"
+          ],
+          [
+            "p0-01",
+            "p0-02"
+          ],
+          [
+            "p0-03",
+            "p0-04"
+          ]
+        ],
+        "hand": [
+          "p0-05",
+          "p0-06",
+          "p0-07",
+          "p0-08"
+        ],
+        "drawPile": [
+          "p0-09",
+          "p0-11",
+          "p0-10"
+        ]
+      },
+      {
+        "cards": [
+          {
+            "id": "p1-00",
+            "cost": 1
+          },
+          {
+            "id": "p1-01",
+            "cost": 5
+          },
+          {
+            "id": "p1-02",
+            "cost": 4
+          },
+          {
+            "id": "p1-03",
+            "cost": 2
+          },
+          {
+            "id": "p1-04",
+            "cost": 3
+          },
+          {
+            "id": "p1-05",
+            "cost": 1
+          },
+          {
+            "id": "p1-06",
+            "cost": 1
+          },
+          {
+            "id": "p1-07",
+            "cost": 1
+          },
+          {
+            "id": "p1-08",
+            "cost": 1
+          },
+          {
+            "id": "p1-09",
+            "cost": 6
+          },
+          {
+            "id": "p1-10",
+            "cost": 6
+          },
+          {
+            "id": "p1-11",
+            "cost": 6
+          }
+        ],
+        "board": [
+          [
+            "p1-00",
+            "p1-01"
+          ],
+          [
+            "p1-02"
+          ],
+          [
+            "p1-03",
+            "p1-04"
+          ]
+        ],
+        "hand": [
+          "p1-05",
+          "p1-06",
+          "p1-07",
+          "p1-08"
+        ],
+        "drawPile": [
+          "p1-10",
+          "p1-09",
+          "p1-11"
+        ]
+      }
+    ],
+    "history": [],
+    "seed": 701
+  },
+  "analysis": {
+    "schema": "snap-final-turn-decision-1",
+    "stateId": "fddaaf78641f711cb512bb138a47c09e6944feeaadc24ea031f735e2271c0c9d",
+    "modelFingerprint": "3d93633f2afe8205487090d9b6f6352abc47643b950283b08485cc5a0344960b",
+    "player": 0,
+    "typeKey": "1,1,0,1,0,1/0,0,1,0,1,1@",
+    "units": "P(win) - P(loss)",
+    "status": "conditional-validated",
+    "certificate": {
+      "value": 0.5,
+      "upper": 0.5,
+      "lower": 0.5,
+      "nashGap": 0,
+      "exploitability": 0,
+      "maxConditionalGain": 0,
+      "validated": true,
+      "tolerance": 0.000001,
+      "rows": [
+        [
+          {
+            "typeKey": "1,1,0,1,0,1/0,0,1,0,1,1@",
+            "weight": 1,
+            "value": 0.5,
+            "bestValue": 0.5,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "000000000000000001",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    6
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000000000000000010",
+                "lanes": [
+                  [],
+                  [
+                    6
+                  ],
+                  []
+                ],
+                "ev": 0.5,
+                "frequency": 0.25,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000000000000000100",
+                "lanes": [
+                  [
+                    6
+                  ],
+                  [],
+                  []
+                ],
+                "ev": 0.5,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000000000001000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    4
+                  ]
+                ],
+                "ev": -0.25,
+                "frequency": 0,
+                "evLoss": 0.75
+              },
+              {
+                "actionKey": "000000000010000000",
+                "lanes": [
+                  [],
+                  [
+                    4
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000000000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -0.75,
+                "frequency": 0,
+                "evLoss": 1.25
+              },
+              {
+                "actionKey": "000001000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    2
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "000001000001000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    2,
+                    4
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000001000010000000",
+                "lanes": [
+                  [],
+                  [
+                    4
+                  ],
+                  [
+                    2
+                  ]
+                ],
+                "ev": 0.25,
+                "frequency": 0,
+                "evLoss": 0.25
+              },
+              {
+                "actionKey": "000001000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [],
+                  [
+                    2
+                  ]
+                ],
+                "ev": -0.25,
+                "frequency": 0,
+                "evLoss": 0.75
+              },
+              {
+                "actionKey": "000010000000000000",
+                "lanes": [
+                  [],
+                  [
+                    2
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000010000001000000",
+                "lanes": [
+                  [],
+                  [
+                    2
+                  ],
+                  [
+                    4
+                  ]
+                ],
+                "ev": 0.5,
+                "frequency": 0.5,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000010000010000000",
+                "lanes": [
+                  [],
+                  [
+                    2,
+                    4
+                  ],
+                  []
+                ],
+                "ev": 0.5,
+                "frequency": 0.25,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000010000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [
+                    2
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000100000000000000",
+                "lanes": [
+                  [
+                    2
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "000100000001000000",
+                "lanes": [
+                  [
+                    2
+                  ],
+                  [],
+                  [
+                    4
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000100000010000000",
+                "lanes": [
+                  [
+                    2
+                  ],
+                  [
+                    4
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "000100000100000000",
+                "lanes": [
+                  [
+                    2,
+                    4
+                  ],
+                  [],
+                  []
+                ],
+                "ev": 0.5,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "001000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "001000000001000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1,
+                    4
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "001000000010000000",
+                "lanes": [
+                  [],
+                  [
+                    4
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "001000000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -0.5,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "001001000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1,
+                    2
+                  ]
+                ],
+                "ev": -0.5,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "001010000000000000",
+                "lanes": [
+                  [],
+                  [
+                    2
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "001100000000000000",
+                "lanes": [
+                  [
+                    2
+                  ],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "010000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -0.5,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "010000000001000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  [
+                    4
+                  ]
+                ],
+                "ev": 0.5,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "010000000010000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    4
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "010000000100000000",
+                "lanes": [
+                  [
+                    4
+                  ],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "010001000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  [
+                    2
+                  ]
+                ],
+                "ev": -0.5,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "010010000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    2
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "010100000000000000",
+                "lanes": [
+                  [
+                    2
+                  ],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -0.5,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "100000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "100000000001000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  [
+                    4
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "100000000010000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    4
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "100000000100000000",
+                "lanes": [
+                  [
+                    1,
+                    4
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -0.5,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "100001000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  [
+                    2
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              },
+              {
+                "actionKey": "100010000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    2
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0,
+                "evLoss": 0.5
+              },
+              {
+                "actionKey": "100100000000000000",
+                "lanes": [
+                  [
+                    1,
+                    2
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1.5
+              }
+            ]
+          }
+        ],
+        [
+          {
+            "typeKey": "4,0,0,0,0,0/0,0,0,0,0,3@",
+            "weight": 0.5,
+            "value": -1,
+            "bestValue": -1,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "001000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "002000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "010000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "011000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "012000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "020000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "021000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "022000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "030000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "031000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "100000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "101000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "102000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "110000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "111000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "112000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0.25,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "120000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "121000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "130000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "200000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "201000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "202000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "210000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "211000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0.25,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "220000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0.5,
+                "evLoss": 0
+              }
+            ]
+          },
+          {
+            "typeKey": "3,0,0,0,0,1/0,0,0,0,0,3@",
+            "weight": 0.5,
+            "value": 0,
+            "bestValue": 0,
+            "gain": 0,
+            "actions": [
+              {
+                "actionKey": "000000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "000000000000000001",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    6
+                  ]
+                ],
+                "ev": 0,
+                "frequency": 0.5,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000000000000000010",
+                "lanes": [
+                  [],
+                  [
+                    6
+                  ],
+                  []
+                ],
+                "ev": 0,
+                "frequency": 0.5,
+                "evLoss": 0
+              },
+              {
+                "actionKey": "000000000000000100",
+                "lanes": [
+                  [
+                    6
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "001000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "002000000000000000",
+                "lanes": [
+                  [],
+                  [],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "010000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "011000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "012000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "020000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "021000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "030000000000000000",
+                "lanes": [
+                  [],
+                  [
+                    1,
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "100000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "101000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "102000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [],
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "110000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "111000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "120000000000000000",
+                "lanes": [
+                  [
+                    1
+                  ],
+                  [
+                    1,
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "200000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "201000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [],
+                  [
+                    1
+                  ]
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              },
+              {
+                "actionKey": "210000000000000000",
+                "lanes": [
+                  [
+                    1,
+                    1
+                  ],
+                  [
+                    1
+                  ],
+                  []
+                ],
+                "ev": -1,
+                "frequency": 0,
+                "evLoss": 1
+              }
+            ]
+          }
+        ]
+      ],
+      "method": "Exhaustive private-information-constrained best responses using legacy action generation and independent terminal payoffs",
+      "scope": "Supplied conditional final-turn game only"
+    },
+    "submitted": {
+      "actionKey": "000000000000000001",
+      "lanes": [
+        [],
+        [],
+        [
+          6
+        ]
+      ],
+      "ev": 0,
+      "frequency": 0,
+      "evLoss": 0.5,
+      "placements": [
+        {
+          "cardId": "p0-08",
+          "lane": 2
+        }
+      ],
+      "assessment": "conditional-validated"
+    },
+    "yourEV": 0,
+    "handEV": 0.5,
+    "maximumEV": 0.5,
+    "evLoss": 0.5,
+    "best": {
+      "actionKey": "000010000001000000",
+      "lanes": [
+        [],
+        [
+          2
+        ],
+        [
+          4
+        ]
+      ],
+      "ev": 0.5,
+      "frequency": 0.5,
+      "evLoss": 0,
+      "placements": [
+        {
+          "cardId": "p0-06",
+          "lane": 1
+        },
+        {
+          "cardId": "p0-07",
+          "lane": 2
+        }
+      ],
+      "assessment": "conditional-validated"
+    },
+    "alternatives": [
+      {
+        "actionKey": "000010000001000000",
+        "lanes": [
+          [],
+          [
+            2
+          ],
+          [
+            4
+          ]
+        ],
+        "ev": 0.5,
+        "frequency": 0.5,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000000000010",
+        "lanes": [
+          [],
+          [
+            6
+          ],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0.25,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-08",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000010000000",
+        "lanes": [
+          [],
+          [
+            2,
+            4
+          ],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0.25,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000000000100",
+        "lanes": [
+          [
+            6
+          ],
+          [],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-08",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000100000000",
+        "lanes": [
+          [
+            2,
+            4
+          ],
+          [],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000001000000",
+        "lanes": [
+          [],
+          [
+            1
+          ],
+          [
+            4
+          ]
+        ],
+        "ev": 0.5,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000010000000",
+        "lanes": [
+          [],
+          [
+            4
+          ],
+          [
+            2
+          ]
+        ],
+        "ev": 0.25,
+        "frequency": 0,
+        "evLoss": 0.25,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000010000000",
+        "lanes": [
+          [],
+          [
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000001000000",
+        "lanes": [
+          [],
+          [],
+          [
+            2,
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000000000000",
+        "lanes": [
+          [],
+          [
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000001000000",
+        "lanes": [
+          [
+            2
+          ],
+          [],
+          [
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000010000000",
+        "lanes": [
+          [
+            2
+          ],
+          [
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000001000000",
+        "lanes": [
+          [],
+          [],
+          [
+            1,
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000010000000",
+        "lanes": [
+          [],
+          [
+            4
+          ],
+          [
+            1
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001010000000000000",
+        "lanes": [
+          [],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000010000000",
+        "lanes": [
+          [],
+          [
+            1,
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010010000000000000",
+        "lanes": [
+          [],
+          [
+            1,
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000001000000",
+        "lanes": [
+          [
+            1
+          ],
+          [],
+          [
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000010000000",
+        "lanes": [
+          [
+            1
+          ],
+          [
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100010000000000000",
+        "lanes": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000001000000",
+        "lanes": [
+          [],
+          [],
+          [
+            4
+          ]
+        ],
+        "ev": -0.25,
+        "frequency": 0,
+        "evLoss": 0.75,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [],
+          [
+            2
+          ]
+        ],
+        "ev": -0.25,
+        "frequency": 0,
+        "evLoss": 0.75,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [],
+          [
+            1
+          ]
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001001000000000000",
+        "lanes": [
+          [],
+          [],
+          [
+            1,
+            2
+          ]
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000000000000",
+        "lanes": [
+          [],
+          [
+            1
+          ],
+          []
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010001000000000000",
+        "lanes": [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010100000000000000",
+        "lanes": [
+          [
+            2
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000100000000",
+        "lanes": [
+          [
+            1,
+            4
+          ],
+          [],
+          []
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [],
+          []
+        ],
+        "ev": -0.75,
+        "frequency": 0,
+        "evLoss": 1.25,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000000000000",
+        "lanes": [
+          [],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000000000000",
+        "lanes": [
+          [],
+          [],
+          [
+            2
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000000000000",
+        "lanes": [
+          [
+            2
+          ],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000000000000",
+        "lanes": [
+          [],
+          [],
+          [
+            1
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001100000000000000",
+        "lanes": [
+          [
+            2
+          ],
+          [],
+          [
+            1
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000000000000",
+        "lanes": [
+          [
+            1
+          ],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100001000000000000",
+        "lanes": [
+          [
+            1
+          ],
+          [],
+          [
+            2
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100100000000000000",
+        "lanes": [
+          [
+            1,
+            2
+          ],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      }
+    ],
+    "actions": [
+      {
+        "actionKey": "000000000000000000",
+        "lanes": [
+          [],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000000000001",
+        "lanes": [
+          [],
+          [],
+          [
+            6
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-08",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000000000010",
+        "lanes": [
+          [],
+          [
+            6
+          ],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0.25,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-08",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000000000100",
+        "lanes": [
+          [
+            6
+          ],
+          [],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-08",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000001000000",
+        "lanes": [
+          [],
+          [],
+          [
+            4
+          ]
+        ],
+        "ev": -0.25,
+        "frequency": 0,
+        "evLoss": 0.75,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000010000000",
+        "lanes": [
+          [],
+          [
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000000000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [],
+          []
+        ],
+        "ev": -0.75,
+        "frequency": 0,
+        "evLoss": 1.25,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000000000000",
+        "lanes": [
+          [],
+          [],
+          [
+            2
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000001000000",
+        "lanes": [
+          [],
+          [],
+          [
+            2,
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000010000000",
+        "lanes": [
+          [],
+          [
+            4
+          ],
+          [
+            2
+          ]
+        ],
+        "ev": 0.25,
+        "frequency": 0,
+        "evLoss": 0.25,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000001000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [],
+          [
+            2
+          ]
+        ],
+        "ev": -0.25,
+        "frequency": 0,
+        "evLoss": 0.75,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000000000000",
+        "lanes": [
+          [],
+          [
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000001000000",
+        "lanes": [
+          [],
+          [
+            2
+          ],
+          [
+            4
+          ]
+        ],
+        "ev": 0.5,
+        "frequency": 0.5,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000010000000",
+        "lanes": [
+          [],
+          [
+            2,
+            4
+          ],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0.25,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000010000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000000000000",
+        "lanes": [
+          [
+            2
+          ],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000001000000",
+        "lanes": [
+          [
+            2
+          ],
+          [],
+          [
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000010000000",
+        "lanes": [
+          [
+            2
+          ],
+          [
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "000100000100000000",
+        "lanes": [
+          [
+            2,
+            4
+          ],
+          [],
+          []
+        ],
+        "ev": 0.5,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000000000000",
+        "lanes": [
+          [],
+          [],
+          [
+            1
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000001000000",
+        "lanes": [
+          [],
+          [],
+          [
+            1,
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000010000000",
+        "lanes": [
+          [],
+          [
+            4
+          ],
+          [
+            1
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001000000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [],
+          [
+            1
+          ]
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001001000000000000",
+        "lanes": [
+          [],
+          [],
+          [
+            1,
+            2
+          ]
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001010000000000000",
+        "lanes": [
+          [],
+          [
+            2
+          ],
+          [
+            1
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "001100000000000000",
+        "lanes": [
+          [
+            2
+          ],
+          [],
+          [
+            1
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000000000000",
+        "lanes": [
+          [],
+          [
+            1
+          ],
+          []
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000001000000",
+        "lanes": [
+          [],
+          [
+            1
+          ],
+          [
+            4
+          ]
+        ],
+        "ev": 0.5,
+        "frequency": 0,
+        "evLoss": 0,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000010000000",
+        "lanes": [
+          [],
+          [
+            1,
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010000000100000000",
+        "lanes": [
+          [
+            4
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010001000000000000",
+        "lanes": [
+          [],
+          [
+            1
+          ],
+          [
+            2
+          ]
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010010000000000000",
+        "lanes": [
+          [],
+          [
+            1,
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "010100000000000000",
+        "lanes": [
+          [
+            2
+          ],
+          [
+            1
+          ],
+          []
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-05",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000000000000",
+        "lanes": [
+          [
+            1
+          ],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000001000000",
+        "lanes": [
+          [
+            1
+          ],
+          [],
+          [
+            4
+          ]
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000010000000",
+        "lanes": [
+          [
+            1
+          ],
+          [
+            4
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100000000100000000",
+        "lanes": [
+          [
+            1,
+            4
+          ],
+          [],
+          []
+        ],
+        "ev": -0.5,
+        "frequency": 0,
+        "evLoss": 1,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-07",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100001000000000000",
+        "lanes": [
+          [
+            1
+          ],
+          [],
+          [
+            2
+          ]
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 2
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100010000000000000",
+        "lanes": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          []
+        ],
+        "ev": 0,
+        "frequency": 0,
+        "evLoss": 0.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 1
+          }
+        ],
+        "assessment": "conditional-validated"
+      },
+      {
+        "actionKey": "100100000000000000",
+        "lanes": [
+          [
+            1,
+            2
+          ],
+          [],
+          []
+        ],
+        "ev": -1,
+        "frequency": 0,
+        "evLoss": 1.5,
+        "placements": [
+          {
+            "cardId": "p0-05",
+            "lane": 0
+          },
+          {
+            "cardId": "p0-06",
+            "lane": 0
+          }
+        ],
+        "assessment": "conditional-validated"
+      }
+    ],
+    "frequencyConvention": "One lifted equilibrium policy; equal-payoff action copies split their class probability uniformly",
+    "scope": "Equilibrium of the supplied conditional final-turn game; no full-game or historical-posterior certificate"
+  },
+  "solve": {
+    "algorithm": "Two independent behavioral Bayesian-game LPs, SciPy/HiGHS dual simplex",
+    "reusedCompiledGame": false,
+    "compileMs": 5.268322999654629,
+    "optimizationMs": 10.72202900013508,
+    "verificationMs": 2.999430000272696,
+    "totalMs": 19.281105999652937,
+    "peakRssBytes": 63442944,
+    "rssScope": "Worker lifetime high-water mark; isolate workers for per-case peaks",
+    "statuses": [
+      {
+        "status": 0,
+        "success": true,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "iterations": 6,
+        "variables": 42,
+        "equalities": 21,
+        "inequalities": 24,
+        "nonzeros": 546
+      },
+      {
+        "status": 0,
+        "success": true,
+        "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "iterations": 23,
+        "variables": 41,
+        "equalities": 18,
+        "inequalities": 20,
+        "nonzeros": 393
+      }
+    ],
+    "stats": {
+      "originalTypes": [
+        1,
+        2
+      ],
+      "strategyClasses": [
+        1,
+        2
+      ],
+      "powerUnionSizes": [
+        37,
+        29
+      ],
+      "cellsBeforeOutcomeSharing": 1073,
+      "unionActions": [
+        20,
+        16
+      ],
+      "payoffCells": 320,
+      "classActionEntries": [
+        20,
+        24
+      ]
+    },
+    "certificate": {
+      "value": 0.5,
+      "upper": 0.5,
+      "lower": 0.5,
+      "nashGap": 0,
+      "exploitability": 0,
+      "maxConditionalGain": 0,
+      "validated": true,
+      "tolerance": 0.000001,
+      "method": "Independent Python individual-card enumeration and exhaustive information-constrained best responses",
+      "scope": "Supplied conditional final-turn game; not a full-game certificate"
+    }
+  },
+  "compilerStats": {
+    "independent": true,
+    "originalTypes": [
+      1,
+      2
+    ],
+    "strategyClasses": [
+      1,
+      2
+    ],
+    "originalActionEntries": [
+      40,
+      47
+    ],
+    "classActionEntries": [
+      20,
+      24
+    ],
+    "powerUnionSizes": [
+      37,
+      29
+    ],
+    "cellsBeforeOutcomeSharing": 1073,
+    "unionActions": [
+      20,
+      16
+    ],
+    "payoffCells": 320,
+    "numericCFRBytes": 704,
+    "payoffBytes": 320
+  },
+  "scope": "Standalone supplied-range final-turn solve. Sampled hidden truth is stored for replay and is not used to choose the strategy or compute action EVs."
+}

@@ -1,0 +1,73 @@
+name: Offline mathematical solver
+on:
+  push:
+    branches: [codex/milestone-one-mockup]
+    paths:
+      - 'configs/solver/research-run.json'
+      - '.github/workflows/offline-solver.yml'
+  workflow_dispatch:
+    inputs:
+      seconds:
+        description: 'Training budget in seconds, maximum 3600'
+        default: '180'
+      resume_run_id:
+        description: 'Compatible earlier run ID; blank uses research-run.json'
+        required: false
+permissions:
+  contents: read
+  actions: read
+jobs:
+  train-and-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate the research run plan
+        id: plan
+        run: node scripts/solver/offline-plan.cjs >> "$GITHUB_OUTPUT"
+        env:
+          OFFLINE_SECONDS: ${{ inputs.seconds }}
+          OFFLINE_RESUME_RUN_ID: ${{ inputs.resume_run_id }}
+      - name: Test rules, privacy, mathematical bounds, checkpoints and decision contract
+        run: node --test tests/*.test.cjs tests/solver/*.test.cjs
+      - name: Fetch the compatible unrestricted checkpoint
+        if: steps.plan.outputs.resume_run_id != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: offline-mathematical-solver
+          path: artifacts/prior
+          run-id: ${{ steps.plan.outputs.resume_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Measure storage migration without changing learned parameters
+        if: steps.plan.outputs.resume_run_id != ''
+        run: |
+          node --expose-gc scripts/solver/offline-storage-benchmark.cjs --checkpoint artifacts/prior/open-game/checkpoint.bin --iterations 0 --out artifacts/offline/storage-comparison
+          mkdir -p artifacts/offline/open-game
+          cp artifacts/offline/storage-comparison/packed.bin artifacts/offline/open-game/checkpoint.bin
+          rm artifacts/offline/storage-comparison/strings.bin artifacts/offline/storage-comparison/packed.bin
+      - name: Solve a complete six-turn validation game
+        run: node --expose-gc scripts/solver/offline.cjs train --case six-turn-check --seconds 10 --out artifacts/offline/six-turn --samples 1000
+      - name: Include private deck choice in a bounded validation game
+        run: node --expose-gc scripts/solver/offline.cjs train --case deck-check --seconds 20 --out artifacts/offline/deck-check --samples 1000
+      - name: Continue unrestricted deck selection and play
+        env:
+          OFFLINE_SECONDS: ${{ steps.plan.outputs.seconds }}
+        run: |
+          offline_mode=train
+          if test -f artifacts/offline/open-game/checkpoint.bin; then offline_mode=resume; fi
+          node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs "$offline_mode" --config configs/solver/open-game.json --seconds "$OFFLINE_SECONDS" --memory-mib 2048 --max-states 4000000 --checkpoint-seconds 30 --out artifacts/offline/open-game
+      - name: Verify checkpoint resumption
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline.cjs resume --seconds 5 --memory-mib 2048 --max-states 4000000 --out artifacts/offline/open-game --samples 1000
+      - name: Search for profitable information-constrained deviations
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline-deviations.cjs --checkpoint artifacts/offline/open-game/checkpoint.bin --seconds 10 --samples 5000
+      - name: Measure history counts, policy coverage and submitted-turn analysis latency
+        run: node --expose-gc --max-old-space-size=2048 scripts/solver/offline-profile.cjs --checkpoint artifacts/offline/open-game/checkpoint.bin --samples 2000 --decision-samples 256 --posterior-attempts 100000
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: offline-mathematical-solver
+          path: artifacts/offline/
+          retention-days: 90

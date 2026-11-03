@@ -1,0 +1,1791 @@
+{
+  "ablations": [
+    {
+      "id": "uneven-race/concentrated",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 24.691410000002634,
+        "optimizationMs": 6.932446000000425,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1677,
+          "strategyEntries": [
+            54,
+            104
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            39,
+            43
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 41.2481420000006,
+        "verificationMs": 6.663807999998994
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 27.09261999999768,
+        "optimizationMs": 6.7210329999980445,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1677,
+          "strategyEntries": [
+            54,
+            104
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            39,
+            43
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 43.301165999999114,
+        "verificationMs": 6.581005000001028
+      }
+    },
+    {
+      "id": "uneven-race/flexible",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 24.079599000003782,
+        "optimizationMs": 6.940702999997939,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1677,
+          "strategyEntries": [
+            54,
+            104
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            39,
+            43
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 41.513156999997136,
+        "verificationMs": 7.508895000000848
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 24.189272000000983,
+        "optimizationMs": 6.898622000001353,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1677,
+          "strategyEntries": [
+            54,
+            104
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            39,
+            43
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 41.46538700000235,
+        "verificationMs": 7.497596000000328
+      }
+    },
+    {
+      "id": "close-races/concentrated",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 24.276966999998706,
+        "optimizationMs": 9.28241899999449,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            164
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 44.253698999995095,
+        "verificationMs": 6.228569000001016
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 24.53625399999737,
+        "optimizationMs": 9.50399799999957,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            164
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 44.694364999998015,
+        "verificationMs": 6.167337999997358
+      }
+    },
+    {
+      "id": "close-races/flexible",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 24.04634799999883,
+        "optimizationMs": 9.380434000000548,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            164
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 44.15447400000261,
+        "verificationMs": 6.285603000002027
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 24.40832399999948,
+        "optimizationMs": 9.464228000005903,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            164
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 44.552815000002965,
+        "verificationMs": 6.14434399999908
+      }
+    },
+    {
+      "id": "one-leading-lane/concentrated",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 22.246248000001856,
+        "optimizationMs": 6.821227999999735,
+        "stats": {
+          "originalActionEntries": [
+            56,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1575,
+          "strategyEntries": [
+            36,
+            148
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            25,
+            63
+          ],
+          "unionBeforeSharing": [
+            49,
+            140
+          ]
+        },
+        "totalMs": 37.94528399999564,
+        "verificationMs": 6.075280999993993
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 21.863240000001838,
+        "optimizationMs": 6.9423679999971455,
+        "stats": {
+          "originalActionEntries": [
+            56,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1575,
+          "strategyEntries": [
+            36,
+            148
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            25,
+            63
+          ],
+          "unionBeforeSharing": [
+            49,
+            140
+          ]
+        },
+        "totalMs": 37.61109799999929,
+        "verificationMs": 6.036263000005704
+      }
+    },
+    {
+      "id": "one-leading-lane/flexible",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 21.87081100000654,
+        "optimizationMs": 6.750564000000736,
+        "stats": {
+          "originalActionEntries": [
+            56,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1575,
+          "strategyEntries": [
+            36,
+            148
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            25,
+            63
+          ],
+          "unionBeforeSharing": [
+            49,
+            140
+          ]
+        },
+        "totalMs": 39.55562200000173,
+        "verificationMs": 8.13859099999803
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 22.274208999995437,
+        "optimizationMs": 6.787949000006677,
+        "stats": {
+          "originalActionEntries": [
+            56,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1575,
+          "strategyEntries": [
+            36,
+            148
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            25,
+            63
+          ],
+          "unionBeforeSharing": [
+            49,
+            140
+          ]
+        },
+        "totalMs": 39.871030000000474,
+        "verificationMs": 7.979945999998961
+      }
+    },
+    {
+      "id": "balanced-board/concentrated",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 20.79944200000483,
+        "optimizationMs": 8.736898999998743,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            164
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            149
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            122
+          ]
+        },
+        "totalMs": 39.53346899999843,
+        "verificationMs": 5.730700000000866
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 20.824228000002165,
+        "optimizationMs": 8.88501900000449,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            164
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            149
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            122
+          ]
+        },
+        "totalMs": 39.41482399999785,
+        "verificationMs": 5.491615999993371
+      }
+    },
+    {
+      "id": "balanced-board/flexible",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 20.972829000001525,
+        "optimizationMs": 8.970816000001491,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            164
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            149
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            122
+          ]
+        },
+        "totalMs": 39.65050300000428,
+        "verificationMs": 5.457655000000727
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 21.127919000001327,
+        "optimizationMs": 9.042361999995308,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            164
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 3034,
+          "strategyEntries": [
+            57,
+            149
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            41,
+            74
+          ],
+          "unionBeforeSharing": [
+            54,
+            122
+          ]
+        },
+        "totalMs": 39.78066700000227,
+        "verificationMs": 5.36811300000295
+      }
+    },
+    {
+      "id": "our-full-lane/concentrated",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 12.892362999998852,
+        "optimizationMs": 6.651697000002343,
+        "stats": {
+          "originalActionEntries": [
+            33,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1280,
+          "strategyEntries": [
+            29,
+            151
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            20,
+            64
+          ],
+          "unionBeforeSharing": [
+            28,
+            140
+          ]
+        },
+        "totalMs": 27.331731000003856,
+        "verificationMs": 5.375493000002507
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 14.901201999997227,
+        "optimizationMs": 6.663453000001596,
+        "stats": {
+          "originalActionEntries": [
+            33,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1280,
+          "strategyEntries": [
+            29,
+            151
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            20,
+            64
+          ],
+          "unionBeforeSharing": [
+            28,
+            140
+          ]
+        },
+        "totalMs": 28.228842000004306,
+        "verificationMs": 4.2237360000001445
+      }
+    },
+    {
+      "id": "our-full-lane/flexible",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 12.82476300000468,
+        "optimizationMs": 6.60166200000134,
+        "stats": {
+          "originalActionEntries": [
+            33,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1280,
+          "strategyEntries": [
+            29,
+            151
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            20,
+            64
+          ],
+          "unionBeforeSharing": [
+            28,
+            140
+          ]
+        },
+        "totalMs": 25.988949999998567,
+        "verificationMs": 4.18941499999903
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 12.986783000002333,
+        "optimizationMs": 6.817252000004714,
+        "stats": {
+          "originalActionEntries": [
+            33,
+            182
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1280,
+          "strategyEntries": [
+            29,
+            151
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            20,
+            64
+          ],
+          "unionBeforeSharing": [
+            28,
+            140
+          ]
+        },
+        "totalMs": 26.56380200000541,
+        "verificationMs": 4.299416999998584
+      }
+    },
+    {
+      "id": "their-full-lane/concentrated",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 11.270357000000786,
+        "optimizationMs": 5.9407210000017585,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            94
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1036,
+          "strategyEntries": [
+            52,
+            79
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            37,
+            28
+          ],
+          "unionBeforeSharing": [
+            54,
+            64
+          ]
+        },
+        "totalMs": 23.279289999997843,
+        "verificationMs": 3.8946169999931612
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 11.22538999999989,
+        "optimizationMs": 6.0797380000039425,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            94
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1036,
+          "strategyEntries": [
+            52,
+            79
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            37,
+            28
+          ],
+          "unionBeforeSharing": [
+            54,
+            64
+          ]
+        },
+        "totalMs": 23.283355999993205,
+        "verificationMs": 3.7912939999955597
+      }
+    },
+    {
+      "id": "their-full-lane/flexible",
+      "kind": "Same payoff/outcome reductions, private-type pooling on/off",
+      "order": "Pooled always first; not a randomized performance estimate",
+      "pooled": {
+        "compileMs": 11.198319999998319,
+        "optimizationMs": 6.0759830000023385,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            94
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1036,
+          "strategyEntries": [
+            52,
+            79
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            37,
+            28
+          ],
+          "unionBeforeSharing": [
+            54,
+            64
+          ]
+        },
+        "totalMs": 23.38227300000284,
+        "verificationMs": 3.963859000002401
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 11.163228999997443,
+        "optimizationMs": 6.395046000001514,
+        "stats": {
+          "originalActionEntries": [
+            61,
+            94
+          ],
+          "originalTypes": [
+            2,
+            7
+          ],
+          "payoffCells": 1036,
+          "strategyEntries": [
+            52,
+            79
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            37,
+            28
+          ],
+          "unionBeforeSharing": [
+            54,
+            64
+          ]
+        },
+        "totalMs": 23.638282999996818,
+        "verificationMs": 3.8808869999940043
+      }
+    },
+    {
+      "id": "duplicate-labels-32-by-112",
+      "kind": "Synthetic duplicate labels, not realistic extra hands",
+      "pooled": {
+        "compileMs": 43.211896000002525,
+        "optimizationMs": 7.188722999998731,
+        "stats": {
+          "originalActionEntries": [
+            976,
+            2912
+          ],
+          "originalTypes": [
+            32,
+            112
+          ],
+          "payoffCells": 1677,
+          "strategyEntries": [
+            54,
+            104
+          ],
+          "strategyTypes": [
+            2,
+            7
+          ],
+          "unionAfterSharing": [
+            39,
+            43
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 156.8404209999983,
+        "verificationMs": 103.46097300000423
+      },
+      "sameValue": true,
+      "unpooled": {
+        "compileMs": 43.6653739999997,
+        "optimizationMs": 58.96828699999901,
+        "stats": {
+          "originalActionEntries": [
+            976,
+            2912
+          ],
+          "originalTypes": [
+            32,
+            112
+          ],
+          "payoffCells": 1677,
+          "strategyEntries": [
+            864,
+            1664
+          ],
+          "strategyTypes": [
+            32,
+            112
+          ],
+          "unionAfterSharing": [
+            39,
+            43
+          ],
+          "unionBeforeSharing": [
+            54,
+            140
+          ]
+        },
+        "totalMs": 248.63878000000028,
+        "verificationMs": 102.23914499999864
+      }
+    }
+  ],
+  "conventions": {
+    "materiality": 0.02,
+    "outcomeUtility": [
+      -1,
+      0,
+      1
+    ],
+    "privateRanges": "Independent declared menu priors; opponent strategically optimizes",
+    "rawCrossGameEVIsNotTeachingQuality": true,
+    "validationTolerance": 1e-06
+  },
+  "evidenceFiles": {
+    "cases": [
+      "cases/uneven-race--concentrated.json",
+      "cases/uneven-race--flexible.json",
+      "cases/close-races--concentrated.json",
+      "cases/close-races--flexible.json",
+      "cases/one-leading-lane--concentrated.json",
+      "cases/one-leading-lane--flexible.json",
+      "cases/balanced-board--concentrated.json",
+      "cases/balanced-board--flexible.json",
+      "cases/our-full-lane--concentrated.json",
+      "cases/our-full-lane--flexible.json",
+      "cases/their-full-lane--concentrated.json",
+      "cases/their-full-lane--flexible.json"
+    ],
+    "controls": "controls.json"
+  },
+  "fullReportSha256": "a2332ef9edc72ee0972be355058860d5deaaa076d7373899e27f8d54535b5cc4",
+  "host": {
+    "cpuCount": 4,
+    "machine": "x86_64",
+    "node": "v24.22.1",
+    "numericThreads": {
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1"
+    },
+    "numpy": "2.3.5",
+    "platform": "linux",
+    "python": "3.12.15",
+    "ready": true,
+    "runner": "GitHub Actions 1000000120",
+    "scipy": "1.17.0"
+  },
+  "postHocPriorTransfers": [
+    {
+      "boardId": "uneven-race",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.8999999999999999,
+      "securityValue": -0.7,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "uneven-race",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 5.551115123125783e-17,
+      "securityValue": 0.19999999999999996,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "uneven-race",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.08000000000000007,
+      "securityValue": 0.19999999999999996,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "uneven-race",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 5.551115123125783e-17,
+      "securityValue": 0.19999999999999996,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "close-races",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 1.3877787807814457e-17,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "close-races",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.2,
+      "securityValue": -0.2,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "close-races",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.575,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "close-races",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.488,
+      "securityValue": 1.1102230246251564e-17,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "one-leading-lane",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.2,
+      "securityValue": -0.4,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "one-leading-lane",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 5.551115123125783e-17,
+      "securityValue": -0.20000000000000007,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "one-leading-lane",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.04000000000000009,
+      "securityValue": -0.2000000000000001,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "one-leading-lane",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 2.7755575615628914e-17,
+      "securityValue": -0.2,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "balanced-board",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 1.3877787807814457e-17,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "balanced-board",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.20000000000000004,
+      "securityValue": -0.20000000000000004,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "balanced-board",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.575,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "balanced-board",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.48800000000000004,
+      "securityValue": -6.661338147750939e-17,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "our-full-lane",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 1.3877787807814457e-17,
+      "securityValue": 1.3877787807814457e-17,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "our-full-lane",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": -0.35,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "our-full-lane",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.575,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "our-full-lane",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.39999999999999997,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "their-full-lane",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.15000000000000002,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "their-full-lane",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.10000000000000002,
+      "sourcePrior": "concentrated",
+      "targetPrior": "flexible"
+    },
+    {
+      "boardId": "their-full-lane",
+      "model": "D",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.64,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    },
+    {
+      "boardId": "their-full-lane",
+      "model": "C",
+      "scope": "Exported-policy sensitivity only; common policies across priors were not optimized",
+      "securityLoss": 0.0,
+      "securityValue": 0.6,
+      "sourcePrior": "flexible",
+      "targetPrior": "concentrated"
+    }
+  ],
+  "rankingIntervals": [
+    {
+      "actions": [
+        "000001000010000000",
+        "010000000100000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.0000000049999993,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.3877787807814457e-17,
+              "primalObjective": -1.0000000049999995,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.36000000100000007,
+              "gap": 1.6653345369377348e-16,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -0.3600000009999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.36000000099999985,
+          "min": -1.0000000049999993,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": 0.999999995,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.1102230246251565e-16,
+              "primalObjective": 0.9999999949999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 1.000000001,
+          "min": 0.9999999949999999,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        -0.9999999999999999,
+        1
+      ],
+      "strength": 0.9999999999999999,
+      "typeKey": "1,1,0,1,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000010000001000000",
+        "010000000100000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000004999999,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.1102230246251565e-16,
+              "primalObjective": -1.0000000049999995,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.36000000099999985,
+              "gap": 5.551115123125783e-17,
+              "maxPrimalViolation": 2.220446049250313e-16,
+              "primalObjective": -0.3600000009999998,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.36000000099999974,
+          "min": -1.0000000049999995,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": 0.999999995,
+              "gap": 0.0,
+              "maxPrimalViolation": 2.7229219705550955e-17,
+              "primalObjective": 0.9999999949999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 1.000000001,
+          "min": 0.9999999949999999,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        -0.9999999999999999,
+        1
+      ],
+      "strength": 0.9999999999999999,
+      "typeKey": "1,1,0,1,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000000000000000001",
+        "000012000000000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -0.36000000099999985,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -0.3600000009999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.9200000030000002,
+              "gap": 5.551115123125783e-16,
+              "maxPrimalViolation": 8.326672684688674e-17,
+              "primalObjective": -0.9200000029999996,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.9200000029999996,
+          "min": -0.36000000099999996,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": 0.999999997,
+              "gap": 0.0,
+              "maxPrimalViolation": 5.445843941110191e-17,
+              "primalObjective": 0.999999997,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": -0.999999997,
+          "min": -1.000000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        0.9199999999999999,
+        -1
+      ],
+      "strength": 0.9199999999999999,
+      "typeKey": "0,3,0,0,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000000000000000001",
+        "000021000000000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -0.36000000299999985,
+              "gap": 5.551115123125783e-17,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -0.3600000029999998,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.9200000030000001,
+              "gap": 4.440892098500626e-16,
+              "maxPrimalViolation": 2.220446049250313e-16,
+              "primalObjective": -0.9200000029999996,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.9200000029999998,
+          "min": -0.3600000029999998,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": 0.999999997,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.1102230246251565e-16,
+              "primalObjective": 0.9999999969999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": -0.9999999969999999,
+          "min": -1.000000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        0.9199999999999999,
+        -1
+      ],
+      "strength": 0.9199999999999999,
+      "typeKey": "0,3,0,0,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000000000000000100",
+        "000012000000000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -0.280000001,
+              "gap": 2.220446049250313e-16,
+              "maxPrimalViolation": 2.220446049250313e-16,
+              "primalObjective": -0.2800000009999998,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.9200000030000001,
+              "gap": 5.551115123125783e-16,
+              "maxPrimalViolation": 1.3877787807814457e-17,
+              "primalObjective": -0.9200000029999995,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.9200000029999996,
+          "min": -0.2800000009999998,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": 0.999999997,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.1102230246251565e-16,
+              "primalObjective": 0.9999999969999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": -0.9999999969999999,
+          "min": -1.000000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        0.9199999999999999,
+        -1
+      ],
+      "strength": 0.9199999999999999,
+      "typeKey": "0,3,0,0,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000000000000000100",
+        "000021000000000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -0.280000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -0.280000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.9200000030000001,
+              "gap": 4.440892098500626e-16,
+              "maxPrimalViolation": 2.220446049250313e-16,
+              "primalObjective": -0.9200000029999996,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.9200000029999996,
+          "min": -0.280000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": 0.999999997,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.1102230246251565e-16,
+              "primalObjective": 0.9999999969999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": -0.9999999969999999,
+          "min": -1.000000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        0.9199999999999999,
+        -1
+      ],
+      "strength": 0.9199999999999999,
+      "typeKey": "0,3,0,0,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000003000000000000",
+        "000012000000000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -0.36000000099999985,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -0.3600000009999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.9200000030000002,
+              "gap": 5.551115123125783e-16,
+              "maxPrimalViolation": 8.326672684688674e-17,
+              "primalObjective": -0.9200000029999996,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.9200000029999996,
+          "min": -0.36000000099999996,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": 0.999999997,
+              "gap": 0.0,
+              "maxPrimalViolation": 5.445843941110191e-17,
+              "primalObjective": 0.999999997,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": -0.999999997,
+          "min": -1.000000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        0.9199999999999999,
+        -1
+      ],
+      "strength": 0.9199999999999999,
+      "typeKey": "0,3,0,0,0,1/0,0,0,0,0,3@"
+    },
+    {
+      "actions": [
+        "000003000000000000",
+        "000021000000000000"
+      ],
+      "allOptimalPoliciesReverse": false,
+      "id": "their-full-lane/concentrated",
+      "intervals": [
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -0.36000000299999985,
+              "gap": 5.551115123125783e-17,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -0.3600000029999998,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": -0.9200000030000001,
+              "gap": 4.440892098500626e-16,
+              "maxPrimalViolation": 2.220446049250313e-16,
+              "primalObjective": -0.9200000029999996,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": 0.9200000029999998,
+          "min": -0.3600000029999998,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        },
+        {
+          "epsilon": 1e-09,
+          "lpBoundChecks": [
+            {
+              "dualLowerBound": -1.000000001,
+              "gap": 0.0,
+              "maxPrimalViolation": 0.0,
+              "primalObjective": -1.000000001,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            },
+            {
+              "dualLowerBound": 0.999999997,
+              "gap": 0.0,
+              "maxPrimalViolation": 1.1102230246251565e-16,
+              "primalObjective": 0.9999999969999999,
+              "scope": "Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof",
+              "validated": true
+            }
+          ],
+          "max": -0.9999999969999999,
+          "min": -1.000000001,
+          "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"
+        }
+      ],
+      "models": [
+        "D",
+        "U"
+      ],
+      "pointDifferences": [
+        0.9199999999999999,
+        -1
+      ],
+      "strength": 0.9199999999999999,
+      "typeKey": "0,3,0,0,0,1/0,0,0,0,0,3@"
+    }
+  ],
+  "rankingScreen": {
+    "audited": 8,
+    "pointReversalCandidates": 484,
+    "unexamined": "Off-support rankings remain unresolved without an optimal-face check"
+  },
+  "resources": {
+    "ablationGameSolves": 14,
+    "budgets": {
+      "combinedHighWaterBytes": 2147483648,
+      "individualLPSeconds": 10,
+      "studySeconds": 900
+    },
+    "controlGameSolves": 8,
+    "elapsedSeconds": 10.356908427,
+    "intervalLPOptimizations": 32,
+    "memoryScope": "Two long-lived sequentially cooperating workers; sum of lifetime peaks, not simultaneous RSS or per-case memory",
+    "nodePeakRssBytes": 102088704,
+    "primaryGameSolves": 48,
+    "primaryLPOptimizations": 96,
+    "pythonPeakRssBytes": 126312448,
+    "robustLPOptimizations": 27,
+    "sumOfLifetimeHighWaterBytes": 228401152
+  },
+  "schema": "snap-capability-sensitivity-1",
+  "scope": "Conditional model-sensitivity pilot; not learner transfer or full-game equilibrium",
+  "sourceCommit": "ec4193198f683cab93eeb64f5f8be8bf24949544",
+  "sourceHashes": {
+    "scripts/solver/turn6_reference.py": "d0a7fd7701b23689892f79afefb28d949012ad56ce2c0c750e06a37ffe898180",
+    "studies/capabilities/fixtures.cjs": "79f6678a701fa9ff5522ba4dd397a73c85190d8887889bd9b9b6ae6ffff1a2ad",
+    "studies/capabilities/model.cjs": "0abdbb01daeffc9071c8029658207a3b079d0b4d4bcaab40275cec80f11557f7",
+    "studies/capabilities/reference.py": "23be19e3df514b9854dcaf76beb8dbdcd46e1a1b76e8cf5675b0355149c9eb65",
+    "studies/capabilities/run.py": "cd6040e974bbf3e32df12c08e58d466bf1ed4ed85fafd6b263eecef933e30044"
+  },
+  "summary": {
+    "allExactFrozenChecksPassed": true,
+    "allPrimaryCertificatesValidated": true,
+    "casesOverDeltaRobustDC": 0,
+    "casesOverDeltaRobustDCU": 4,
+    "certifiedRankingReversals": 0,
+    "maxRobustDC": 0.014247619047619176,
+    "maxRobustDCU": 0.14973958333333343,
+    "rawEVsAcrossGamesAreNotTransferEvidence": true
+  }
+}
