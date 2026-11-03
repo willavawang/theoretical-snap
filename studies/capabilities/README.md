@@ -18,7 +18,9 @@ The bounded CI workflow also runs the existing 84 regression tests. It has
 read-only repository permissions. The study writes a JSON report containing
 fixtures, both private-range policies, all original own-action EVs, numerical
 best-response bounds, comparisons, and host-specific resource measurements.
-The report's source commit and content hashes identify its inputs.
+The report's source commit and content hashes identify its inputs. Reviewable
+split evidence is saved as results/manifest.json, results/cases/*.json, and
+results/controls.json. The CI artifact also contains the original report.json.
 
 ## What is held fixed
 
@@ -73,6 +75,9 @@ not measure educational quality.
 A bounded ranking audit computes minimum and maximum EV(a)-EV(b) over all
 epsilon-optimal opponent policies, using optimal-face LP constraints. The
 largest eight point reversals are eligible; all others remain unexamined.
+Numerical LP bounds are independently recomputed from sign-valid multipliers,
+with stationarity residuals minimized over finite variable bounds. The common
+policy is also evaluated exhaustively against each target best response.
 Intervals can expose ambiguity rather than certify a reversal.
 The 0.02 threshold is a reporting convention, not a validated teaching cutoff.
 
@@ -116,5 +121,9 @@ All timings are host-specific, single-run observations in one process. Pooled
 runs precede unpooled runs, so the timings are not randomized benchmarks.
 Memory is a lifetime high-water mark for Python plus the JS verifier. It is
 not per-hand memory, simultaneous RSS, M2 latency, browser latency, or a
-whole-game estimate. The small fixture panel cannot establish the dominant
+whole-game estimate. Post-hoc transfers across the two declared priors evaluate exported policies;
+they do not optimize a common policy across priors and can depend on which
+equilibrium was returned.
+
+The small fixture panel cannot establish the dominant
 bottleneck of a full numerical solve.

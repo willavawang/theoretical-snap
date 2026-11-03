@@ -33,16 +33,46 @@ def peak_bytes():
     return int(peak if sys.platform == "darwin" else peak * 1024)
 
 
+def check_lp_bound(problem, result):
+    """Numerical lower bound from any sign-valid inequality/equality multipliers.
+    Residual stationarity is minimized over the finite variable bounds, rather
+    than assuming solver-reported optimality or exact zero reduced costs.
+    """
+    y = np.minimum(np.asarray(result.ineqlin.marginals), 0.)
+    z = np.asarray(result.eqlin.marginals)
+    c = np.asarray(problem["c"])
+    residual = c - problem["A_ub"].T@y - problem["A_eq"].T@z
+    lower = np.array([b[0] for b in problem["bounds"]], dtype=float)
+    upper = np.array([b[1] for b in problem["bounds"]], dtype=float)
+    if not np.all(np.isfinite(lower)) or not np.all(np.isfinite(upper)):
+        raise ValueError("Study bound checker requires finite variable bounds")
+    # y <= 0 and A_ub*x <= b imply y*A_ub*x >= y*b.
+    bound = float(problem["b_ub"]@y + problem["b_eq"]@z +
+                  np.minimum(residual*lower,residual*upper).sum())
+    primal = float(c@result.x)
+    violation = max(0., float(np.max(problem["A_ub"]@result.x-problem["b_ub"],initial=0.)),
+                    float(np.max(np.abs(problem["A_eq"]@result.x-problem["b_eq"]),initial=0.)),
+                    float(np.max(lower-result.x,initial=0.)),float(np.max(result.x-upper,initial=0.)))
+    gap = primal-bound
+    if violation > 1e-7 or gap < -1e-7 or gap > 1e-7:
+        raise RuntimeError("Independent numerical LP primal/dual bound check failed")
+    return {"primalObjective":primal,"dualLowerBound":bound,"gap":max(0.,gap),
+            "maxPrimalViolation":violation,"validated":True,
+            "scope":"Floating-point bound recomputation with residuals minimized over finite bounds; not an exact rational proof"}
+
+
 def optimize(problem, objective=None):
     if peak_bytes() > 2 * 1024**3:
         raise RuntimeError("2 GiB Python high-water budget exceeded; no pruning")
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message="Unrecognized options detected.*", category=OptimizeWarning)
-        result = linprog(**{**problem, **({"c": objective} if objective is not None else {})},
+        actual = {**problem, **({"c": objective} if objective is not None else {})}
+        result = linprog(**actual,
                          method="highs-ds", options={"time_limit": 10.0, "threads": 1,
                          "primal_feasibility_tolerance": 1e-9, "dual_feasibility_tolerance": 1e-9})
     if not result.success:
         raise RuntimeError("Study LP stopped without certification: " + result.message)
+    result["studyBoundCheck"] = check_lp_bound(actual,result)
     return result
 
 
@@ -222,7 +252,7 @@ def solve(g, pool_types=True, include_actions=True):
     for p, (problem, offsets, stats) in enumerate(problems):
         result = optimize(problem)
         results.append(result)
-        statuses.append({**stats, "iterations": int(result.nit or 0), "success": True})
+        statuses.append({**stats, "iterations": int(result.nit or 0), "success": True, "lpBoundCheck": result["studyBoundCheck"]})
         for i, t in enumerate(game["types"][p]):
             x = np.maximum(0., result.x[offsets[i]:offsets[i]+len(t["ids"])])
             policies[p].append(x/x.sum())
@@ -309,7 +339,7 @@ def robust_policy(games, values):
     losses = [max(0., v-s) for v, s in zip(values, security)]
     if max(losses) > result.fun+TOL:
         raise RuntimeError("Robust policy independent regret verification failed")
-    return {"regret": float(result.fun), "verifiedMaxRegret": max(losses), "securityValues": security,
+    return {"regret": float(result.fun), "verifiedMaxRegret": max(losses), "lpBoundCheck": result["studyBoundCheck"], "securityValues": security,
             "losses": losses, "policy": policy, "variables": n, "inequalities": len(rhs),
             "totalMs": 1000*(time.perf_counter()-started), "validated": True}
 
@@ -335,4 +365,5 @@ def pair_interval(solved, own_type, action_a, action_b, epsilon=1e-9):
     if low > high+TOL:
         raise RuntimeError("EV interval inverted")
     return {"min": low, "max": high, "epsilon": epsilon,
+            "lpBoundChecks":[lo["studyBoundCheck"],hi["studyBoundCheck"]],
             "scope": "All opponent policies feasible in the epsilon-optimal terminal LP; float tolerances apply"}

@@ -220,6 +220,19 @@ def main():
         separated = (intervals[0]["min"] > DELTA and intervals[1]["max"] < -DELTA or
                      intervals[1]["min"] > DELTA and intervals[0]["max"] < -DELTA)
         report["rankingIntervals"].append({**candidate,"intervals":intervals,"allOptimalPoliciesReverse":separated})
+    # Post-hoc descriptive transfers across the already declared priors.
+    # These evaluate exported policies, not minimum regret across priors.
+    report["postHocPriorTransfers"] = []
+    for source in report["cases"]:
+        target_prior = "flexible" if source["prior"] == "concentrated" else "concentrated"
+        target = next(c for c in report["cases"] if c["boardId"]==source["boardId"] and c["prior"]==target_prior)
+        fixture = next(c for c in fixtures["cases"] if c["id"]==target["id"])
+        for label in ("D","C"):
+            value = E.security_value(fixture["models"][label],source["models"][label]["policies"][0])["value"]
+            report["postHocPriorTransfers"].append({"boardId":source["boardId"],"sourcePrior":source["prior"],
+                "targetPrior":target_prior,"model":label,"securityValue":value,
+                "securityLoss":max(0.,target["models"][label]["certificate"]["value"]-value),
+                "scope":"Exported-policy sensitivity only; common policies across priors were not optimized"})
     js.close()
     report["resources"] = {"elapsedSeconds":time.perf_counter()-start,"pythonPeakRssBytes":E.peak_bytes(),
                            "nodePeakRssBytes":js.peak,"sumOfLifetimeHighWaterBytes":E.peak_bytes()+js.peak,
@@ -239,6 +252,19 @@ def main():
         "rawEVsAcrossGamesAreNotTransferEvidence":True}
     text = json.dumps(report,sort_keys=True,separators=(",",":"),allow_nan=False)
     (output/"report.json").write_text(text+"\n")
+    # Split the same evidence into reviewable, persistent repository-sized files.
+    (output/"cases").mkdir(exist_ok=True)
+    case_paths = []
+    for fixture,result in zip(fixtures["cases"],report["cases"]):
+        name = "cases/"+result["id"].replace("/","--")+".json"
+        (output/name).write_text(json.dumps({"fixture":fixture,"result":result},sort_keys=True,separators=(",",":"))+"\n")
+        case_paths.append(name)
+    (output/"controls.json").write_text(json.dumps({"fixtures":fixtures["controls"],"results":report["controls"],
+        "comparisons":report["controlComparisons"]},sort_keys=True,indent=2)+"\n")
+    manifest = {k:v for k,v in report.items() if k not in ("fixtures","cases","controls","controlComparisons")}
+    manifest["evidenceFiles"] = {"cases":case_paths,"controls":"controls.json"}
+    manifest["fullReportSha256"] = hashlib.sha256(text.encode()).hexdigest()
+    (output/"manifest.json").write_text(json.dumps(manifest,sort_keys=True,indent=2)+"\n")
     print(json.dumps({"summary":report["summary"],"resources":report["resources"]}),flush=True)
     if args.log_report:
         chunks = [text[i:i+6000] for i in range(0,len(text),6000)]

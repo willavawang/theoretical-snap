@@ -43,6 +43,8 @@ class IndependentStudyControls(unittest.TestCase):
         self.assertAlmostEqual(E.security_value(g1,pure)["value"],-1.)
         robust=E.robust_policy([g0,g1],[1.,0.])
         self.assertAlmostEqual(robust["verifiedMaxRegret"],.5,places=8)
+        self.assertAlmostEqual(robust["lpBoundCheck"]["dualLowerBound"],.5,places=8)
+        self.assertTrue(robust["lpBoundCheck"]["validated"])
         self.assertAlmostEqual(robust["policy"][0]["probabilities"]["add-two:0"],.75,places=8)
 
     def test_matched_total_power_is_not_matched_feasible_effects(self):
@@ -51,6 +53,7 @@ class IndependentStudyControls(unittest.TestCase):
         self.assertTrue(all(abs(s["certificate"]["value"]-1.)<1e-8 for s in solved))
         robust=E.robust_policy(games,[1.,1.])
         self.assertAlmostEqual(robust["verifiedMaxRegret"],1.,places=8)
+        self.assertAlmostEqual(robust["lpBoundCheck"]["dualLowerBound"],1.,places=8)
 
     def test_body_size_and_priority(self):
         for name in ("destruction-absent","destruction-after-us","destruction-before-us"):
@@ -87,6 +90,18 @@ class IndependentStudyControls(unittest.TestCase):
             values.append(sum(E.terminal(g,t["actions"][0],b) for t in g["ranges"][0])/2)
         self.assertAlmostEqual(E.security_value(g,policy)["value"],min(values))
         self.assertAlmostEqual(min(values),-.5)
+
+    def test_lp_bound_accounts_for_residuals_instead_of_trusting_objective(self):
+        g=self.controls["movement-available"]
+        _,context=E.solve(g)
+        problem,_,_=context["problems"][0]
+        result=E.optimize(problem)
+        check=E.check_lp_bound(problem,result)
+        self.assertLess(check["gap"],1e-7)
+        bad=copy.deepcopy(result)
+        bad.x[0]+=2
+        with self.assertRaises(RuntimeError):
+            E.check_lp_bound(problem,bad)
 
     def test_ambiguous_destroy_rejected(self):
         g=copy.deepcopy(self.controls["destruction-after-us"])
