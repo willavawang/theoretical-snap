@@ -1,5 +1,7 @@
 # Audited turn-six findings
 
+**Research direction, November 3:** The [capability sensitivity pilot](capability-findings.md) is complete. Earlier-turn expansion and unrestricted deck-equilibrium work are paused while we validate which modeled distinctions improve the trainer’s lessons. The engineering findings below remain the reference for these declared numerical games.
+
 The conditional turn-six game is practical to solve directly on the measured host. The largest hand-universe control covered all **792 seven-card hands for each player**, on one reachable empty board with declared independent priors. Its LP solve took **3.63 seconds cold** and **1.41 seconds warm**, including independent verification. Cold peak resident memory was **134 MiB**. This is a useful terminal engine, not a solution of every board, earlier turn, historical belief or deck-selection equilibrium.
 
 Recommendation: use the direct LP as the terminal reference/oracle, retain the full Game State Object externally, and build the next stage as a **coupled turn-five/six game**. Preserve complete intermediate card compositions and strategic information until further reductions are proved. Unrestricted private deck construction over all 6,188 legal deck compositions remains the overall objective; this milestone excluded none.

@@ -1,5 +1,7 @@
 # Coupled turns-five/six findings
 
+**Research direction, November 3:** The [capability sensitivity pilot](capability-findings.md) is complete. Earlier-turn expansion and unrestricted deck-equilibrium work are paused while we validate which modeled distinctions improve the trainer’s lessons. The engineering findings below remain the reference for these declared numerical games.
+
 The recommended next engine is implemented: a conditional game that optimizes **turns five and six together**, with a separate sequence-form LP reference, public-tree CFR candidate, independent deviation checks and reusable strategy profiles. The same Game State Object can be queried before either remaining turn.
 
 Nine declared hidden-information games passed the independent LP accuracy target. On the user's **Apple M2 with 16 GiB RAM**, the largest tested four-type-per-player game took **2.81 seconds cold** and **1.56 seconds warm**. Cold reference peak memory was **354 MiB**, rising to **623 MiB** over subsequent budget/warm runs. This completes the small-game implementation/verification gate in the saved design. It does not solve the unrestricted opening game or enumerate every endgame board/range.
